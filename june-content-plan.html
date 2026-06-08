@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>라미그로우 6월 콘텐츠 플랜</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Gowun+Dodum&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FAF7F2;--card:#FFFFFF;--border:#EBEBEB;
+  --text:#2C1F0E;--sub:#6B5040;--muted:#B09880;
+  --clay:#D4724A;--clay-l:#FEF0EA;--clay-b:#F0C4A8;
+  --sage:#5A9E72;--sage-l:#EBF7F0;
+  --blue:#4E87C4;--blue-l:#EBF3FC;
+  --purple:#7E6BBE;--purple-l:#F0EDFB;
+  --gold:#C8A030;--gold-l:#FDF6E0;
+  --insta:#E1306C;--insta-l:#FEE8F0;
+  --threads:#333;--threads-l:#F0F0F0;
+  --blog:#4A90D9;--blog-l:#EBF3FC;
+  --yt:#FF0000;--yt-l:#FEE8E8;
+  --r:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);font-family:'Noto Sans KR',sans-serif;color:var(--text);min-height:100vh;padding-bottom:40px;}
+
+/* HEADER */
+.header{
+  background:linear-gradient(135deg,#2C1F0E 0%,#4A2E14 60%,#6B3A1A 100%);
+  padding:28px 20px 24px;color:#fff;position:relative;overflow:hidden;
+}
+.header::before{content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,var(--clay) 0%,transparent 70%);opacity:.2;}
+.header-label{font-size:10px;letter-spacing:4px;color:var(--clay-b);text-transform:uppercase;margin-bottom:6px;}
+.header-title{font-family:'Gowun Dodum',serif;font-size:28px;color:#fff;line-height:1.2;margin-bottom:4px;}
+.header-title span{color:var(--clay-b);}
+.header-sub{font-size:12px;color:rgba(255,255,255,.6);margin-bottom:14px;}
+.header-chips{display:flex;flex-wrap:wrap;gap:6px;}
+.hchip{font-size:10px;padding:3px 9px;border-radius:20px;border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.8);}
+
+/* TABS */
+.tabs{display:flex;background:var(--card);border-bottom:1px solid var(--border);overflow-x:auto;position:sticky;top:0;z-index:100;}
+.tab{flex:1;min-width:60px;padding:12px 6px;border:none;background:none;font-size:12px;font-family:'Noto Sans KR',sans-serif;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:all .18s;font-weight:500;white-space:nowrap;}
+.tab.on{color:var(--clay);border-bottom-color:var(--clay);font-weight:700;}
+
+/* MAIN */
+.main{padding:16px;}
+.sec{font-size:11px;font-weight:700;color:var(--clay);letter-spacing:.5px;text-transform:uppercase;margin:18px 0 9px;display:flex;align-items:center;gap:5px;}
+.sec::before{content:'';display:inline-block;width:3px;height:11px;background:var(--clay);border-radius:2px;}
+.sec:first-child{margin-top:0;}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;margin-bottom:10px;}
+
+/* GOAL CARDS */
+.goal-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;}
+.goal-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 14px;border-top:3px solid var(--clay);}
+.goal-num{font-family:'Gowun Dodum',serif;font-size:22px;color:var(--clay);line-height:1;}
+.goal-lbl{font-size:11px;color:var(--muted);margin-top:3px;}
+.goal-desc{font-size:12px;color:var(--sub);margin-top:5px;line-height:1.5;}
+
+/* CHANNEL BADGES */
+.ch-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;}
+.ch-badge{display:flex;align-items:center;gap:5px;padding:5px 10px;border-radius:20px;font-size:11px;font-weight:700;}
+
+/* WEEKLY PLAN */
+.week-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);margin-bottom:10px;overflow:hidden;}
+.week-head{display:flex;align-items:center;gap:10px;padding:12px 15px;cursor:pointer;user-select:none;border-bottom:1px solid var(--border);}
+.week-num{width:28px;height:28px;border-radius:8px;background:var(--clay);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;}
+.week-info{flex:1;}
+.week-title{font-size:14px;font-weight:700;color:var(--text);}
+.week-theme{font-size:11px;color:var(--muted);margin-top:2px;}
+.week-arrow{font-size:11px;color:var(--muted);transition:transform .2s;}
+.week-card.open .week-arrow{transform:rotate(90deg);}
+.week-body{display:none;padding:12px 15px;}
+.week-card.open .week-body{display:block;}
+.day-row{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);cursor:pointer;}
+.day-row:last-child{border:none;}
+.day-chk{width:18px;height:18px;border-radius:5px;border:2px solid var(--border);flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:all .18s;}
+.day-chk.on{background:var(--sage);border-color:var(--sage);}
+.day-chk.on::after{content:'✓';color:#fff;font-size:10px;font-weight:700;}
+.day-label{font-size:11px;color:var(--muted);width:28px;flex-shrink:0;font-weight:700;margin-top:1px;}
+.day-content{flex:1;}
+.day-title{font-size:13px;color:var(--text);line-height:1.4;}
+.day-title.done{text-decoration:line-through;color:var(--muted);}
+.day-tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:4px;}
+.dtag{font-size:10px;padding:2px 6px;border-radius:6px;font-weight:500;}
+
+/* CONTENT IDEAS */
+.idea-section{margin-bottom:16px;}
+.idea-ch-head{display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:10px;margin-bottom:8px;font-weight:700;font-size:13px;}
+.idea-item{display:flex;align-items:flex-start;gap:8px;padding:7px 0;border-bottom:1px solid var(--border);cursor:pointer;}
+.idea-item:last-child{border:none;}
+.idea-chk{width:16px;height:16px;border-radius:4px;border:2px solid var(--border);flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:all .18s;}
+.idea-chk.on{background:var(--sage);border-color:var(--sage);}
+.idea-chk.on::after{content:'✓';color:#fff;font-size:9px;font-weight:700;}
+.idea-txt{font-size:12px;color:var(--sub);flex:1;line-height:1.5;}
+.idea-txt.done{text-decoration:line-through;color:var(--muted);}
+.idea-num{font-size:10px;color:var(--muted);flex-shrink:0;width:20px;}
+
+/* STRATEGY */
+.strat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;margin-bottom:10px;}
+.strat-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.strat-item{font-size:12px;color:var(--sub);padding:4px 0;border-bottom:1px solid var(--border);display:flex;gap:6px;line-height:1.5;}
+.strat-item:last-child{border:none;}
+.strat-item::before{content:'→';color:var(--muted);flex-shrink:0;}
+
+/* PROMPT CARD */
+.prompt-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);margin-bottom:10px;overflow:hidden;}
+.prompt-head{display:flex;align-items:center;gap:8px;padding:11px 14px;border-bottom:1px solid var(--border);cursor:pointer;}
+.prompt-title{font-size:13px;font-weight:700;flex:1;}
+.prompt-body{display:none;padding:12px 14px;}
+.prompt-card.open .prompt-body{display:block;}
+.prompt-txt{font-size:12px;color:var(--sub);line-height:1.8;background:var(--bg);border-radius:8px;padding:10px 12px;border:1px solid var(--border);white-space:pre-wrap;}
+.copy-btn{display:flex;align-items:center;justify-content:center;gap:5px;width:100%;margin-top:8px;padding:8px;border:1.5px solid var(--border);border-radius:8px;background:none;color:var(--sub);font-size:12px;cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:all .18s;}
+.copy-btn:hover{border-color:var(--clay);color:var(--clay);}
+.copy-btn.copied{border-color:var(--sage);color:var(--sage);}
+
+/* DAILY ROUTINE */
+.routine-list{list-style:none;}
+.routine-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);}
+.routine-item:last-child{border:none;}
+.routine-time{font-size:11px;color:var(--muted);width:50px;flex-shrink:0;font-weight:700;}
+.routine-txt{font-size:13px;color:var(--sub);}
+.routine-ch{font-size:10px;padding:2px 6px;border-radius:6px;flex-shrink:0;}
+
+/* PROGRESS */
+.prog-row{display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--sub);margin-bottom:4px;}
+.prog-bar{height:6px;background:var(--border);border-radius:3px;overflow:hidden;margin-bottom:10px;}
+.prog-fill{height:100%;border-radius:3px;background:var(--clay);transition:width .4s;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
+.week-card,.strat-card,.goal-card{animation:fadeUp .3s ease both;}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-label">Lami Grow · 2026</div>
+  <div class="header-title">6월 콘텐츠 <span>플랜</span></div>
+  <div class="header-sub">라미그로우 × 라미스튜디오 — 엄마의 재시작</div>
+  <div class="header-chips">
+    <span class="hchip">📸 인스타</span>
+    <span class="hchip">🧵 Threads</span>
+    <span class="hchip">📝 블로그</span>
+    <span class="hchip">🎬 YouTube Shorts</span>
+  </div>
+</div>
+
+<div class="tabs">
+  <button class="tab on" onclick="goTab('overview',this)">📋 개요</button>
+  <button class="tab" onclick="goTab('weekly',this)">📅 주차별</button>
+  <button class="tab" onclick="goTab('ideas',this)">💡 콘텐츠</button>
+  <button class="tab" onclick="goTab('prompt',this)">✍️ 프롬프트</button>
+  <button class="tab" onclick="goTab('strategy',this)">🗺️ 채널전략</button>
+</div>
+
+<div class="main">
+
+<!-- ── OVERVIEW ── -->
+<div id="tab-overview">
+  <div class="sec">6월 목표</div>
+  <div class="goal-grid">
+    <div class="goal-card">
+      <div class="goal-num">500+</div>
+      <div class="goal-lbl">인스타 팔로워</div>
+      <div class="goal-desc">저장율 5%+ 콘텐츠로 자연 유입</div>
+    </div>
+    <div class="goal-card" style="border-top-color:var(--purple)">
+      <div class="goal-num" style="color:var(--purple)">30개</div>
+      <div class="goal-lbl">콘텐츠 발행</div>
+      <div class="goal-desc">매일 1개 이상 꾸준히</div>
+    </div>
+    <div class="goal-card" style="border-top-color:var(--sage)">
+      <div class="goal-num" style="color:var(--sage)">1건</div>
+      <div class="goal-lbl">수주/문의</div>
+      <div class="goal-desc">콘텐츠 통한 첫 수주</div>
+    </div>
+    <div class="goal-card" style="border-top-color:var(--gold)">
+      <div class="goal-num" style="color:var(--gold)">3개</div>
+      <div class="goal-lbl">저장 콘텐츠</div>
+      <div class="goal-desc">저장 100+ 콘텐츠 3개</div>
+    </div>
+  </div>
+
+  <div class="sec">채널별 역할</div>
+  <div class="card">
+    <div style="display:flex;flex-direction:column;gap:8px;">
+      <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);">
+        <span style="font-size:18px;">📸</span>
+        <div style="flex:1;">
+          <div style="font-size:13px;font-weight:700;color:var(--insta);">인스타그램</div>
+          <div style="font-size:11px;color:var(--muted);">릴스 + 피드 — 팔로워 유입, 포트폴리오</div>
+        </div>
+        <span style="font-size:11px;color:var(--muted);">매일</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);">
+        <span style="font-size:18px;">🧵</span>
+        <div style="flex:1;">
+          <div style="font-size:13px;font-weight:700;">Threads</div>
+          <div style="font-size:11px;color:var(--muted);">짧은 글 — 공감/신뢰 쌓기, 일상 공유</div>
+        </div>
+        <span style="font-size:11px;color:var(--muted);">매일</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);">
+        <span style="font-size:18px;">📝</span>
+        <div style="flex:1;">
+          <div style="font-size:13px;font-weight:700;color:var(--blog);">블로그</div>
+          <div style="font-size:11px;color:var(--muted);">검색 유입 — 정보성 글, SEO 최적화</div>
+        </div>
+        <span style="font-size:11px;color:var(--muted);">주 3회</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;padding:8px 0;">
+        <span style="font-size:18px;">🎬</span>
+        <div style="flex:1;">
+          <div style="font-size:13px;font-weight:700;color:var(--yt);">YouTube Shorts</div>
+          <div style="font-size:11px;color:var(--muted);">릴스 재활용 — 채널 씨앗 심기</div>
+        </div>
+        <span style="font-size:11px;color:var(--muted);">주 3회</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">매일 콘텐츠 루틴</div>
+  <div class="card">
+    <ul class="routine-list">
+      <li class="routine-item"><span class="routine-time">10:00</span><span class="routine-txt">오늘 주제 확인 + 프롬프트 키트 열기</span></li>
+      <li class="routine-item"><span class="routine-time">10:30</span><span class="routine-txt">릴스/피드 기획 + 제작</span><span class="routine-ch" style="background:var(--insta-l);color:var(--insta);">인스타</span></li>
+      <li class="routine-item"><span class="routine-time">12:00</span><span class="routine-txt">Threads 글 1개 발행</span><span class="routine-ch" style="background:var(--threads-l);color:var(--threads);">Threads</span></li>
+      <li class="routine-item"><span class="routine-time">13:00</span><span class="routine-txt">블로그 글 작성 (주 3회)</span><span class="routine-ch" style="background:var(--blog-l);color:var(--blog);">블로그</span></li>
+      <li class="routine-item"><span class="routine-time">15:00</span><span class="routine-txt">Shorts 업로드 (주 3회, 릴스 재활용)</span><span class="routine-ch" style="background:var(--yt-l);color:var(--yt);">YT</span></li>
+      <li class="routine-item"><span class="routine-time">16:00</span><span class="routine-txt">댓글 답변 + 반응 확인</span></li>
+    </ul>
+  </div>
+
+  <div class="sec">수익화 퍼널</div>
+  <div class="card">
+    <div style="display:flex;flex-direction:column;gap:6px;">
+      <div style="background:var(--clay-l);border:1px solid var(--clay-b);border-radius:10px;padding:10px 13px;">
+        <div style="font-size:12px;font-weight:700;color:var(--clay);">① 콘텐츠로 신뢰 쌓기</div>
+        <div style="font-size:11px;color:var(--sub);margin-top:3px;">저장되는 정보 + 공감되는 스토리</div>
+      </div>
+      <div style="text-align:center;font-size:14px;color:var(--muted);">↓</div>
+      <div style="background:var(--purple-l);border:1px solid #C8BFE0;border-radius:10px;padding:10px 13px;">
+        <div style="font-size:12px;font-weight:700;color:var(--purple);">② DM + 문의 유도</div>
+        <div style="font-size:11px;color:var(--sub);margin-top:3px;">CTA 삽입 + 프로필 링크 클릭</div>
+      </div>
+      <div style="text-align:center;font-size:14px;color:var(--muted);">↓</div>
+      <div style="background:var(--sage-l);border:1px solid var(--sage-b);border-radius:10px;padding:10px 13px;">
+        <div style="font-size:12px;font-weight:700;color:var(--sage);">③ 수주 + 디지털 상품</div>
+        <div style="font-size:11px;color:var(--sub);margin-top:3px;">상세페이지 수주 · 템플릿 판매</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── WEEKLY ── -->
+<div id="tab-weekly" style="display:none;">
+  <div class="sec" style="margin-top:0;">주차별 테마 & 체크리스트</div>
+
+  <div class="week-card open" id="w1">
+    <div class="week-head" onclick="togWeek('w1')">
+      <div class="week-num">1</div>
+      <div class="week-info">
+        <div class="week-title">6/8 – 6/14</div>
+        <div class="week-theme">🙋 나를 알리기 — 공감 & 스토리</div>
+      </div><span class="week-arrow">▶</span>
+    </div>
+    <div class="week-body">
+      <div id="w1-items"></div>
+    </div>
+  </div>
+
+  <div class="week-card" id="w2">
+    <div class="week-head" onclick="togWeek('w2')">
+      <div class="week-num">2</div>
+      <div class="week-info">
+        <div class="week-title">6/15 – 6/21</div>
+        <div class="week-theme">💾 저장되는 정보 콘텐츠</div>
+      </div><span class="week-arrow">▶</span>
+    </div>
+    <div class="week-body">
+      <div id="w2-items"></div>
+    </div>
+  </div>
+
+  <div class="week-card" id="w3">
+    <div class="week-head" onclick="togWeek('w3')">
+      <div class="week-num">3</div>
+      <div class="week-info">
+        <div class="week-title">6/22 – 6/28</div>
+        <div class="week-theme">🔥 전문성 + 신뢰 쌓기</div>
+      </div><span class="week-arrow">▶</span>
+    </div>
+    <div class="week-body">
+      <div id="w3-items"></div>
+    </div>
+  </div>
+
+  <div class="week-card" id="w4">
+    <div class="week-head" onclick="togWeek('w4')">
+      <div class="week-num">4</div>
+      <div class="week-info">
+        <div class="week-title">6/29 – 6/30</div>
+        <div class="week-theme">💜 팬 만들기 & 6월 마무리</div>
+      </div><span class="week-arrow">▶</span>
+    </div>
+    <div class="week-body">
+      <div id="w4-items"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── IDEAS ── -->
+<div id="tab-ideas" style="display:none;">
+  <div class="sec" style="margin-top:0;">채널별 콘텐츠 아이디어</div>
+
+  <div class="idea-section">
+    <div class="idea-ch-head" style="background:var(--insta-l);color:var(--insta);">📸 인스타 릴스 아이디어</div>
+    <div class="card" id="insta-ideas"></div>
+  </div>
+
+  <div class="idea-section">
+    <div class="idea-ch-head" style="background:var(--threads-l);color:var(--threads);">🧵 Threads 아이디어</div>
+    <div class="card" id="threads-ideas"></div>
+  </div>
+
+  <div class="idea-section">
+    <div class="idea-ch-head" style="background:var(--blog-l);color:var(--blog);">📝 블로그 아이디어</div>
+    <div class="card" id="blog-ideas"></div>
+  </div>
+</div>
+
+<!-- ── PROMPT ── -->
+<div id="tab-prompt" style="display:none;">
+  <div class="sec" style="margin-top:0;">채널별 프롬프트 키트</div>
+  <div style="background:var(--clay-l);border:1px solid var(--clay-b);border-radius:10px;padding:10px 13px;margin-bottom:12px;font-size:12px;color:var(--sub);line-height:1.7;">
+    💡 <strong>[   ]</strong> 안의 내용만 오늘 주제로 바꿔서 ChatGPT에 넣으면 돼요!
+  </div>
+
+  <div class="prompt-card open" id="pm1">
+    <div class="prompt-head" onclick="togPrompt('pm1')">
+      <span style="font-size:16px;">📸</span>
+      <span class="prompt-title" style="color:var(--insta);">인스타 릴스 스크립트</span>
+      <span class="week-arrow">▶</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-txt">나는 11년차 프리랜서 디자이너이자 두 아이 엄마야.
+라미그로우라는 브랜드로 AI 활용법과 1인 창업을 
+콘텐츠로 만들고 있어.
+
+오늘 주제: [주제를 여기 입력]
+
+이 주제로 인스타 릴스 스크립트를 써줘.
+- 첫 3초 후킹 멘트 (강렬하게)
+- 본문 3가지 포인트
+- 마지막 CTA (저장/팔로우 유도)
+- 전체 30초 분량
+- 엄마의 솔직하고 현실적인 톤</div>
+      <button class="copy-btn" onclick="copyPrompt(this,'pm1')">📋 복사하기</button>
+    </div>
+  </div>
+
+  <div class="prompt-card" id="pm2">
+    <div class="prompt-head" onclick="togPrompt('pm2')">
+      <span style="font-size:16px;">🧵</span>
+      <span class="prompt-title">Threads 짧은 글</span>
+      <span class="week-arrow">▶</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-txt">나는 두 아이 엄마이자 프리랜서 디자이너야.
+라미그로우로 AI·1인 창업 콘텐츠를 만들어.
+
+오늘 주제: [주제를 여기 입력]
+
+Threads용 짧은 글 3가지 버전 써줘.
+- 버전 1: 공감형 (엄마의 현실)
+- 버전 2: 정보형 (팁/노하우)
+- 버전 3: 질문형 (댓글 유도)
+각 150자 이내, 해시태그 3개 포함</div>
+      <button class="copy-btn" onclick="copyPrompt(this,'pm2')">📋 복사하기</button>
+    </div>
+  </div>
+
+  <div class="prompt-card" id="pm3">
+    <div class="prompt-head" onclick="togPrompt('pm3')">
+      <span style="font-size:16px;">📝</span>
+      <span class="prompt-title" style="color:var(--blog);">블로그 SEO 글</span>
+      <span class="week-arrow">▶</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-txt">키워드: [핵심 키워드 입력]
+주제: [상세 주제 입력]
+
+이 키워드로 네이버 블로그 SEO 최적화 글을 써줘.
+- 제목 3가지 옵션 (키워드 포함)
+- 목차 구성
+- 본문 1500자 이상
+- 소제목마다 키워드 자연스럽게 삽입
+- 마지막에 라미스튜디오 디자인 서비스 자연스럽게 언급
+- 네이버 블로그 감성으로</div>
+      <button class="copy-btn" onclick="copyPrompt(this,'pm3')">📋 복사하기</button>
+    </div>
+  </div>
+
+  <div class="prompt-card" id="pm4">
+    <div class="prompt-head" onclick="togPrompt('pm4')">
+      <span style="font-size:16px;">💌</span>
+      <span class="prompt-title" style="color:var(--clay);">DM 아웃바운드</span>
+      <span class="week-arrow">▶</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-txt">나는 11년차 프리랜서 디자이너야.
+[대상: 예) 스마트스토어 운영자]에게
+상세페이지 디자인 서비스를 제안하려고 해.
+
+자연스럽고 부담 없는 첫 DM 메시지 3가지 버전 써줘.
+- 너무 영업스럽지 않게
+- 상대방 입장에서 도움이 되는 톤
+- 100자 이내로 짧게
+- 답장 유도하는 질문으로 마무리</div>
+      <button class="copy-btn" onclick="copyPrompt(this,'pm4')">📋 복사하기</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── STRATEGY ── -->
+<div id="tab-strategy" style="display:none;">
+  <div class="sec" style="margin-top:0;">채널별 운영 전략</div>
+
+  <div class="strat-card">
+    <div class="strat-title"><span style="font-size:18px;">📸</span> 인스타그램 전략</div>
+    <div class="strat-item">릴스 위주 — 저장율 5%+ 목표로 정보성 콘텐츠</div>
+    <div class="strat-item">피드는 포트폴리오 역할 — 라미스튜디오 작업물</div>
+    <div class="strat-item">하이라이트: 서비스 소개 / 후기 / 나 소개</div>
+    <div class="strat-item">해시태그 20개 — 중간볼륨(1만~10만) 위주</div>
+    <div class="strat-item">스토리 매일 — 일상 + 작업 과정 공유</div>
+  </div>
+
+  <div class="strat-card">
+    <div class="strat-title"><span style="font-size:18px;">🧵</span> Threads 전략</div>
+    <div class="strat-item">하루 1~2개 — 짧고 솔직하게</div>
+    <div class="strat-item">엄마 + 디자이너 + AI 활용 3가지 정체성 교차</div>
+    <div class="strat-item">질문형 마무리로 댓글 유도</div>
+    <div class="strat-item">인스타 릴스와 주제 연동해서 시너지</div>
+  </div>
+
+  <div class="strat-card">
+    <div class="strat-title"><span style="font-size:18px;">📝</span> 블로그 전략</div>
+    <div class="strat-item">네이버 SEO — 검색 유입이 목표</div>
+    <div class="strat-item">키워드: 프리랜서 디자이너 / AI 활용 / 육아맘 재취업</div>
+    <div class="strat-item">글 말미에 라미스튜디오 서비스 자연스럽게 언급</div>
+    <div class="strat-item">주 3회 발행 — 화/목/토 추천</div>
+  </div>
+
+  <div class="strat-card">
+    <div class="strat-title"><span style="font-size:18px;">🎬</span> YouTube Shorts 전략</div>
+    <div class="strat-item">인스타 릴스 재활용 — 추가 작업 최소화</div>
+    <div class="strat-item">채널 씨앗 심기 — 지금은 노출보다 습관이 목표</div>
+    <div class="strat-item">자막 추가 후 업로드 — 자동 자막 활용</div>
+  </div>
+
+  <div class="sec">핵심 지표 (매주 체크)</div>
+  <div class="card">
+    <div style="display:flex;flex-direction:column;gap:8px;">
+      <div>
+        <div class="prog-row"><span>📸 인스타 팔로워</span><span id="ig-val">0 / 500</span></div>
+        <div class="prog-bar"><div class="prog-fill" id="ig-prog" style="width:0%"></div></div>
+      </div>
+      <div>
+        <div class="prog-row"><span>📝 콘텐츠 발행</span><span id="ct-val">0 / 30</span></div>
+        <div class="prog-bar"><div class="prog-fill" id="ct-prog" style="width:0%;background:var(--purple)"></div></div>
+      </div>
+      <div>
+        <div class="prog-row"><span>💾 저장 100+ 콘텐츠</span><span id="sv-val">0 / 3</span></div>
+        <div class="prog-bar"><div class="prog-fill" id="sv-prog" style="width:0%;background:var(--sage)"></div></div>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
+      <div style="font-size:11px;color:var(--muted);">직접 입력:</div>
+      <input type="number" id="ig-input" placeholder="팔로워" style="width:70px;border:1.5px solid var(--border);border-radius:6px;padding:4px 7px;font-size:12px;background:var(--bg);outline:none;" oninput="updateProg()"/>
+      <input type="number" id="ct-input" placeholder="콘텐츠" style="width:70px;border:1.5px solid var(--border);border-radius:6px;padding:4px 7px;font-size:12px;background:var(--bg);outline:none;" oninput="updateProg()"/>
+      <input type="number" id="sv-input" placeholder="저장콘텐츠" style="width:70px;border:1.5px solid var(--border);border-radius:6px;padding:4px 7px;font-size:12px;background:var(--bg);outline:none;" oninput="updateProg()"/>
+    </div>
+  </div>
+</div>
+
+</div><!-- /main -->
+
+<script>
+const CKEY='lami_june_v1';
+let C={checks:{},progIG:0,progCT:0,progSV:0};
+function lc(){try{const s=localStorage.getItem(CKEY);if(s)C={...C,...JSON.parse(s)};}catch(e){}}
+function sc(){try{localStorage.setItem(CKEY,JSON.stringify(C));}catch(e){}}
+lc();
+
+// ── WEEKLY DATA ──
+const WEEKS={
+  w1:[
+    {day:'6/8 월',title:'라미그로우 첫 인사 — 나는 누구인가',tags:['인스타','Threads']},
+    {day:'6/9 화',title:'11년차 디자이너가 AI 쓰기 시작한 이유',tags:['릴스','블로그']},
+    {day:'6/10 수',title:'두 아이 엄마의 하루 루틴 공개',tags:['Threads','스토리']},
+    {day:'6/11 목',title:'프리랜서로 살아남는 법 — 나의 3가지 원칙',tags:['릴스','블로그']},
+    {day:'6/12 금',title:'AI로 디자인 시간 절반 줄이는 법',tags:['릴스','Threads']},
+    {day:'6/13 토',title:'이번 주 작업 비하인드 공개',tags:['스토리','Threads']},
+    {day:'6/14 일',title:'1주차 회고 + 팔로워 감사 글',tags:['Threads']},
+  ],
+  w2:[
+    {day:'6/15 월',title:'상세페이지 디자인 전/후 비교 TOP5',tags:['릴스','블로그']},
+    {day:'6/16 화',title:'스마트스토어 매출 올리는 썸네일 법칙',tags:['릴스','블로그']},
+    {day:'6/17 수',title:'ChatGPT로 블로그 글 10분에 쓰는 법',tags:['릴스','Threads']},
+    {day:'6/18 목',title:'프리랜서 단가 높이는 포트폴리오 구성법',tags:['블로그','Threads']},
+    {day:'6/19 금',title:'Canva vs 포토샵 — 뭘 써야 할까?',tags:['릴스','Threads']},
+    {day:'6/20 토',title:'육아하면서 재택 일하는 현실 TMI',tags:['Threads','스토리']},
+    {day:'6/21 일',title:'저장되는 콘텐츠의 공통점 분석',tags:['블로그']},
+  ],
+  w3:[
+    {day:'6/22 월',title:'내 포트폴리오 공개 — 이런 것도 합니다',tags:['인스타','릴스']},
+    {day:'6/23 화',title:'클라이언트가 자꾸 찾는 디자이너의 특징',tags:['릴스','블로그']},
+    {day:'6/24 수',title:'AI 프롬프트로 디자인 시안 3분 만들기',tags:['릴스','Threads']},
+    {day:'6/25 목',title:'상세페이지 의뢰할 때 꼭 알아야 할 것',tags:['블로그','Threads']},
+    {day:'6/26 금',title:'라미스튜디오 작업 과정 브이로그',tags:['릴스','YT']},
+    {day:'6/27 토',title:'프리랜서 수입 구조 공개 (현실적으로)',tags:['Threads','블로그']},
+    {day:'6/28 일',title:'3주차 회고 + 이번 달 수주 현황',tags:['Threads']},
+  ],
+  w4:[
+    {day:'6/29 월',title:'6월 콘텐츠 결산 — 뭐가 잘 됐나?',tags:['릴스','블로그']},
+    {day:'6/30 화',title:'7월 예고 + 구독자 감사 이벤트',tags:['인스타','Threads']},
+  ],
+};
+
+const TAG_STYLE={
+  '릴스':'background:var(--insta-l);color:var(--insta)',
+  '인스타':'background:var(--insta-l);color:var(--insta)',
+  '스토리':'background:#FEE8F0;color:#C0106C',
+  'Threads':'background:var(--threads-l);color:var(--threads)',
+  '블로그':'background:var(--blog-l);color:var(--blog)',
+  'YT':'background:var(--yt-l);color:var(--yt)',
+};
+
+function renderWeeks(){
+  Object.keys(WEEKS).forEach(wk=>{
+    const el=document.getElementById(wk+'-items');
+    if(!el)return;
+    el.innerHTML=WEEKS[wk].map((d,i)=>{
+      const k=wk+'_'+i;
+      const done=C.checks[k];
+      return`<div class="day-row" onclick="toggleCheck('${k}',this)">
+        <div class="day-chk${done?' on':''}"></div>
+        <span class="day-label">${d.day.split(' ')[1]||''}</span>
+        <div class="day-content">
+          <div class="day-title${done?' done':''}">${d.day} ${d.title}</div>
+          <div class="day-tags">${d.tags.map(t=>`<span class="dtag" style="${TAG_STYLE[t]||''}">${t}</span>`).join('')}</div>
+        </div>
+      </div>`;
+    }).join('');
+  });
+}
+
+function toggleCheck(k,row){
+  C.checks[k]=!C.checks[k];sc();
+  const chk=row.querySelector('.day-chk');
+  const txt=row.querySelector('.day-title');
+  chk.className='day-chk'+(C.checks[k]?' on':'');
+  txt.className='day-title'+(C.checks[k]?' done':'');
+}
+
+// ── IDEAS ──
+const INSTA_IDEAS=['엄마 디자이너의 하루 루틴 공개','AI로 상세페이지 초안 만드는 법','비포&애프터 — 리뉴얼 전후 비교','프리랜서 수주 DM 실제로 어떻게 보내나','Canva로 10분 만에 피드 만들기','포트폴리오 없이 첫 수주 받은 방법','육아하면서 재택 일하는 현실 공개','디자이너가 알려주는 썸네일 법칙 5가지','AI 프롬프트 하나로 시안 3개 뽑기','클라이언트 소통할 때 이것만 기억해'];
+const THREADS_IDEAS=['오늘도 아이 재우고 작업하는 중...','AI 쓰기 전과 후 — 솔직한 비교','프리랜서 첫 달 수입 공개 (현실)','육아맘이 재택 일을 선택한 이유','디자인 의뢰할 때 많이 하는 실수','오늘 작업한 것 짧게 공개','11년차가 말하는 프리랜서 생존법','AI 잘 쓰는 사람 vs 못 쓰는 사람 차이','지금 이 순간 솔직한 감정','팔로워보다 저장이 더 중요한 이유'];
+const BLOG_IDEAS=['상세페이지 디자인 비용 총정리','스마트스토어 썸네일 제작 가이드','프리랜서 디자이너 포트폴리오 만드는 법','ChatGPT로 블로그 글 쓰는 방법','육아맘 재택 프리랜서 현실 후기','Canva 무료 활용법 총정리','네이버 블로그 SEO 기초 가이드','크몽 첫 수주 받는 법','AI 디자인 툴 비교 — Midjourney vs Canva','프리랜서 세금 신고 기초 정리'];
+
+function renderIdeas(){
+  const render=(ids,data,el)=>{
+    el.innerHTML=data.map((txt,i)=>{
+      const k=ids+'_'+i;const done=C.checks[k];
+      return`<div class="idea-item" onclick="toggleIdeaCheck('${k}',this)">
+        <div class="idea-chk${done?' on':''}"></div>
+        <span class="idea-num">${i+1}</span>
+        <span class="idea-txt${done?' done':''}">${txt}</span>
+      </div>`;
+    }).join('');
+  };
+  render('insta',INSTA_IDEAS,document.getElementById('insta-ideas'));
+  render('threads',THREADS_IDEAS,document.getElementById('threads-ideas'));
+  render('blog',BLOG_IDEAS,document.getElementById('blog-ideas'));
+}
+
+function toggleIdeaCheck(k,row){
+  C.checks[k]=!C.checks[k];sc();
+  row.querySelector('.idea-chk').className='idea-chk'+(C.checks[k]?' on':'');
+  row.querySelector('.idea-txt').className='idea-txt'+(C.checks[k]?' done':'');
+}
+
+// ── PROGRESS ──
+function updateProg(){
+  const ig=parseInt(document.getElementById('ig-input').value)||0;
+  const ct=parseInt(document.getElementById('ct-input').value)||0;
+  const sv=parseInt(document.getElementById('sv-input').value)||0;
+  C.progIG=ig;C.progCT=ct;C.progSV=sv;sc();
+  document.getElementById('ig-val').textContent=`${ig} / 500`;
+  document.getElementById('ct-val').textContent=`${ct} / 30`;
+  document.getElementById('sv-val').textContent=`${sv} / 3`;
+  document.getElementById('ig-prog').style.width=Math.min((ig/500)*100,100)+'%';
+  document.getElementById('ct-prog').style.width=Math.min((ct/30)*100,100)+'%';
+  document.getElementById('sv-prog').style.width=Math.min((sv/3)*100,100)+'%';
+}
+function initProg(){
+  document.getElementById('ig-input').value=C.progIG||'';
+  document.getElementById('ct-input').value=C.progCT||'';
+  document.getElementById('sv-input').value=C.progSV||'';
+  updateProg();
+}
+
+// ── TABS ──
+function goTab(name,el){
+  ['overview','weekly','ideas','prompt','strategy'].forEach(t=>{
+    const e=document.getElementById('tab-'+t);if(e)e.style.display=t===name?'':'none';
+  });
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));
+  el.classList.add('on');
+  if(name==='weekly')renderWeeks();
+  if(name==='ideas')renderIdeas();
+  if(name==='strategy')initProg();
+}
+
+function togWeek(id){document.getElementById(id).classList.toggle('open');}
+function togPrompt(id){document.getElementById(id).classList.toggle('open');}
+
+function copyPrompt(btn,id){
+  const txt=document.querySelector('#'+id+' .prompt-txt').textContent;
+  navigator.clipboard.writeText(txt).then(()=>{
+    btn.textContent='✅ 복사됨!';btn.classList.add('copied');
+    setTimeout(()=>{btn.textContent='📋 복사하기';btn.classList.remove('copied');},2000);
+  });
+}
+
+renderWeeks();
+</script>
+</body>
+</html>
