@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>라미그로우 아침 브리핑</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Bebas+Neue&family=DM+Serif+Display:ital@1&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+
+:root {
+  --bg: #f7f3ee;
+  --card: #ffffff;
+  --dark: #16120d;
+  --coral: #d4623a;
+  --coral-light: #f0c4b0;
+  --peach: #f5ddd0;
+  --mid: #7a5c48;
+  --light: #b09a8a;
+  --border: #e8ddd5;
+  --insta: #d4294a;
+  --thread: #5b4fcf;
+  --blog: #2d7fc1;
+  --story: #c87d2a;
+  --shorts: #c0392b;
+}
+
+body {
+  background: var(--bg);
+  font-family: 'Noto Sans KR', sans-serif;
+  color: var(--dark);
+  min-height: 100vh;
+}
+
+/* ── HEADER ── */
+.header {
+  background: var(--dark);
+  padding: 28px 20px 20px;
+  position: relative;
+  overflow: hidden;
+}
+.header::after {
+  content: '';
+  position: absolute;
+  right: -40px; top: -40px;
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(212,98,58,0.25) 0%, transparent 70%);
+}
+.h-date-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.h-date {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 56px;
+  color: white;
+  line-height: 0.9;
+  letter-spacing: 2px;
+}
+.h-date span { color: var(--coral); }
+.h-weekday {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 3px;
+  margin-top: 6px;
+}
+.h-time-box {
+  text-align: right;
+}
+.h-time {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 32px;
+  color: var(--coral);
+  letter-spacing: 2px;
+  line-height: 1;
+}
+.h-greeting {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  margin-top: 4px;
+  letter-spacing: 1px;
+}
+
+/* TODAY BADGE */
+.today-strip {
+  background: var(--coral);
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.ts-week { font-size:11px; font-weight:700; color:rgba(255,255,255,0.7); letter-spacing:2px; }
+.ts-theme { font-size:13px; font-weight:700; color:white; }
+
+/* ── MAIN ── */
+main { padding: 16px 16px 100px; max-width: 480px; margin: 0 auto; }
+
+/* TODAY THEME CARD */
+.theme-card {
+  background: var(--dark);
+  border-radius: 18px;
+  padding: 20px;
+  margin-bottom: 14px;
+  position: relative;
+  overflow: hidden;
+}
+.theme-card::before {
+  content: '';
+  position: absolute;
+  bottom: -30px; right: -30px;
+  width: 120px; height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(212,98,58,0.3) 0%, transparent 70%);
+}
+.tc-label { font-size:9px; letter-spacing:3px; color:var(--coral); margin-bottom:6px; }
+.tc-theme { font-size:20px; font-weight:900; color:white; line-height:1.2; margin-bottom:6px; }
+.tc-hook {
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size:13px;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 14px;
+}
+.tc-channels {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.tc-ch {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+}
+
+/* PROGRESS ROW */
+.prog-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.prog-box {
+  flex: 1;
+  background: var(--card);
+  border-radius: 14px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  text-align: center;
+}
+.pb-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 32px;
+  color: var(--coral);
+  line-height: 1;
+}
+.pb-label { font-size: 10px; color: var(--light); letter-spacing: 1px; margin-top: 2px; }
+.pb-bar {
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  margin-top: 8px;
+  overflow: hidden;
+}
+.pb-fill { height: 100%; background: var(--coral); border-radius: 2px; transition: width 0.4s ease; }
+
+/* SECTION TITLE */
+.sec-title {
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--light);
+  font-weight: 700;
+  margin-bottom: 10px;
+  margin-top: 6px;
+}
+
+/* TASK LIST */
+.task-group { margin-bottom: 12px; }
+.tg-head {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 7px;
+}
+.tg-dot { width:7px; height:7px; border-radius:50%; flex-shrink:0; }
+.tg-name { font-size:10px; font-weight:700; letter-spacing:1.5px; color:var(--mid); }
+
+.task {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 11px 14px;
+  background: var(--card);
+  border-radius: 11px;
+  margin-bottom: 5px;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.task:active { transform: scale(0.98); }
+.task.done { opacity: 0.4; }
+.task.done .task-text { text-decoration: line-through; }
+
+.t-circle {
+  width: 20px; height: 20px; min-width: 20px;
+  border-radius: 50%;
+  border: 2px solid var(--coral-light);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; color: transparent;
+  transition: all 0.15s;
+  margin-top: 1px;
+}
+.task.done .t-circle { background: var(--coral); border-color: var(--coral); color: white; }
+.task-text { font-size: 13px; line-height: 1.4; flex: 1; }
+.task-badge {
+  font-size: 9px; font-weight: 700;
+  padding: 2px 7px; border-radius: 7px;
+  flex-shrink: 0; margin-top: 2px;
+  letter-spacing: 0.5px;
+}
+
+/* PROMPT SECTION */
+.prompt-card {
+  background: var(--card);
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+.pc-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px 10px;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+}
+.pc-icon { font-size: 20px; flex-shrink: 0; }
+.pc-info { flex: 1; }
+.pc-tag {
+  font-size: 9px; font-weight: 700; letter-spacing: 2px;
+  padding: 2px 7px; border-radius: 6px; margin-bottom: 4px; display: inline-block;
+}
+.pc-name { font-size: 13px; font-weight: 700; }
+.pc-arrow { font-size: 12px; color: var(--light); transition: transform 0.2s; flex-shrink: 0; }
+.pc-arrow.open { transform: rotate(180deg); }
+
+.pc-body { display: none; padding: 0 14px 14px; }
+.pc-body.open { display: block; }
+
+.prompt-box {
+  background: #f0ece6;
+  border-radius: 10px;
+  padding: 13px;
+  font-size: 12px;
+  color: #4a3828;
+  line-height: 1.8;
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin-top: 10px;
+  border: 1px solid var(--border);
+}
+.prompt-fill { color: var(--coral); font-weight: 700; }
+
+.copy-btn {
+  display: block;
+  width: 100%;
+  margin-top: 8px;
+  padding: 11px;
+  background: var(--coral);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: 'Noto Sans KR', sans-serif;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: all 0.2s;
+}
+.copy-btn:active { transform: scale(0.97); }
+.copy-btn.done-copy { background: #2e7d32; }
+
+/* NAV BAR */
+.nav-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: var(--dark);
+  display: flex;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  z-index: 100;
+  max-width: 100%;
+}
+.nav-btn {
+  flex: 1;
+  padding: 12px 4px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: rgba(255,255,255,0.3);
+  font-size: 9px;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  transition: all 0.15s;
+}
+.nav-btn.active { color: var(--coral); }
+.nav-icon { font-size: 20px; line-height: 1; }
+
+/* VIEWS */
+.view { display: none; }
+.view.active { display: block; }
+
+/* OFF DAY */
+.offday-card {
+  background: var(--card);
+  border-radius: 18px;
+  padding: 28px 20px;
+  text-align: center;
+  border: 1px solid var(--border);
+  margin-bottom: 14px;
+}
+.od-emoji { font-size: 44px; margin-bottom: 10px; }
+.od-title { font-size: 18px; font-weight: 900; margin-bottom: 6px; }
+.od-sub { font-size: 13px; color: var(--mid); line-height: 1.6; }
+
+/* COLOR TAGS */
+.insta-tag { background:#fde8ee; color:var(--insta); }
+.thread-tag { background:#ede9ff; color:var(--thread); }
+.blog-tag { background:#ddeeff; color:var(--blog); }
+.story-tag { background:#fff0e0; color:var(--story); }
+.shorts-tag { background:#ffecec; color:var(--shorts); }
+
+@media(max-width:380px){
+  .h-date { font-size:44px; }
+  .tc-theme { font-size:17px; }
+  .task-text { font-size:12px; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="h-date-row">
+    <div>
+      <div class="h-weekday" id="weekday">MONDAY</div>
+      <div class="h-date" id="dateNum">6<span>.</span>8</div>
+    </div>
+    <div class="h-time-box">
+      <div class="h-time" id="clock">--:--</div>
+      <div class="h-greeting" id="greeting">좋은 아침이에요 ☀️</div>
+    </div>
+  </div>
+</div>
+
+<div class="today-strip" id="todayStrip">
+  <div class="ts-week" id="weekLabel">1주차</div>
+  <div class="ts-theme" id="dayTheme">오늘의 주제 로딩 중...</div>
+</div>
+
+<main>
+
+  <!-- VIEW: TODAY -->
+  <div class="view active" id="view-today">
+
+    <div class="theme-card" id="themeCard">
+      <div class="tc-label">TODAY'S MISSION</div>
+      <div class="tc-theme" id="tcTheme">–</div>
+      <div class="tc-hook" id="tcHook">–</div>
+      <div class="tc-channels" id="tcChannels"></div>
+    </div>
+
+    <div class="prog-row">
+      <div class="prog-box">
+        <div class="pb-num" id="doneCount">0</div>
+        <div class="pb-label">완료</div>
+        <div class="pb-bar"><div class="pb-fill" id="progFill" style="width:0%"></div></div>
+      </div>
+      <div class="prog-box">
+        <div class="pb-num" id="totalCount">0</div>
+        <div class="pb-label">전체 할 일</div>
+        <div class="pb-bar"><div class="pb-fill" style="width:100%; background:var(--border)"></div></div>
+      </div>
+      <div class="prog-box">
+        <div class="pb-num" id="leftCount">0</div>
+        <div class="pb-label">남은 할 일</div>
+        <div class="pb-bar"><div class="pb-fill" id="leftFill" style="width:100%; background:var(--coral-light)"></div></div>
+      </div>
+    </div>
+
+    <div class="sec-title">오늘 올릴 것</div>
+    <div id="taskList"></div>
+
+  </div>
+
+  <!-- VIEW: PROMPT -->
+  <div class="view" id="view-prompt">
+    <div class="sec-title">오늘 주제로 바로 쓰는 프롬프트</div>
+
+    <!-- MASTER -->
+    <div class="prompt-card">
+      <div class="pc-top" onclick="togglePrompt(this)">
+        <div class="pc-icon">⚡</div>
+        <div class="pc-info">
+          <div class="pc-tag" style="background:#fde8e0; color:var(--coral)">MASTER · 추천</div>
+          <div class="pc-name">전체 채널 한번에 기획</div>
+        </div>
+        <div class="pc-arrow">▼</div>
+      </div>
+      <div class="pc-body">
+        <div class="prompt-box" id="p-master"></div>
+        <button class="copy-btn" onclick="copyP('p-master',this)">📋 복사하고 ChatGPT에 붙여넣기</button>
+      </div>
+    </div>
+
+    <!-- REEL -->
+    <div class="prompt-card">
+      <div class="pc-top" onclick="togglePrompt(this)">
+        <div class="pc-icon">🎬</div>
+        <div class="pc-info">
+          <div class="pc-tag insta-tag">릴스 스크립트</div>
+          <div class="pc-name">저장되는 릴스 자막 뽑기</div>
+        </div>
+        <div class="pc-arrow">▼</div>
+      </div>
+      <div class="pc-body">
+        <div class="prompt-box" id="p-reel"></div>
+        <button class="copy-btn" onclick="copyP('p-reel',this)">📋 복사하기</button>
+      </div>
+    </div>
+
+    <!-- THREAD -->
+    <div class="prompt-card">
+      <div class="pc-top" onclick="togglePrompt(this)">
+        <div class="pc-icon">🧵</div>
+        <div class="pc-info">
+          <div class="pc-tag thread-tag">스레드 3개</div>
+          <div class="pc-name">오늘 스레드 바로 뽑기</div>
+        </div>
+        <div class="pc-arrow">▼</div>
+      </div>
+      <div class="pc-body">
+        <div class="prompt-box" id="p-thread"></div>
+        <button class="copy-btn" onclick="copyP('p-thread',this)">📋 복사하기</button>
+      </div>
+    </div>
+
+    <!-- BLOG -->
+    <div class="prompt-card">
+      <div class="pc-top" onclick="togglePrompt(this)">
+        <div class="pc-icon">✍️</div>
+        <div class="pc-info">
+          <div class="pc-tag blog-tag">블로그</div>
+          <div class="pc-name">블로그 글 전체 작성</div>
+        </div>
+        <div class="pc-arrow">▼</div>
+      </div>
+      <div class="pc-body">
+        <div class="prompt-box" id="p-blog"></div>
+        <button class="copy-btn" onclick="copyP('p-blog',this)">📋 복사하기</button>
+      </div>
+    </div>
+
+    <!-- STORY -->
+    <div class="prompt-card">
+      <div class="pc-top" onclick="togglePrompt(this)">
+        <div class="pc-icon">📸</div>
+        <div class="pc-info">
+          <div class="pc-tag story-tag">스토리 5개</div>
+          <div class="pc-name">오늘 스토리 구성 기획</div>
+        </div>
+        <div class="pc-arrow">▼</div>
+      </div>
+      <div class="pc-body">
+        <div class="prompt-box" id="p-story"></div>
+        <button class="copy-btn" onclick="copyP('p-story',this)">📋 복사하기</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIEW: CALENDAR -->
+  <div class="view" id="view-calendar">
+    <div class="sec-title">6월 전체 주제 보기</div>
+    <div id="calList"></div>
+  </div>
+
+</main>
+
+<nav class="nav-bar">
+  <button class="nav-btn active" onclick="showView('today',this)">
+    <div class="nav-icon">☀️</div>오늘
+  </button>
+  <button class="nav-btn" onclick="showView('prompt',this)">
+    <div class="nav-icon">⚡</div>프롬프트
+  </button>
+  <button class="nav-btn" onclick="showView('calendar',this)">
+    <div class="nav-icon">🗓</div>캘린더
+  </button>
+</nav>
+
+<script>
+// ── DATA ──────────────────────────────────────────────
+const PLAN = {
+  "2026-06-08": {
+    week: "1주차", weekGoal: "라미그로우가 누구인지 알리기",
+    theme: "AI 공부 시작 선언의 날", hook: "\"왜 시작했는지\" 스토리 오픈",
+    channels: ["릴스","스토리","스레드","블로그","쇼츠"],
+    tasks: [
+      { ch:"릴스", text:"육아맘이 AI 공부 시작한 이유 (7~15초 릴스)" },
+      { ch:"쇼츠", text:"릴스 그대로 유튜브 쇼츠 업로드" },
+      { ch:"스토리", text:"① 오늘부터 시작 선언 텍스트 스토리" },
+      { ch:"스토리", text:"② 아이들 사진 + '이 아이들 때문에 시작'" },
+      { ch:"스토리", text:"③ 공부 시작하는 노트북 책상 사진" },
+      { ch:"스토리", text:"④ 'AI 써본 적 있어요?' 투표 스티커" },
+      { ch:"스토리", text:"⑤ 릴스 공유 + '저 시작했어요' 멘트" },
+      { ch:"스레드", text:"① 육아하면서 제일 무서운 건 뒤처지는 기분이다" },
+      { ch:"스레드", text:"② 일하고 싶다는 마음이 아직 남아있다" },
+      { ch:"스레드", text:"③ 오늘부터 AI 공부 시작 선언글" },
+      { ch:"블로그", text:"육아맘 재택부업 추천 (SEO 타겟)" }
+    ]
+  },
+  "2026-06-09": {
+    week:"1주차", weekGoal:"라미그로우가 누구인지 알리기",
+    theme:"밤 공부 현실 공개", hook:"애 재운 후 나만의 시간",
+    channels:["릴스","스토리","스레드","쇼츠"],
+    tasks:[
+      { ch:"릴스", text:"애 둘 재우고 공부하는 밤 (밤 책상 영상)" },
+      { ch:"쇼츠", text:"동일 영상 쇼츠 업로드" },
+      { ch:"스토리", text:"① 밤 10시 책상 사진 + '애들 잔다'" },
+      { ch:"스토리", text:"② 오늘 공부한 내용 간단 공유" },
+      { ch:"스토리", text:"③ '몇 시에 자요?' 질문 스티커" },
+      { ch:"스토리", text:"④ 오늘 릴스 공유" },
+      { ch:"스토리", text:"⑤ 내일 예고 텍스트" },
+      { ch:"스레드", text:"① 오늘도 애 재우고 노트북 켰다" },
+      { ch:"스레드", text:"② 육아하면 시간이 없는 게 아니라 체력이 없다" },
+      { ch:"스레드", text:"③ 애들 자는 시간이 내 출근 시간" }
+    ]
+  },
+  "2026-06-10": {
+    week:"1주차", weekGoal:"라미그로우가 누구인지 알리기",
+    theme:"1시간 루틴 공개", hook:"하루 딱 1시간, 이렇게 씁니다",
+    channels:["릴스","스토리","스레드","블로그","쇼츠"],
+    tasks:[
+      { ch:"릴스", text:"하루 1시간씩만 공부 중입니다 (타임랩스 or 자막)" },
+      { ch:"쇼츠", text:"쇼츠 업로드" },
+      { ch:"스토리", text:"① 나의 1시간 루틴 타임테이블 이미지" },
+      { ch:"스토리", text:"② 오늘 공부한 AI 툴 소개" },
+      { ch:"스토리", text:"③ '하루에 몇 시간 자유시간 있어요?' 질문" },
+      { ch:"스토리", text:"④ 오늘 릴스 공유" },
+      { ch:"스토리", text:"⑤ 응원 댓글 공유 or 리액션" },
+      { ch:"스레드", text:"① 하루 1시간이라도 계속 해보려고" },
+      { ch:"스레드", text:"② 완벽하게 하려다 아무것도 못 했다" },
+      { ch:"스레드", text:"③ 작은 행동이 쌓이면 달라질까" },
+      { ch:"블로그", text:"ChatGPT 초보 사용법 (검색 최적화)" }
+    ]
+  },
+  "2026-06-11": {
+    week:"1주차", weekGoal:"라미그로우가 누구인지 알리기",
+    theme:"수익화 목표 공개", hook:"돈 벌고 싶어서 시작한 솔직한 이야기",
+    channels:["릴스","스토리","스레드","쇼츠"],
+    tasks:[
+      { ch:"릴스", text:"돈 벌고 싶어서 AI 시작함 (솔직 고백 형식)" },
+      { ch:"쇼츠", text:"쇼츠 업로드" },
+      { ch:"스토리", text:"① '6월 수입 목표는 얼마?' 공개 텍스트" },
+      { ch:"스토리", text:"② '돈 얼마 벌고 싶으세요?' 투표" },
+      { ch:"스토리", text:"③ 수익화 계획 캡처 or 메모 사진" },
+      { ch:"스토리", text:"④ 릴스 공유" },
+      { ch:"스토리", text:"⑤ '저도 같은 마음이에요' 공감 유도" },
+      { ch:"스레드", text:"① 돈 벌고 싶은 엄마 마음은 다 똑같은 듯" },
+      { ch:"스레드", text:"② 돈 걱정 없는 삶이 목표다" },
+      { ch:"스레드", text:"③ 육아맘이라 더 독하게 되는 것 같다" }
+    ]
+  },
+  "2026-06-12": {
+    week:"1주차", weekGoal:"라미그로우가 누구인지 알리기",
+    theme:"다시 꿈 꾸는 중", hook:"디자인 경력 + AI = 새 출발",
+    channels:["릴스","스토리","스레드","블로그","쇼츠"],
+    tasks:[
+      { ch:"릴스", text:"육아맘인데 다시 꿈 꾸는 중 (감성 자막)" },
+      { ch:"쇼츠", text:"쇼츠 업로드" },
+      { ch:"스토리", text:"① 디자인 경력 소개 텍스트 스토리" },
+      { ch:"스토리", text:"② 과거 작업물 1개 슬쩍 공개" },
+      { ch:"스토리", text:"③ '엄마도 꿈 있어도 되잖아요?' 공감 유도" },
+      { ch:"스토리", text:"④ 릴스 공유" },
+      { ch:"스토리", text:"⑤ 이번 주 돌아보기 텍스트" },
+      { ch:"스레드", text:"① 다시 시작하기엔 늦었다고 생각했는데" },
+      { ch:"스레드", text:"② 엄마도 꿈 있어도 되잖아" },
+      { ch:"스레드", text:"③ 나를 다시 찾고 싶다" },
+      { ch:"블로그", text:"디자인 경력 살리는 부업 추천" }
+    ]
+  },
+  "2026-06-13": {
+    week:"1주차 / 주말", weekGoal:"쉬면서도 기록하기",
+    theme:"주말 — 현실 브이로그", hook:"가볍게, 일상만",
+    channels:["스토리","스레드"],
+    tasks:[
+      { ch:"스토리", text:"① 주말 일상 사진 1장" },
+      { ch:"스토리", text:"② 아이들과 보낸 시간 사진" },
+      { ch:"스토리", text:"③ 이번 주 올린 콘텐츠 하이라이트 공유" },
+      { ch:"스토리", text:"④ '이번 주 가장 좋았던 순간' 질문 스티커" },
+      { ch:"스토리", text:"⑤ 다음 주 예고 텍스트" },
+      { ch:"스레드", text:"① 오늘 하루도 버텼다" },
+      { ch:"스레드", text:"② 이번 주 나에게 수고했다고" }
+    ]
+  },
+  "2026-06-14": {
+    week:"1주차 / 주말", weekGoal:"1주차 정리 + 2주차 예고",
+    theme:"주간 리뷰 + 2주차 예고", hook:"이번 주 정리 & 다음 주 세팅",
+    channels:["릴스","스토리","스레드","쇼츠"],
+    tasks:[
+      { ch:"릴스", text:"ChatGPT 처음 써본 날 현실 반응 (2주차 예고)" },
+      { ch:"쇼츠", text:"쇼츠 업로드" },
+      { ch:"스토리", text:"① 1주차 콘텐츠 총정리 이미지" },
+      { ch:"스토리", text:"② 팔로워 반응 감사 + 스크린샷" },
+      { ch:"스토리", text:"③ 2주차 예고 '다음 주부터 AI 꿀팁 옵니다'" },
+      { ch:"스토리", text:"④ '어떤 AI 궁금해요?' 질문 스티커" },
+      { ch:"스토리", text:"⑤ 릴스 공유" },
+      { ch:"스레드", text:"① 결국 꾸준한 사람이 이기는 듯" },
+      { ch:"스레드", text:"② 기록은 배신 안 하는 것 같다" }
+    ]
+  },
+  "2026-06-15": {
+    week:"2주차", weekGoal:"저장되는 콘텐츠 만들기",
+    theme:"ChatGPT 프롬프트 공개", hook:"저장 유발 정보 콘텐츠 시작",
+    channels:["릴스","스토리","스레드","블로그","쇼츠"],
+    tasks:[
+      { ch:"릴스", text:"ChatGPT 프롬프트 추천 TOP3 (자막 카드)" },
+      { ch:"쇼츠", text:"쇼츠 업로드" },
+      { ch:"스토리", text:"① '이번 주는 AI 꿀팁 주간!' 예고" },
+      { ch:"스토리", text:"② 프롬프트 보너스 하나 더 공개" },
+      { ch:"스토리", text:"③ '어떤 AI 쓰세요?' 질문 스티커" },
+      { ch:"스토리", text:"④ 릴스 공유" },
+      { ch:"스토리", text:"⑤ 저장한 분들 감사 멘트" },
+      { ch:"스레드", text:"① AI는 똑똑한 사람만 하는 줄 알았다" },
+      { ch:"스레드", text:"② 나 같은 초보도 조금씩 배우는 중" },
+      { ch:"스레드", text:"③ AI 공부 시작하고 생각보다 재밌다" },
+      { ch:"블로그", text:"ChatGPT 프롬프트 추천 (상세 버전)" }
+    ]
+  },
+  "2026-06-16": {
+    week:"2주차", weekGoal:"저장되는 콘텐츠 만들기",
+    theme:"무료 AI 사이트 추천", hook:"저장하게 만드는 정보글",
+    channels:["릴스","스토리","스레드","쇼츠"],
+    tasks:[
+      { ch:"릴스", text:"무료 AI 사이트 추천 (화면 녹화 + 자막)" },
+      { ch:"쇼츠", text:"쇼츠 업로드" },
+      { ch:"스토리", text:"① AI 사이트 하나씩 소개 슬라이드" },
+      { ch:"스토리", text:"② '이 중에 써본 거 있어요?' 투표" },
+      { ch:"스토리", text:"③ 내가 제일 많이 쓰는 AI 공개" },
+      { ch:"스토리", text:"④ 릴스 공유" },
+      { ch:"스토리", text:"⑤ 요즘은 AI 모르면 불안하다 (공감)" },
+      { ch:"스레드", text:"① 요즘은 AI 모르면 불안하다" },
+      { ch:"스레드", text:"② 진짜 필요한 건 완벽함보다 실행이었다" },
+      { ch:"스레드", text:"③ 오늘도 일단 하나 올렸다" }
+    ]
+  },
+  "2026-06-17": {
+    week:"2주차", weekGoal:"저장되는 콘텐츠 만들기",
+    theme:"AI 초보 추천 앱", hook:"입문자 저장 필수 콘텐츠",
+    channels:["릴스","스토리","스레드","블로그","쇼츠"],
+    tasks:[
+      { ch:"릴스", text:"AI 초보 추천앱 TOP5 (카드 자막)" },
+      { ch:"쇼츠", text:"쇼츠 업로드" },
+      { ch:"스토리", text:"① 앱 하나씩 소개 슬라이드 3장" },
+      { ch:"스토리", text:"② '이미 쓰는 앱 있어요?' 질문 스티커" },
+      { ch:"스토리", text:"③ 릴스 공유" },
+      { ch:"스토리", text:"④ 저장 수 공개 (반응 나누기)" },
+      { ch:"스토리", text:"⑤ AI 공부 오늘 한 것 공유" },
+      { ch:"스레드", text:"① AI 초보가 제일 먼저 해야 할 것" },
+      { ch:"스레드", text:"② 애 어린이집 보내고 하는 일" },
+      { ch:"스레드", text:"③ 오늘도 조금이라도 앞으로 가는 중" },
+      { ch:"블로그", text:"무료 AI 사이트 추천 (상세 후기 포함)" }
+    ]
+  },
+  "2026-06-18": {
+    week:"2주차", weekGoal:"저장되는 콘텐츠 만들기",
+    theme:"캔바 썸네일 튜토리얼", hook:"디자인 경력 활용 꿀팁",
+    channels:["릴스","스토리","스레드","블로그","쇼츠"],
+    tasks:[
+      { ch:"릴스", text:"캔바로 썸네일 만드는 법 (화면 녹화)" },
+      { ch:"쇼츠", text:"쇼츠 업로드" },
+      { ch:"스토리", text:"① 내가 만든 썸네일 Before/After" },
+      { ch:"스토리", text:"② 캔바 사용 팁 하나 더" },
+      { ch:"스토리", text:"③ '캔바 써요?' 투표 스티커" },
+      { ch:"스토리", text:"④ 릴스 공유" },
+      { ch:"스토리", text:"⑤ 팔로워 작업물 질문 답장" },
+      { ch:"스레드", text:"① 디자인 + AI 같이 쓰는 법" },
+      { ch:"스레드", text:"② 육아맘이라 더 독하게 되는 것 같다" },
+      { ch:"스레드", text:"③ 오늘도 일단 하나 올렸다" },
+      { ch:"블로그", text:"캔바로 썸네일 만드는 방법 (상세)" }
+    ]
+  },
+  "2026-06-19": {
+    week:"2주차", weekGoal:"저장되는 콘텐츠 만들기",
+    theme:"Threads 시작 가이드", hook:"직접 써보면서 알려드림",
+    channels:["릴스","스토리","스레드","블로그","쇼츠"],
+    tasks:[
+      { ch:"릴스", text:"AI 초보가 하지 말아야 할 것 (경험 공유)" },
+      { ch:"쇼츠", text:"쇼츠 업로드" },
+      { ch:"스토리", text:"① 이번 주 저장 많이 된 콘텐츠 공유" },
+      { ch:"스토리", text:"② 팔로워 DM/댓글 소개" },
+      { ch:"스토리", text:"③ '다음 주 어떤 내용 보고 싶어요?' 질문" },
+      { ch:"스토리", text:"④ 릴스 공유" },
+      { ch:"스토리", text:"⑤ 주말 쉬기 전 감사 인사" },
+      { ch:"스레드", text:"① 실패해도 멈추진 않으려고" },
+      { ch:"스레드", text:"② 이번 주도 매일 올린 나에게 수고했다" },
+      { ch:"스레드", text:"③ 결국 꾸준한 사람이 이기는 듯" },
+      { ch:"블로그", text:"Threads 시작하는 방법 (입문 가이드)" }
+    ]
+  },
+  "2026-06-22": {
+    week:"3주차", weekGoal:"전문성 + 신뢰감 쌓기",
+    theme:"상세페이지 전후 비교", hook:"디자인 실력 처음 공개",
+    channels:["릴스","스토리","스레드","블로그","쇼츠"],
+    tasks:[
+      { ch:"릴스", text:"상세페이지 Before/After 비교 릴스" },
+      { ch:"쇼츠", text:"쇼츠 업로드" },
+      { ch:"스토리", text:"① Before 이미지 단독 공개" },
+      { ch:"스토리", text:"② After 이미지 공개 + 비교" },
+      { ch:"스토리", text:"③ 작업 포인트 설명" },
+      { ch:"스토리", text:"④ '디자인 의뢰 받습니다' 언급" },
+      { ch:"스토리", text:"⑤ 릴스 공유" },
+      { ch:"스레드", text:"① 디자인 경력이 있는데 왜 다시 시작하냐고" },
+      { ch:"스레드", text:"② AI + 디자인이 만나면 달라지는 것들" },
+      { ch:"스레드", text:"③ 오늘도 일단 하나 올렸다" },
+      { ch:"블로그", text:"재택으로 가능한 디자인 부업 종류" }
+    ]
+  },
+  "2026-06-23": {
+    week:"3주차", weekGoal:"전문성 + 신뢰감 쌓기",
+    theme:"AI 활용 디자인 과정 공개", hook:"ChatGPT + 캔바 조합법",
+    channels:["릴스","스토리","스레드","쇼츠"],
+    tasks:[
+      { ch:"릴스", text:"AI 활용 디자인 작업 과정 (화면 녹화)" },
+      { ch:"쇼츠", text:"쇼츠 업로드" },
+      { ch:"스토리", text:"① AI로 카피 뽑는 과정 캡처 공유" },
+      { ch:"스토리", text:"② 캔바에서 적용하는 과정" },
+      { ch:"스토리", text:"③ 완성 결과물 공개" },
+      { ch:"스토리", text:"④ '이런 작업 얼마면 의뢰할 것 같아요?' 질문" },
+      { ch:"스토리", text:"⑤ 릴스 공유" },
+      { ch:"스레드", text:"① 디자인 + AI 이 조합이 생각보다 강하다" },
+      { ch:"스레드", text:"② 육아맘 재택수익 현실적인 방법" },
+      { ch:"스레드", text:"③ 내 인생 다시 시작하는 느낌" }
+    ]
+  },
+  "2026-06-24": {
+    week:"3주차", weekGoal:"전문성 + 신뢰감 쌓기",
+    theme:"작업 루틴 공개", hook:"어린이집 보내고 이렇게 일합니다",
+    channels:["릴스","스토리","스레드","블로그","쇼츠"],
+    tasks:[
+      { ch:"릴스", text:"아이 어린이집 보내고 하는 일 (타임랩스)" },
+      { ch:"쇼츠", text:"쇼츠 업로드" },
+      { ch:"스토리", text:"① 오전 루틴 타임테이블" },
+      { ch:"스토리", text:"② 오늘 작업한 결과물 미리보기" },
+      { ch:"스토리", text:"③ 작업 공간 사진" },
+      { ch:"스토리", text:"④ '어린이집 보내고 어떻게 쓰세요?' 질문" },
+      { ch:"스토리", text:"⑤ 릴스 공유" },
+      { ch:"스레드", text:"① 애 어린이집 보내고 하는 일" },
+      { ch:"스레드", text:"② 콘텐츠 만드는 과정 공개" },
+      { ch:"스레드", text:"③ AI로 일하는 엄마 되고 싶다" },
+      { ch:"블로그", text:"크몽 부업 시작하는 방법 (실전 가이드)" }
+    ]
+  },
+  "2026-06-25": {
+    week:"3주차", weekGoal:"전문성 + 신뢰감 쌓기",
+    theme:"첫 문의 이야기", hook:"수익화 첫 신호 공개",
+    channels:["릴스","스토리","스레드","쇼츠"],
+    tasks:[
+      { ch:"릴스", text:"첫 문의 이야기 or 문의 받고 싶은 것 (감성)" },
+      { ch:"쇼츠", text:"쇼츠 업로드" },
+      { ch:"스토리", text:"① 포트폴리오 이미지 2~3장 공유" },
+      { ch:"스토리", text:"② 의뢰 가능한 작업 종류 안내" },
+      { ch:"스토리", text:"③ DM으로 문의하세요 CTA" },
+      { ch:"스토리", text:"④ 릴스 공유" },
+      { ch:"스토리", text:"⑤ '문의 있으면 주저 말고 DM'" },
+      { ch:"스레드", text:"① 첫 문의 받으면 어떤 기분일까" },
+      { ch:"스레드", text:"② 현실적인 월수입 목표 공개" },
+      { ch:"스레드", text:"③ 지금 포기 안 하는 이유" }
+    ]
+  },
+  "2026-06-26": {
+    week:"3주차", weekGoal:"전문성 + 신뢰감 쌓기",
+    theme:"AI + 디자인 활용 총정리", hook:"전문성 주간 마무리",
+    channels:["릴스","스토리","스레드","블로그","쇼츠"],
+    tasks:[
+      { ch:"릴스", text:"디자인 + AI 같이 쓰는 법 (실전 팁)" },
+      { ch:"쇼츠", text:"쇼츠 업로드" },
+      { ch:"스토리", text:"① 이번 주 포트폴리오 하이라이트" },
+      { ch:"스토리", text:"② 받은 DM/댓글 공유" },
+      { ch:"스토리", text:"③ 4주차 예고 '이제 솔직한 이야기 합니다'" },
+      { ch:"스토리", text:"④ 릴스 공유" },
+      { ch:"스토리", text:"⑤ 주말 쉬는 척하며 기록 예고" },
+      { ch:"스레드", text:"① AI로 달라진 하루" },
+      { ch:"스레드", text:"② 3주째 매일 올리고 있다" },
+      { ch:"스레드", text:"③ 기록은 배신 안 하는 것 같다" },
+      { ch:"블로그", text:"AI로 인스타 콘텐츠 만드는 방법" }
+    ]
+  },
+  "2026-06-29": {
+    week:"4주차", weekGoal:"팬 만들기",
+    theme:"포기하고 싶었던 날", hook:"가장 솔직한 이야기",
+    channels:["릴스","스토리","스레드","블로그","쇼츠"],
+    tasks:[
+      { ch:"릴스", text:"포기하고 싶었던 날 (감성 자막 + 브이로그)" },
+      { ch:"쇼츠", text:"쇼츠 업로드" },
+      { ch:"스토리", text:"① '사실 이런 날도 있었어요' 텍스트" },
+      { ch:"스토리", text:"② 힘들었던 순간 솔직 공유" },
+      { ch:"스토리", text:"③ 그래도 다시 한 이유 공유" },
+      { ch:"스토리", text:"④ 릴스 공유" },
+      { ch:"스토리", text:"⑤ '여러분도 그런 날 있었나요?' 공감 유도" },
+      { ch:"스레드", text:"① 육아맘이라 더 독하게 되는 것 같다" },
+      { ch:"스레드", text:"② 실패해도 멈추진 않으려고" },
+      { ch:"스레드", text:"③ 지금 포기 안 하는 이유" },
+      { ch:"블로그", text:"육아맘이 다시 일 시작하는 과정" }
+    ]
+  },
+  "2026-06-30": {
+    week:"4주차", weekGoal:"6월 마무리",
+    theme:"그래도 다시 하는 이유", hook:"6월 총정리 + 7월 예고",
+    channels:["릴스","스토리","스레드","블로그","쇼츠"],
+    tasks:[
+      { ch:"릴스", text:"그래도 다시 하는 이유 (6월 마무리 감성)" },
+      { ch:"쇼츠", text:"쇼츠 업로드" },
+      { ch:"스토리", text:"① 6월 한 달 숫자 공개 (릴스 수, 블로그 수)" },
+      { ch:"스토리", text:"② 가장 반응 좋았던 콘텐츠 Top3" },
+      { ch:"스토리", text:"③ 7월 목표 공개 + 기대 유도" },
+      { ch:"스토리", text:"④ 팔로워 모두에게 감사 인사" },
+      { ch:"스토리", text:"⑤ 릴스 공유" },
+      { ch:"스레드", text:"① 6월 한 달 매일 올렸다 (결산)" },
+      { ch:"스레드", text:"② 나중에 아이들이 자랑스러워했으면 좋겠다" },
+      { ch:"스레드", text:"③ 7월에도 계속합니다" },
+      { ch:"블로그", text:"콘텐츠 꾸준히 만드는 방법 (6월 회고)" }
+    ]
+  }
+};
+
+// weekend placeholder
+["2026-06-20","2026-06-21","2026-06-27","2026-06-28"].forEach(d => {
+  PLAN[d] = {
+    week: d <= "2026-06-21" ? "2주차 / 주말" : "3주차 / 주말",
+    weekGoal:"쉬면서도 기록하기",
+    theme:"주말 — 가볍게 쉬기", hook:"스토리 + 스레드만",
+    channels:["스토리","스레드"],
+    tasks:[
+      { ch:"스토리", text:"① 주말 일상 사진 1장" },
+      { ch:"스토리", text:"② 이번 주 콘텐츠 하이라이트 공유" },
+      { ch:"스토리", text:"③ 팔로워 감사 인사" },
+      { ch:"스토리", text:"④ 다음 주 예고" },
+      { ch:"스토리", text:"⑤ 쉬는 일상 텍스트" },
+      { ch:"스레드", text:"① 오늘 하루도 버텼다" },
+      { ch:"스레드", text:"② 이번 주 나에게 박수" }
+    ]
+  };
+});
+
+// ── HELPERS ─────────────────────────────────────────
+const CH_COLOR = {
+  "릴스":   "insta-tag",
+  "스토리": "story-tag",
+  "스레드": "thread-tag",
+  "블로그": "blog-tag",
+  "쇼츠":   "shorts-tag"
+};
+
+function todayKey() {
+  const now = new Date();
+  const y = now.getFullYear();
+  const m = String(now.getMonth()+1).padStart(2,'0');
+  const d = String(now.getDate()).padStart(2,'0');
+  return `${y}-${m}-${d}`;
+}
+
+function makeDoneKey(dateKey) { return `lami_done_${dateKey}`; }
+
+function loadDone(dateKey) {
+  try { return JSON.parse(localStorage.getItem(makeDoneKey(dateKey)) || '[]'); }
+  catch { return []; }
+}
+function saveDone(dateKey, arr) {
+  try { localStorage.setItem(makeDoneKey(dateKey), JSON.stringify(arr)); } catch {}
+}
+
+// ── CLOCK ────────────────────────────────────────────
+function updateClock() {
+  const now = new Date();
+  const h = String(now.getHours()).padStart(2,'0');
+  const m = String(now.getMinutes()).padStart(2,'0');
+  document.getElementById('clock').textContent = `${h}:${m}`;
+  const hour = now.getHours();
+  let g = hour < 12 ? "좋은 아침이에요 ☀️" : hour < 18 ? "오늘도 화이팅 💪" : "수고했어요 🌙";
+  document.getElementById('greeting').textContent = g;
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+// ── DATE DISPLAY ─────────────────────────────────────
+(function() {
+  const now = new Date();
+  const days = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
+  document.getElementById('weekday').textContent = days[now.getDay()];
+  document.getElementById('dateNum').innerHTML =
+    `${now.getMonth()+1}<span>.</span>${now.getDate()}`;
+})();
+
+// ── RENDER TODAY ──────────────────────────────────────
+let currentDateKey = todayKey();
+let doneSet = new Set(loadDone(currentDateKey));
+
+function renderToday() {
+  const key = currentDateKey;
+  const day = PLAN[key];
+
+  if (!day) {
+    // No plan for this day
+    document.getElementById('todayStrip').style.background = '#7a5c48';
+    document.getElementById('weekLabel').textContent = '–';
+    document.getElementById('dayTheme').textContent = '오늘은 플랜 없는 날이에요';
+    document.getElementById('tcTheme').textContent = '🎉 쉬는 날!';
+    document.getElementById('tcHook').textContent = '오늘은 쉬어도 돼요';
+    document.getElementById('tcChannels').innerHTML = '';
+    document.getElementById('taskList').innerHTML =
+      `<div class="offday-card"><div class="od-emoji">🌿</div><div class="od-title">오늘은 계획된 업로드가 없어요</div><div class="od-sub">충분히 쉬고 내일 다시 시작해요!</div></div>`;
+    document.getElementById('doneCount').textContent = '–';
+    document.getElementById('totalCount').textContent = '–';
+    document.getElementById('leftCount').textContent = '–';
+    renderPrompts(null);
+    return;
+  }
+
+  document.getElementById('weekLabel').textContent = day.week;
+  document.getElementById('dayTheme').textContent = day.theme;
+  document.getElementById('tcTheme').textContent = day.theme;
+  document.getElementById('tcHook').textContent = day.hook;
+
+  // channels
+  const chEl = document.getElementById('tcChannels');
+  chEl.innerHTML = day.channels.map(c =>
+    `<span class="tc-ch ${CH_COLOR[c]||''}">${c}</span>`
+  ).join('');
+
+  // tasks
+  const list = document.getElementById('taskList');
+  const groups = {};
+  day.tasks.forEach((t,i) => {
+    if (!groups[t.ch]) groups[t.ch] = [];
+    groups[t.ch].push({...t, idx:i});
+  });
+
+  let html = '';
+  Object.keys(groups).forEach(ch => {
+    html += `<div class="task-group">
+      <div class="tg-head">
+        <div class="tg-dot" style="background:${chColor(ch)}"></div>
+        <div class="tg-name">${ch}</div>
+      </div>`;
+    groups[ch].forEach(t => {
+      const done = doneSet.has(t.idx);
+      html += `<div class="task${done?' done':''}" onclick="toggleTask(${t.idx})">
+        <div class="t-circle">${done?'✓':''}</div>
+        <div class="task-text">${t.text}</div>
+        <span class="task-badge ${CH_COLOR[t.ch]||''}">${t.ch}</span>
+      </div>`;
+    });
+    html += '</div>';
+  });
+  list.innerHTML = html;
+
+  updateProgress(day.tasks.length);
+  renderPrompts(day);
+}
+
+function chColor(ch) {
+  const map = { "릴스":"#d4294a","스토리":"#c87d2a","스레드":"#5b4fcf","블로그":"#2d7fc1","쇼츠":"#c0392b" };
+  return map[ch] || '#7a5c48';
+}
+
+function toggleTask(idx) {
+  if (doneSet.has(idx)) doneSet.delete(idx);
+  else doneSet.add(idx);
+  saveDone(currentDateKey, [...doneSet]);
+  renderToday();
+}
+
+function updateProgress(total) {
+  const done = doneSet.size;
+  const left = Math.max(0, total - done);
+  const pct = total ? Math.round(done/total*100) : 0;
+  document.getElementById('doneCount').textContent = done;
+  document.getElementById('totalCount').textContent = total;
+  document.getElementById('leftCount').textContent = left;
+  document.getElementById('progFill').style.width = pct + '%';
+  document.getElementById('leftFill').style.width = (100 - pct) + '%';
+}
+
+// ── PROMPTS ───────────────────────────────────────────
+function renderPrompts(day) {
+  const topic = day ? day.theme : '[오늘의 주제]';
+  const week = day ? day.week : '–';
+  const weekGoal = day ? day.weekGoal : '–';
+
+  document.getElementById('p-master').textContent =
+`나는 두 아이를 키우는 육아맘이야. 디자인 경력이 있고, 지금 AI 공부를 시작하면서 콘텐츠로 수익화를 준비 중이야. 인스타, 스레드, 블로그를 운영하고 있어.
+
+오늘 콘텐츠 주제: ${topic}
+오늘 날짜/주차: ${week}
+이번 주 목표: ${weekGoal}
+
+아래 4가지를 만들어줘:
+1. 📱 릴스 스크립트 (7~15초, 첫 1초 후킹 포함, 자막 형식)
+2. 🧵 스레드 3개 (각각 3줄 이내, 날것 느낌, 공감 유발)
+3. ✍️ 블로그 제목 3개 (SEO 키워드형)
+4. 📸 인스타 스토리 5개 구성 (각각 한 줄로 뭘 올릴지)
+
+조건:
+- 완벽한 전문가 느낌 NO. 현실 육아맘 느낌 YES
+- 저장하고 싶게 만드는 정보 or 공감 포함
+- 스레드는 잘 쓴 글 느낌 NO. 진짜 생각 털어놓는 느낌`;
+
+  document.getElementById('p-reel').textContent =
+`인스타 릴스용 스크립트를 써줘.
+
+주제: ${topic}
+내 포지션: 두 아이 육아맘 + AI 공부 중 + 디자인 경력
+
+조건:
+- 전체 길이: 자막 기준 7~12초 분량
+- 첫 1초: 멈추게 만드는 후킹 문장 1개
+- 중간: 공감되는 현실 상황 2~3줄
+- 마지막: 저장하게 만드는 한 방 문장
+- 형식: 자막으로 뜨는 형태 (한 줄씩)
+- 완벽한 문장 NO, 날것 감정 YES
+- BGM 분위기도 추천해줘`;
+
+  document.getElementById('p-thread').textContent =
+`스레드(Threads)용 짧은 글 3개 써줘.
+
+오늘 릴스 주제: ${topic}
+내 상황: 두 아이 육아맘, AI 공부 시작, 다시 일하고 싶음
+
+조건:
+- 각 글 3줄 이내
+- 잘 쓴 글 느낌 NO → 진짜 생각 털어놓는 느낌
+- 줄바꿈으로 리듬감 살리기
+- 보는 사람이 "맞아 나도..." 하게
+- 이모지 1~2개까지만
+- 3개가 각각 다른 감정 포인트 건드리게`;
+
+  document.getElementById('p-blog').textContent =
+`네이버/구글 검색에 잘 걸리는 블로그 글을 써줘.
+
+주제: ${topic}
+타겟: 집에서 돈 벌고 싶은 육아맘
+내 경험 포인트: 디자인 경력 있고 AI 공부 시작함
+
+형식:
+- 제목: SEO 키워드 포함
+- 도입부: 공감으로 시작 (3~4줄)
+- 본문: 소제목 3~4개로 나누기
+- 각 소제목 아래 실용 정보 위주
+- 마무리: 나의 실제 경험/계획 한 줄
+- 분량: 800~1200자
+
+주의:
+- 전문가 느낌 NO, 같이 알아가는 느낌
+- 어려운 단어 NO`;
+
+  document.getElementById('p-story').textContent =
+`인스타 스토리 5개 구성을 기획해줘.
+
+오늘 릴스 주제: ${topic}
+이번 주 목표: ${weekGoal}
+
+조건:
+- 스토리 1~5번 각각 뭘 올릴지 한 줄로
+- 릴스 공유는 반드시 1개 포함
+- 인터랙션(투표, 질문) 1개 포함
+- 나머지는 일상 or 정보 or 감정 중 섞기
+- 올리는 순서도 고려해서 배치
+- 각 스토리에 텍스트 문구도 짧게 제안`;
+}
+
+// ── CALENDAR ─────────────────────────────────────────
+function renderCalendar() {
+  const el = document.getElementById('calList');
+  const weeks = { "1주차":[], "2주차":[], "3주차":[], "4주차":[] };
+
+  const allDays = Object.keys(PLAN).sort();
+  allDays.forEach(k => {
+    const d = PLAN[k];
+    const w = d.week.split('/')[0].trim();
+    if (weeks[w]) weeks[w].push({key:k, ...d});
+    else {
+      const wk = d.week.includes('1주차') ? "1주차" :
+                 d.week.includes('2주차') ? "2주차" :
+                 d.week.includes('3주차') ? "3주차" : "4주차";
+      if (!weeks[wk]) weeks[wk] = [];
+      weeks[wk].push({key:k, ...d});
+    }
+  });
+
+  let html = '';
+  ['1주차','2주차','3주차','4주차'].forEach(wk => {
+    if (!weeks[wk] || !weeks[wk].length) return;
+    html += `<div class="sec-title">${wk}</div>`;
+    weeks[wk].forEach(day => {
+      const dt = new Date(day.key + 'T00:00:00');
+      const dayNames = ['일','월','화','수','목','금','토'];
+      const isToday = day.key === currentDateKey;
+      const done = loadDone(day.key).length;
+      const total = day.tasks.length;
+      html += `
+      <div style="background:${isToday?'var(--dark)':'var(--card)'}; border-radius:12px; padding:13px 16px; margin-bottom:7px; border:1px solid ${isToday?'var(--coral)':'var(--border)'}; display:flex; align-items:center; gap:12px; cursor:pointer;" onclick="jumpToDate('${day.key}')">
+        <div style="width:38px; height:38px; border-radius:10px; background:${isToday?'var(--coral)':'var(--border)'}; display:flex; flex-direction:column; align-items:center; justify-content:center; flex-shrink:0;">
+          <div style="font-size:9px; color:${isToday?'rgba(255,255,255,0.7)':'var(--light)'}; font-weight:700;">${dayNames[dt.getDay()]}</div>
+          <div style="font-size:16px; font-weight:900; color:${isToday?'white':'var(--dark)'}; line-height:1;">${dt.getDate()}</div>
+        </div>
+        <div style="flex:1;">
+          <div style="font-size:13px; font-weight:700; color:${isToday?'white':'var(--dark)'};">${day.theme}</div>
+          <div style="font-size:11px; color:${isToday?'rgba(255,255,255,0.5)':'var(--light)'}; margin-top:2px;">${day.hook}</div>
+        </div>
+        <div style="font-size:11px; color:${done===total&&total>0?'var(--coral)':'var(--light)'}; font-weight:700; flex-shrink:0;">${done}/${total}</div>
+      </div>`;
+    });
+  });
+  el.innerHTML = html;
+}
+
+function jumpToDate(key) {
+  currentDateKey = key;
+  doneSet = new Set(loadDone(key));
+  renderToday();
+  renderCalendar();
+  showView('today', document.querySelector('.nav-btn'));
+}
+
+// ── NAVIGATION ────────────────────────────────────────
+function showView(id, btn) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('view-'+id).classList.add('active');
+  btn.classList.add('active');
+  if (id === 'calendar') renderCalendar();
+}
+
+function togglePrompt(top) {
+  const body = top.nextElementSibling;
+  const arrow = top.querySelector('.pc-arrow');
+  const open = body.classList.contains('open');
+  document.querySelectorAll('.pc-body').forEach(b => b.classList.remove('open'));
+  document.querySelectorAll('.pc-arrow').forEach(a => a.classList.remove('open'));
+  if (!open) { body.classList.add('open'); arrow.classList.add('open'); }
+}
+
+function copyP(id, btn) {
+  const text = document.getElementById(id).textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = '✅ 복사 완료!';
+    btn.classList.add('done-copy');
+    setTimeout(() => {
+      btn.textContent = '📋 복사하고 ChatGPT에 붙여넣기';
+      btn.classList.remove('done-copy');
+    }, 2000);
+  }).catch(() => {
+    const r = document.createRange();
+    r.selectNode(document.getElementById(id));
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(r);
+    document.execCommand('copy');
+    window.getSelection().removeAllRanges();
+    btn.textContent = '✅ 복사 완료!';
+    setTimeout(() => { btn.textContent = '📋 복사하고 ChatGPT에 붙여넣기'; }, 2000);
+  });
+}
+
+// ── INIT ─────────────────────────────────────────────
+renderToday();
+</script>
+</body>
+</html>
