@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📚 발달 계획표 — 라미 허브</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F7F5F0;--card:#fff;--border:rgba(0,0,0,0.08);--text:#1A1A1A;--muted:#888;--sub:#555;--pink:#C2587A;--pink-l:#FCEEF4;--pink-b:#F0A0BF;--radius:16px;--radius-sm:10px;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:24px 16px 60px;}
+.container{max-width:480px;margin:0 auto;}
+.back-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);text-decoration:none;margin-bottom:20px;}
+.page-brand{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--pink);margin-bottom:4px;}
+.page-title{font-size:22px;font-weight:700;margin-bottom:6px;}
+.page-sub{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:20px;}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:12px;}
+.card-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;}
+
+/* 영역 탭 */
+.area-tabs{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:12px;}
+.area-tab{padding:6px 12px;font-size:11px;font-family:'Noto Sans KR',sans-serif;font-weight:500;border:1px solid var(--border);border-radius:20px;cursor:pointer;background:var(--card);color:var(--muted);transition:all .2s;}
+.area-tab.active{background:var(--pink);color:#fff;border-color:var(--pink);}
+
+.area-pane{display:none;}
+.area-pane.active{display:block;}
+
+/* 마일스톤 */
+.milestone-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);cursor:pointer;}
+.milestone-item:last-child{border-bottom:none;}
+.m-cb{width:20px;height:20px;border-radius:50%;border:2px solid #CCC;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;color:transparent;transition:all .15s;margin-top:1px;}
+.m-cb.done{background:var(--pink);border-color:var(--pink);color:#fff;}
+.m-body{flex:1;}
+.m-text{font-size:13px;color:var(--text);line-height:1.5;}
+.m-text.done{text-decoration:line-through;color:#BBB;}
+.m-age{font-size:10px;color:var(--muted);margin-top:2px;}
+
+/* 성장 메모 */
+.growth-input{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;font-size:13px;font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);outline:none;resize:none;line-height:1.6;margin-bottom:8px;}
+.growth-input:focus{border-color:var(--pink-b);}
+
+/* 진행률 */
+.prog-section{margin-bottom:10px;}
+.prog-row{display:flex;justify-content:space-between;font-size:11px;color:var(--sub);margin-bottom:4px;}
+.prog-track{height:6px;background:var(--border);border-radius:3px;overflow:hidden;}
+.prog-fill{height:100%;background:var(--pink);border-radius:3px;transition:width .4s;}
+
+.save-btn{width:100%;padding:12px;background:var(--pink);color:#fff;border:none;border-radius:var(--radius-sm);font-size:13px;font-weight:500;font-family:'Noto Sans KR',sans-serif;cursor:pointer;}
+</style>
+</head>
+<body>
+<div class="container">
+  <a href="./index.html" class="back-btn">← 라미 허브</a>
+  <div class="page-brand">🏠 라이프 & 육아</div>
+  <div class="page-title">발달 계획표</div>
+  <div class="page-sub">K-DST 기반 6영역 발달 마일스톤 체크</div>
+
+  <!-- 전체 진행률 -->
+  <div class="card">
+    <div class="card-label">📊 6영역 전체 달성률</div>
+    <div id="all-progress"></div>
+  </div>
+
+  <!-- 영역 탭 -->
+  <div class="area-tabs" id="areaTabs"></div>
+
+  <!-- 영역별 마일스톤 -->
+  <div class="card">
+    <div id="area-content"></div>
+  </div>
+
+  <!-- 성장 일지 -->
+  <div class="card">
+    <div class="card-label">📝 오늘 성장 일지</div>
+    <textarea class="growth-input" id="growth-memo" rows="4" placeholder="오늘 새로 한 것, 특별한 순간, 재밌었던 것..."></textarea>
+    <button class="save-btn" onclick="saveGrowth()">💾 오늘 기록 저장</button>
+  </div>
+
+  <!-- 성장 기록 -->
+  <div class="card">
+    <div class="card-label">📅 성장 기록</div>
+    <div id="growth-history"></div>
+  </div>
+</div>
+<script>
+var AREAS = [
+  {name:'대근육', icon:'🏃', items:[
+    {t:'혼자 계단 오르내리기', age:'24~36개월'},
+    {t:'두 발 모아 제자리 뛰기', age:'24~30개월'},
+    {t:'세발자전거 페달 밟기', age:'30~36개월'},
+    {t:'한 발로 2초 이상 서기', age:'36개월+'},
+  ]},
+  {name:'소근육', icon:'✋', items:[
+    {t:'크레파스로 선 그리기', age:'24~30개월'},
+    {t:'블록 6개 이상 쌓기', age:'24~30개월'},
+    {t:'원 모양 그리기', age:'30~36개월'},
+    {t:'가위로 종이 자르기', age:'36개월+'},
+  ]},
+  {name:'언어', icon:'💬', items:[
+    {t:'두 단어 조합 말하기', age:'18~24개월'},
+    {t:'자기 이름 말하기', age:'24개월'},
+    {t:'세 단어 문장 사용', age:'24~30개월'},
+    {t:'간단한 노래 따라 부르기', age:'30~36개월'},
+  ]},
+  {name:'인지', icon:'🧠', items:[
+    {t:'색깔 2가지 이상 구별', age:'24~30개월'},
+    {t:'큰것/작은것 구별', age:'24~30개월'},
+    {t:'1~5까지 수 세기', age:'30~36개월'},
+    {t:'퍼즐 4조각 맞추기', age:'30~36개월'},
+  ]},
+  {name:'사회정서', icon:'💕', items:[
+    {t:'또래와 나란히 놀기', age:'24~30개월'},
+    {t:'"내꺼" 개념 이해', age:'24개월'},
+    {t:'차례 지키기 시도', age:'30~36개월'},
+    {t:'간단한 역할놀이', age:'30~36개월'},
+  ]},
+  {name:'자조', icon:'🌟', items:[
+    {t:'숟가락으로 혼자 먹기', age:'18~24개월'},
+    {t:'혼자 신발 벗기', age:'24~30개월'},
+    {t:'손 씻기 도움 받아 하기', age:'24~30개월'},
+    {t:'혼자 옷 입기 시도', age:'30~36개월'},
+  ]},
+];
+
+var curArea = 0;
+var done = JSON.parse(localStorage.getItem('dev_done')||'{}');
+
+function renderTabs(){
+  var el = document.getElementById('areaTabs');
+  el.innerHTML = AREAS.map((a,i)=>`<button class="area-tab${i===curArea?' active':''}" onclick="switchArea(${i})">${a.icon} ${a.name}</button>`).join('');
+}
+
+function switchArea(i){ curArea=i; renderTabs(); renderArea(); }
+
+function renderArea(){
+  var a = AREAS[curArea];
+  var key = 'area_'+curArea;
+  var el = document.getElementById('area-content');
+  el.innerHTML = `<div style="font-size:12px;font-weight:700;color:var(--sub);margin-bottom:12px;">${a.icon} ${a.name} 영역</div>`+
+    a.items.map((item,i)=>{
+      var gkey = key+'_'+i;
+      var isDone = !!done[gkey];
+      return `<div class="milestone-item" onclick="toggleMilestone('${gkey}')">
+        <div class="m-cb${isDone?' done':''}">${isDone?'✓':''}</div>
+        <div class="m-body">
+          <div class="m-text${isDone?' done':''}">${item.t}</div>
+          <div class="m-age">${item.age}</div>
+        </div>
+      </div>`;
+    }).join('');
+}
+
+function toggleMilestone(key){
+  done[key] = !done[key];
+  localStorage.setItem('dev_done', JSON.stringify(done));
+  renderArea();
+  renderAllProgress();
+}
+
+function renderAllProgress(){
+  var el = document.getElementById('all-progress');
+  el.innerHTML = AREAS.map((a,i)=>{
+    var total = a.items.length;
+    var cnt = a.items.filter((_,j)=>done['area_'+i+'_'+j]).length;
+    var pct = Math.round(cnt/total*100);
+    return `<div class="prog-section">
+      <div class="prog-row"><span>${a.icon} ${a.name}</span><span style="color:var(--pink);font-weight:500;">${cnt}/${total}</span></div>
+      <div class="prog-track"><div class="prog-fill" style="width:${pct}%"></div></div>
+    </div>`;
+  }).join('');
+}
+
+function saveGrowth(){
+  var records = JSON.parse(localStorage.getItem('growth_records')||'[]');
+  var memo = document.getElementById('growth-memo').value.trim();
+  if(!memo){ alert('내용을 입력해주세요!'); return; }
+  var now = new Date();
+  records.unshift({ date: now.toLocaleDateString('ko-KR'), memo });
+  if(records.length>30) records=records.slice(0,30);
+  localStorage.setItem('growth_records', JSON.stringify(records));
+  document.getElementById('growth-memo').value='';
+  renderHistory(records);
+  alert('저장됐어요! 🌸');
+}
+
+function renderHistory(records){
+  var el = document.getElementById('growth-history');
+  if(!records.length){ el.innerHTML='<div style="text-align:center;padding:16px;color:var(--muted);font-size:13px;">아직 기록이 없어요.</div>'; return; }
+  el.innerHTML = records.map(r=>`
+    <div style="padding:10px 0;border-bottom:1px solid var(--border);">
+      <div style="font-size:10px;color:var(--pink);font-weight:700;margin-bottom:4px;">${r.date}</div>
+      <div style="font-size:12px;color:var(--sub);line-height:1.6;">${r.memo}</div>
+    </div>`).join('');
+}
+
+renderTabs();
+renderArea();
+renderAllProgress();
+renderHistory(JSON.parse(localStorage.getItem('growth_records')||'[]'));
+</script>
+</body>
+</html>

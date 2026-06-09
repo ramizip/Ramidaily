@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📅 월간 리뷰 — 라미 허브</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F7F5F0;--card:#fff;--border:rgba(0,0,0,0.08);--text:#1A1A1A;--muted:#888;--sub:#555;--amber:#BA7517;--amber-l:#FEF3DC;--amber-b:#EF9F27;--studio:#534AB7;--studio-l:#EEEDFE;--studio-b:#AFA9EC;--grow:#0EA87A;--grow-l:#E0F5EC;--grow-b:#5DCAA5;--radius:16px;--radius-sm:10px;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:24px 16px 60px;}
+.container{max-width:480px;margin:0 auto;}
+.back-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);text-decoration:none;margin-bottom:20px;}
+.page-brand{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);margin-bottom:4px;}
+.page-title{font-size:22px;font-weight:700;margin-bottom:6px;}
+.page-sub{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:20px;}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:12px;}
+.card-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;}
+
+.month-badge{display:inline-flex;align-items:center;gap:6px;background:var(--amber-l);border:1px solid var(--amber-b);border-radius:20px;padding:5px 14px;font-size:12px;font-weight:700;color:var(--amber);margin-bottom:16px;}
+
+/* 수입 요약 */
+.income-hero{background:var(--amber-l);border:1px solid var(--amber-b);border-radius:var(--radius-sm);padding:16px;margin-bottom:12px;text-align:center;}
+.income-label{font-size:11px;color:var(--amber);font-weight:500;margin-bottom:4px;}
+.income-amount{font-family:'DM Mono',monospace;font-size:32px;font-weight:500;color:var(--amber);}
+.income-target{font-size:12px;color:#7A5C00;margin-top:4px;}
+.prog-wrap{margin:12px 0 0;}
+.prog-row{display:flex;justify-content:space-between;font-size:12px;color:var(--sub);margin-bottom:5px;}
+.prog-track{height:8px;background:var(--border);border-radius:4px;overflow:hidden;}
+.prog-fill{height:100%;background:var(--amber);border-radius:4px;transition:width .5s;}
+
+.input-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);}
+.input-row:last-child{border-bottom:none;}
+.input-label{font-size:13px;color:var(--text);flex:1;}
+.input-sub{font-size:11px;color:var(--muted);margin-top:2px;}
+.num-input{width:100px;padding:7px 10px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;font-family:'DM Mono',monospace;text-align:right;background:var(--bg);color:var(--text);outline:none;}
+.num-input:focus{border-color:var(--amber-b);}
+
+/* 항목별 수입 */
+.income-breakdown{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px;}
+.ib-item{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px;text-align:center;}
+.ib-num{font-family:'DM Mono',monospace;font-size:15px;font-weight:500;color:var(--text);}
+.ib-desc{font-size:10px;color:var(--muted);margin-top:2px;}
+
+.reflect-label{font-size:12px;font-weight:500;color:var(--sub);margin-bottom:6px;}
+.reflect-input{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;font-size:13px;font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);outline:none;resize:none;line-height:1.6;margin-bottom:10px;}
+.reflect-input:focus{border-color:var(--amber-b);}
+
+.plan-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);}
+.plan-item:last-child{border-bottom:none;}
+.plan-num{width:22px;height:22px;border-radius:50%;background:var(--amber);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.plan-input{flex:1;padding:6px 10px;border:1.5px solid var(--border);border-radius:8px;font-size:12px;font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);outline:none;}
+.plan-input:focus{border-color:var(--amber-b);}
+
+/* Phase 체크 */
+.phase-check{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);}
+.phase-check:last-child{border-bottom:none;}
+.phase-name{font-size:13px;color:var(--sub);}
+.phase-status{font-size:11px;padding:3px 10px;border-radius:20px;font-weight:700;}
+.status-on{background:var(--studio-l);color:var(--studio);border:1px solid var(--studio-b);}
+.status-ok{background:var(--grow-l);color:var(--grow);border:1px solid var(--grow-b);}
+.status-no{background:var(--bg);color:var(--muted);border:1px solid var(--border);}
+
+.save-btn{width:100%;padding:12px;background:var(--amber);color:#fff;border:none;border-radius:var(--radius-sm);font-size:13px;font-weight:500;font-family:'Noto Sans KR',sans-serif;cursor:pointer;margin-top:4px;}
+.history-item{padding:12px;background:var(--bg);border-radius:var(--radius-sm);margin-bottom:8px;border:1px solid var(--border);}
+.history-month{font-size:11px;font-weight:700;color:var(--amber);margin-bottom:6px;}
+.history-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;}
+.h-stat{text-align:center;background:var(--card);border-radius:6px;padding:6px;border:1px solid var(--border);}
+.h-num{font-family:'DM Mono',monospace;font-size:13px;font-weight:500;}
+.h-desc{font-size:9px;color:var(--muted);margin-top:1px;}
+</style>
+</head>
+<body>
+<div class="container">
+  <a href="./index.html" class="back-btn">← 라미 허브</a>
+  <div class="page-brand">📅 월간 리뷰</div>
+  <div class="page-title">이번 달 돌아보기</div>
+  <div class="page-sub">매달 말일 · 수입·성장·다음 달 계획</div>
+
+  <div class="month-badge" id="monthBadge">📅 로딩 중...</div>
+
+  <!-- 수입 현황 -->
+  <div class="income-hero">
+    <div class="income-label" id="month-label">이번 달 총 수입</div>
+    <div class="income-amount">￦<span id="total-income">0</span></div>
+    <div class="income-target">Phase 1 목표: 1,500,000원</div>
+    <div class="prog-wrap">
+      <div class="prog-row"><span>목표 달성률</span><span id="prog-pct" style="font-weight:700;color:var(--amber);">0%</span></div>
+      <div class="prog-track"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+    </div>
+  </div>
+
+  <!-- 수입 입력 -->
+  <div class="card">
+    <div class="card-label">💰 이달 수입 입력</div>
+    <div class="input-row">
+      <div><div class="input-label">크몽 수주 수입</div><div class="input-sub">수수료 제외 실수령</div></div>
+      <input class="num-input" type="number" id="i-order" placeholder="0" oninput="calcTotal()">
+    </div>
+    <div class="input-row">
+      <div><div class="input-label">콘텐츠·기타 수입</div><div class="input-sub">애드포스트·템플릿 등</div></div>
+      <input class="num-input" type="number" id="i-etc" placeholder="0" oninput="calcTotal()">
+    </div>
+    <div class="income-breakdown">
+      <div class="ib-item"><div class="ib-num" id="ib-order">0</div><div class="ib-desc">수주</div></div>
+      <div class="ib-item"><div class="ib-num" id="ib-etc">0</div><div class="ib-desc">기타</div></div>
+      <div class="ib-item"><div class="ib-num" id="ib-total" style="color:var(--amber);">0</div><div class="ib-desc">합계(만원)</div></div>
+    </div>
+  </div>
+
+  <!-- 이달 수치 -->
+  <div class="card">
+    <div class="card-label">📊 이달 수치</div>
+    <div class="input-row">
+      <div><div class="input-label">수주 건수</div></div>
+      <input class="num-input" type="number" id="m-order" placeholder="0건">
+    </div>
+    <div class="input-row">
+      <div><div class="input-label">DM 발송 총계</div></div>
+      <input class="num-input" type="number" id="m-dm" placeholder="0건">
+    </div>
+    <div class="input-row">
+      <div><div class="input-label">포스팅 총계</div></div>
+      <input class="num-input" type="number" id="m-post" placeholder="0개">
+    </div>
+    <div class="input-row">
+      <div><div class="input-label">인스타 팔로워</div></div>
+      <input class="num-input" type="number" id="m-follower" placeholder="0명">
+    </div>
+  </div>
+
+  <!-- Phase 달성 체크 -->
+  <div class="card">
+    <div class="card-label">🗺️ Phase 1 조건 달성 여부</div>
+    <div class="phase-check"><span class="phase-name">월 수주 3건 이상</span><span class="phase-status" id="pc-order">확인 중</span></div>
+    <div class="phase-check"><span class="phase-name">월 수입 150만원 이상</span><span class="phase-status" id="pc-income">확인 중</span></div>
+    <div class="phase-check"><span class="phase-name">인스타 포스팅 주 3회</span><span class="phase-status" id="pc-post">확인 중</span></div>
+  </div>
+
+  <!-- 회고 -->
+  <div class="card">
+    <div class="card-label">💭 이달 회고</div>
+    <div class="reflect-label">✅ 이달 가장 잘 된 것</div>
+    <textarea class="reflect-input" id="r-good" rows="3" placeholder="이달 성과, 뿌듯했던 순간..."></textarea>
+    <div class="reflect-label">🔧 다음 달 개선할 것</div>
+    <textarea class="reflect-input" id="r-bad" rows="3" placeholder="아쉬웠던 것, 바꿔야 할 것..."></textarea>
+  </div>
+
+  <!-- 다음 달 계획 -->
+  <div class="card">
+    <div class="card-label">🎯 다음 달 TOP 3 목표</div>
+    <div class="plan-item"><div class="plan-num">1</div><input class="plan-input" type="text" id="p1" placeholder="가장 중요한 목표"></div>
+    <div class="plan-item"><div class="plan-num">2</div><input class="plan-input" type="text" id="p2" placeholder="두 번째 목표"></div>
+    <div class="plan-item"><div class="plan-num">3</div><input class="plan-input" type="text" id="p3" placeholder="세 번째 목표"></div>
+  </div>
+
+  <button class="save-btn" onclick="saveMonth()">💾 이달 기록 저장</button>
+
+  <div class="card" style="margin-top:12px;">
+    <div class="card-label">📅 월간 기록 히스토리</div>
+    <div id="history-list"><div style="text-align:center;padding:16px;color:var(--muted);font-size:13px;">아직 기록이 없어요.</div></div>
+  </div>
+</div>
+<script>
+var now = new Date();
+var monthStr = now.getFullYear()+'년 '+(now.getMonth()+1)+'월';
+document.getElementById('monthBadge').textContent = '📅 '+monthStr;
+document.getElementById('month-label').textContent = monthStr+' 총 수입';
+
+function calcTotal(){
+  var o = parseInt(document.getElementById('i-order').value)||0;
+  var e = parseInt(document.getElementById('i-etc').value)||0;
+  var t = o+e;
+  document.getElementById('total-income').textContent = t.toLocaleString();
+  document.getElementById('ib-order').textContent = Math.round(o/10000)+'만';
+  document.getElementById('ib-etc').textContent = Math.round(e/10000)+'만';
+  document.getElementById('ib-total').textContent = Math.round(t/10000)+'만';
+  var pct = Math.min(100,Math.round(t/1500000*100));
+  document.getElementById('prog-fill').style.width = pct+'%';
+  document.getElementById('prog-pct').textContent = pct+'%';
+  updatePhase(t);
+}
+
+function updatePhase(income){
+  var order = parseInt(document.getElementById('m-order').value)||0;
+  var post = parseInt(document.getElementById('m-post').value)||0;
+  var setStatus = (id,ok)=>{
+    var el = document.getElementById(id);
+    el.textContent = ok?'✅ 달성':'❌ 미달';
+    el.className = 'phase-status '+(ok?'status-ok':'status-no');
+  };
+  setStatus('pc-order', order>=3);
+  setStatus('pc-income', income>=1500000);
+  setStatus('pc-post', post>=12);
+}
+
+function saveMonth(){
+  var records = JSON.parse(localStorage.getItem('monthly_review')||'[]');
+  var o = parseInt(document.getElementById('i-order').value)||0;
+  var e = parseInt(document.getElementById('i-etc').value)||0;
+  records.unshift({
+    month: monthStr,
+    income: o+e,
+    order: document.getElementById('m-order').value||'0',
+    dm: document.getElementById('m-dm').value||'0',
+    post: document.getElementById('m-post').value||'0',
+    follower: document.getElementById('m-follower').value||'0',
+    good: document.getElementById('r-good').value,
+    bad: document.getElementById('r-bad').value,
+    plans: [document.getElementById('p1').value,document.getElementById('p2').value,document.getElementById('p3').value],
+  });
+  if(records.length>12) records=records.slice(0,12);
+  localStorage.setItem('monthly_review', JSON.stringify(records));
+  renderHistory(records);
+  alert('저장됐어요! 한 달 수고했어요 🌿');
+}
+
+function renderHistory(records){
+  var el = document.getElementById('history-list');
+  if(!records.length){el.innerHTML='<div style="text-align:center;padding:16px;color:var(--muted);font-size:13px;">아직 기록이 없어요.</div>';return;}
+  el.innerHTML = records.map(r=>`
+    <div class="history-item">
+      <div class="history-month">${r.month}</div>
+      <div class="history-stats">
+        <div class="h-stat"><div class="h-num" style="color:var(--amber);">${Math.round((r.income||0)/10000)}만</div><div class="h-desc">수입</div></div>
+        <div class="h-stat"><div class="h-num">${r.order}건</div><div class="h-desc">수주</div></div>
+        <div class="h-stat"><div class="h-num">${r.follower}명</div><div class="h-desc">팔로워</div></div>
+      </div>
+    </div>`).join('');
+}
+renderHistory(JSON.parse(localStorage.getItem('monthly_review')||'[]'));
+</script>
+</body>
+</html>

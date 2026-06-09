@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📋 주간 리뷰 — 라미 허브</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F7F5F0;--card:#fff;--border:rgba(0,0,0,0.08);--text:#1A1A1A;--muted:#888;--sub:#555;--sage:#5A9E72;--sage-l:#EBF7F0;--sage-b:#A8D8BA;--radius:16px;--radius-sm:10px;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:24px 16px 60px;}
+.container{max-width:480px;margin:0 auto;}
+.back-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);text-decoration:none;margin-bottom:20px;}
+.page-brand{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--sage);margin-bottom:4px;}
+.page-title{font-size:22px;font-weight:700;margin-bottom:6px;}
+.page-sub{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:20px;}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:12px;}
+.card-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;}
+.week-badge{display:inline-flex;align-items:center;gap:6px;background:var(--sage-l);border:1px solid var(--sage-b);border-radius:20px;padding:5px 14px;font-size:12px;font-weight:700;color:var(--sage);margin-bottom:16px;}
+
+/* 수치 입력 */
+.input-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);}
+.input-row:last-child{border-bottom:none;}
+.input-label{font-size:13px;color:var(--text);flex:1;}
+.input-sub{font-size:11px;color:var(--muted);margin-top:2px;}
+.num-input{width:90px;padding:7px 10px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;font-family:'DM Mono',monospace;text-align:right;background:var(--bg);color:var(--text);outline:none;}
+.num-input:focus{border-color:var(--sage-b);}
+
+/* 회고 텍스트 */
+.reflect-label{font-size:12px;font-weight:500;color:var(--sub);margin-bottom:6px;}
+.reflect-input{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;font-size:13px;font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);outline:none;resize:none;line-height:1.6;margin-bottom:10px;}
+.reflect-input:focus{border-color:var(--sage-b);}
+
+/* 별점 */
+.star-row{display:flex;align-items:center;gap:8px;margin-bottom:12px;}
+.star-label{font-size:12px;color:var(--sub);flex:1;}
+.stars{display:flex;gap:4px;}
+.star{font-size:22px;cursor:pointer;transition:transform .1s;filter:grayscale(1);opacity:.4;}
+.star.on{filter:none;opacity:1;}
+.star:hover{transform:scale(1.2);}
+
+/* 다음 주 계획 */
+.plan-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);}
+.plan-item:last-child{border-bottom:none;}
+.plan-num{width:22px;height:22px;border-radius:50%;background:var(--sage);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.plan-input{flex:1;padding:6px 10px;border:1.5px solid var(--border);border-radius:8px;font-size:12px;font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);outline:none;}
+.plan-input:focus{border-color:var(--sage-b);}
+
+.save-btn{width:100%;padding:12px;background:var(--sage);color:#fff;border:none;border-radius:var(--radius-sm);font-size:13px;font-weight:500;font-family:'Noto Sans KR',sans-serif;cursor:pointer;margin-top:4px;}
+.save-btn:hover{background:#4a8a62;}
+.caution{background:#FFFBF0;border:1px solid #F5D98A;border-radius:var(--radius-sm);padding:12px 14px;font-size:12px;color:#7A5C00;line-height:1.7;margin-top:8px;}
+
+/* 이전 기록 */
+.history-item{padding:12px;background:var(--bg);border-radius:var(--radius-sm);margin-bottom:8px;border:1px solid var(--border);}
+.history-week{font-size:11px;font-weight:700;color:var(--sage);margin-bottom:6px;}
+.history-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:6px;}
+.h-stat{text-align:center;background:var(--card);border-radius:6px;padding:6px;border:1px solid var(--border);}
+.h-num{font-family:'DM Mono',monospace;font-size:14px;font-weight:500;color:var(--text);}
+.h-desc{font-size:9px;color:var(--muted);margin-top:1px;}
+.history-memo{font-size:11px;color:var(--sub);line-height:1.6;}
+</style>
+</head>
+<body>
+<div class="container">
+  <a href="./index.html" class="back-btn">← 라미 허브</a>
+  <div class="page-brand">📋 주간 리뷰</div>
+  <div class="page-title">이번 주 돌아보기</div>
+  <div class="page-sub">매주 일요일 · 수주·SNS·목표 점검</div>
+
+  <div class="week-badge" id="weekBadge">📅 로딩 중...</div>
+
+  <!-- 이번 주 수치 -->
+  <div class="card">
+    <div class="card-label">📊 이번 주 수치</div>
+    <div class="input-row">
+      <div><div class="input-label">💰 수주 건수</div><div class="input-sub">이번 주 완료 건</div></div>
+      <input class="num-input" type="number" id="w-order" placeholder="0건">
+    </div>
+    <div class="input-row">
+      <div><div class="input-label">💬 DM 발송</div><div class="input-sub">아웃바운드 총 건수</div></div>
+      <input class="num-input" type="number" id="w-dm" placeholder="0건">
+    </div>
+    <div class="input-row">
+      <div><div class="input-label">📱 포스팅</div><div class="input-sub">인스타+스레드+블로그</div></div>
+      <input class="num-input" type="number" id="w-post" placeholder="0개">
+    </div>
+    <div class="input-row">
+      <div><div class="input-label">💵 이번 주 수입</div><div class="input-sub">실수령액</div></div>
+      <input class="num-input" type="number" id="w-income" placeholder="0">
+    </div>
+  </div>
+
+  <!-- 별점 -->
+  <div class="card">
+    <div class="card-label">⭐ 이번 주 자기 평가</div>
+    <div class="star-row">
+      <div class="star-label">수주·영업</div>
+      <div class="stars" id="stars-order">
+        <span class="star" onclick="setStar('order',1)">⭐</span>
+        <span class="star" onclick="setStar('order',2)">⭐</span>
+        <span class="star" onclick="setStar('order',3)">⭐</span>
+        <span class="star" onclick="setStar('order',4)">⭐</span>
+        <span class="star" onclick="setStar('order',5)">⭐</span>
+      </div>
+    </div>
+    <div class="star-row">
+      <div class="star-label">SNS·콘텐츠</div>
+      <div class="stars" id="stars-sns">
+        <span class="star" onclick="setStar('sns',1)">⭐</span>
+        <span class="star" onclick="setStar('sns',2)">⭐</span>
+        <span class="star" onclick="setStar('sns',3)">⭐</span>
+        <span class="star" onclick="setStar('sns',4)">⭐</span>
+        <span class="star" onclick="setStar('sns',5)">⭐</span>
+      </div>
+    </div>
+    <div class="star-row">
+      <div class="star-label">루틴·실행력</div>
+      <div class="stars" id="stars-routine">
+        <span class="star" onclick="setStar('routine',1)">⭐</span>
+        <span class="star" onclick="setStar('routine',2)">⭐</span>
+        <span class="star" onclick="setStar('routine',3)">⭐</span>
+        <span class="star" onclick="setStar('routine',4)">⭐</span>
+        <span class="star" onclick="setStar('routine',5)">⭐</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 회고 -->
+  <div class="card">
+    <div class="card-label">💭 이번 주 회고</div>
+    <div class="reflect-label">✅ 잘 된 것</div>
+    <textarea class="reflect-input" id="r-good" rows="3" placeholder="이번 주 잘 한 것, 뿌듯했던 것..."></textarea>
+    <div class="reflect-label">🔧 아쉬운 것</div>
+    <textarea class="reflect-input" id="r-bad" rows="3" placeholder="부족했던 것, 다음에 개선할 것..."></textarea>
+    <div class="reflect-label">💡 배운 것</div>
+    <textarea class="reflect-input" id="r-learn" rows="2" placeholder="이번 주 새로 알게 된 것..."></textarea>
+  </div>
+
+  <!-- 다음 주 계획 -->
+  <div class="card">
+    <div class="card-label">🎯 다음 주 TOP 3 목표</div>
+    <div class="plan-item"><div class="plan-num">1</div><input class="plan-input" type="text" id="p1" placeholder="가장 중요한 것"></div>
+    <div class="plan-item"><div class="plan-num">2</div><input class="plan-input" type="text" id="p2" placeholder="두 번째로 중요한 것"></div>
+    <div class="plan-item"><div class="plan-num">3</div><input class="plan-input" type="text" id="p3" placeholder="세 번째"></div>
+    <div class="caution" style="margin-top:12px;">⚠ 3개만! 많으면 다 못 해요. 딱 3개에 집중하기.</div>
+  </div>
+
+  <button class="save-btn" onclick="saveWeek()">💾 이번 주 기록 저장</button>
+
+  <!-- 이전 기록 -->
+  <div class="card" style="margin-top:12px;">
+    <div class="card-label">📅 이전 주간 기록</div>
+    <div id="history-list"><div style="text-align:center;padding:16px;color:var(--muted);font-size:13px;">아직 기록이 없어요.</div></div>
+  </div>
+</div>
+<script>
+var now = new Date();
+var weekNum = Math.ceil((now - new Date(now.getFullYear(),0,1))/(7*86400000));
+document.getElementById('weekBadge').textContent = '📅 '+now.getFullYear()+'년 '+weekNum+'주차';
+
+var stars = {order:0, sns:0, routine:0};
+function setStar(type, val){
+  stars[type] = val;
+  var els = document.getElementById('stars-'+type).querySelectorAll('.star');
+  els.forEach((s,i)=>{ s.classList.toggle('on', i<val); });
+}
+
+function saveWeek(){
+  var records = JSON.parse(localStorage.getItem('weekly_review')||'[]');
+  records.unshift({
+    week: now.getFullYear()+'년 '+weekNum+'주차',
+    order: document.getElementById('w-order').value||'0',
+    dm: document.getElementById('w-dm').value||'0',
+    post: document.getElementById('w-post').value||'0',
+    income: document.getElementById('w-income').value||'0',
+    stars: {...stars},
+    good: document.getElementById('r-good').value,
+    bad: document.getElementById('r-bad').value,
+    learn: document.getElementById('r-learn').value,
+    plans: [document.getElementById('p1').value, document.getElementById('p2').value, document.getElementById('p3').value],
+  });
+  if(records.length>8) records=records.slice(0,8);
+  localStorage.setItem('weekly_review', JSON.stringify(records));
+  renderHistory(records);
+  alert('저장됐어요! 수고했어요 🌿');
+}
+
+function renderHistory(records){
+  var el = document.getElementById('history-list');
+  if(!records.length){ el.innerHTML='<div style="text-align:center;padding:16px;color:var(--muted);font-size:13px;">아직 기록이 없어요.</div>'; return; }
+  el.innerHTML = records.map(r=>`
+    <div class="history-item">
+      <div class="history-week">${r.week}</div>
+      <div class="history-stats">
+        <div class="h-stat"><div class="h-num">${r.order}건</div><div class="h-desc">수주</div></div>
+        <div class="h-stat"><div class="h-num">${r.post}개</div><div class="h-desc">포스팅</div></div>
+        <div class="h-stat"><div class="h-num">${parseInt(r.income||0).toLocaleString()}</div><div class="h-desc">수입(원)</div></div>
+      </div>
+      ${r.good?`<div class="history-memo">✅ ${r.good}</div>`:''}
+    </div>`).join('');
+}
+renderHistory(JSON.parse(localStorage.getItem('weekly_review')||'[]'));
+</script>
+</body>
+</html>

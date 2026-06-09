@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🗺️ 미래 전략지도 — 라미 허브</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F7F5F0;--card:#fff;--border:rgba(0,0,0,0.08);--text:#1A1A1A;--muted:#888;--sub:#555;--radius:16px;--radius-sm:10px;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:24px 16px 60px;}
+.container{max-width:480px;margin:0 auto;}
+.back-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);text-decoration:none;margin-bottom:20px;}
+.page-brand{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#7F77DD;margin-bottom:4px;}
+.page-title{font-size:22px;font-weight:700;margin-bottom:6px;}
+.page-sub{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:20px;}
+
+/* 목표 요약 */
+.goal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:20px;}
+.goal-item{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px;text-align:center;}
+.goal-num{font-family:'DM Mono',monospace;font-size:18px;font-weight:500;color:var(--text);}
+.goal-desc{font-size:10px;color:var(--muted);margin-top:3px;line-height:1.4;}
+
+/* 현재 상황 */
+.now-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin-bottom:16px;}
+.now-header{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.now-dot{width:8px;height:8px;border-radius:50%;background:#E24B4A;animation:blink 1.4s ease-in-out infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.now-title{font-size:13px;font-weight:700;}
+.now-tags{display:flex;flex-wrap:wrap;gap:5px;}
+.now-tag{font-size:11px;padding:3px 9px;border-radius:20px;background:var(--bg);color:var(--sub);border:1px solid var(--border);}
+
+/* Phase 블록 */
+.timeline{display:flex;flex-direction:column;gap:0;}
+.phase-row{display:grid;grid-template-columns:60px 20px 1fr;gap:0 10px;align-items:stretch;min-height:80px;}
+.phase-label-col{display:flex;flex-direction:column;justify-content:flex-start;padding-top:14px;text-align:right;}
+.phase-date{font-size:10px;color:var(--muted);line-height:1.3;}
+.phase-name{font-size:11px;font-weight:500;color:var(--sub);margin-top:2px;}
+.spine-col{display:flex;flex-direction:column;align-items:center;}
+.dot{width:14px;height:14px;border-radius:50%;flex-shrink:0;margin-top:14px;border:2px solid var(--bg);}
+.line{width:2px;flex:1;margin-top:2px;}
+.dot-p{background:#7F77DD;} .line-p{background:#CECBF6;}
+.dot-t{background:#1D9E75;} .line-t{background:#9FE1CB;}
+.dot-c{background:#D85A30;} .line-c{background:#F5C4B3;}
+.dot-a{background:#BA7517;} .line-none{background:transparent;}
+.phase-card{border-radius:var(--radius-sm);padding:12px 14px;margin-bottom:10px;border:0.5px solid;cursor:pointer;transition:opacity .15s;}
+.phase-card:hover{opacity:.88;}
+.phase-card.p{background:#EEEDFE;border-color:#AFA9EC;}
+.phase-card.t{background:#E1F5EE;border-color:#5DCAA5;}
+.phase-card.c{background:#FAECE7;border-color:#F0997B;}
+.phase-card.a{background:#FAEEDA;border-color:#EF9F27;}
+.phase-title{font-size:13px;font-weight:700;margin-bottom:5px;}
+.phase-title.p{color:#3C3489;} .phase-title.t{color:#085041;} .phase-title.c{color:#712B13;} .phase-title.a{color:#633806;}
+.tasks{display:flex;flex-wrap:wrap;gap:4px;}
+.task-tag{font-size:10px;padding:2px 7px;border-radius:20px;font-weight:500;}
+.task-tag.p{background:#AFA9EC;color:#26215C;} .task-tag.t{background:#5DCAA5;color:#04342C;}
+.task-tag.c{background:#F0997B;color:#4A1B0C;} .task-tag.a{background:#EF9F27;color:#412402;}
+.income-row{display:flex;align-items:center;gap:6px;margin-top:8px;}
+.income-badge{font-size:10px;padding:2px 7px;border-radius:20px;background:var(--card);color:var(--sub);border:0.5px solid var(--border);}
+.income-target{font-size:12px;font-weight:700;}
+.income-target.p{color:#534AB7;} .income-target.t{color:#0F6E56;} .income-target.c{color:#993C1D;} .income-target.a{color:#854F0B;}
+
+/* 역산 박스 */
+.reverse-box{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-top:16px;}
+.reverse-title{font-size:12px;font-weight:700;color:var(--sub);margin-bottom:12px;}
+.reverse-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px;}
+.reverse-item:last-child{border-bottom:none;}
+.reverse-label{color:var(--sub);}
+.reverse-val{font-family:'DM Mono',monospace;font-weight:700;color:var(--text);}
+</style>
+</head>
+<body>
+<div class="container">
+  <a href="./index.html" class="back-btn">← 라미 허브</a>
+  <div class="page-brand">🗺️ 미래 전략지도</div>
+  <div class="page-title">2026~2028 로드맵</div>
+  <div class="page-sub">서울 30평 이사까지의 단계별 실행 계획</div>
+
+  <!-- 목표 요약 -->
+  <div class="goal-grid">
+    <div class="goal-item"><div class="goal-num">3~5억</div><div class="goal-desc">아파트<br>자기자본</div></div>
+    <div class="goal-item"><div class="goal-num">+100만</div><div class="goal-desc">월 순저축<br>목표</div></div>
+    <div class="goal-item"><div class="goal-num">24개월</div><div class="goal-desc">수입 안정화<br>기한</div></div>
+  </div>
+
+  <!-- 현재 상황 -->
+  <div class="now-card">
+    <div class="now-header">
+      <div class="now-dot"></div>
+      <div class="now-title">2026년 6월 — 지금 여기</div>
+    </div>
+    <div class="now-tags">
+      <span class="now-tag">월수입 0원</span>
+      <span class="now-tag">방화12단지 20평</span>
+      <span class="now-tag">부채 2억6,900만원</span>
+      <span class="now-tag">크몽 리뷰 32개 5.0점</span>
+      <span class="now-tag">11년 디자인 경력</span>
+      <span class="now-tag">AI 활용 능력</span>
+    </div>
+  </div>
+
+  <!-- 타임라인 -->
+  <div class="timeline">
+    <div class="phase-row">
+      <div class="phase-label-col"><div class="phase-date">7월~<br>12월</div><div class="phase-name">Phase 1</div></div>
+      <div class="spine-col"><div class="dot dot-p"></div><div class="line line-p"></div></div>
+      <div>
+        <div class="phase-card p">
+          <div class="phase-title p">수입 파이프 뚫기</div>
+          <div class="tasks">
+            <span class="task-tag p">크몽 프로필 완성</span>
+            <span class="task-tag p">수주 3건/월</span>
+            <span class="task-tag p">SNS 루틴 시작</span>
+            <span class="task-tag p">리뷰 10개</span>
+          </div>
+          <div class="income-row"><span class="income-badge">목표</span><span class="income-target p">월 150~200만원</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="phase-row">
+      <div class="phase-label-col"><div class="phase-date">2027년<br>1~6월</div><div class="phase-name">Phase 2</div></div>
+      <div class="spine-col"><div class="dot dot-t"></div><div class="line line-t"></div></div>
+      <div>
+        <div class="phase-card t">
+          <div class="phase-title t">수입 구조 다변화</div>
+          <div class="tasks">
+            <span class="task-tag t">디지털 템플릿 출시</span>
+            <span class="task-tag t">팔로워 1,000명</span>
+            <span class="task-tag t">단가 50만원</span>
+          </div>
+          <div class="income-row"><span class="income-badge">목표</span><span class="income-target t">월 300~400만원</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="phase-row">
+      <div class="phase-label-col"><div class="phase-date">2027년<br>7~12월</div><div class="phase-name">Phase 3</div></div>
+      <div class="spine-col"><div class="dot dot-c"></div><div class="line line-c"></div></div>
+      <div>
+        <div class="phase-card c">
+          <div class="phase-title c">구조화 & 에이전시</div>
+          <div class="tasks">
+            <span class="task-tag c">외주 디자이너 1명</span>
+            <span class="task-tag c">유료 강의 런칭</span>
+            <span class="task-tag c">월 저축 100만+</span>
+            <span class="task-tag c">아파트 매각 검토</span>
+          </div>
+          <div class="income-row"><span class="income-badge">목표</span><span class="income-target c">월 500만원+</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="phase-row">
+      <div class="phase-label-col"><div class="phase-date">2028년~</div><div class="phase-name">Phase 4</div></div>
+      <div class="spine-col"><div class="dot dot-a"></div><div class="line line-none"></div></div>
+      <div>
+        <div class="phase-card a">
+          <div class="phase-title a">자산 전환 & 이사</div>
+          <div class="tasks">
+            <span class="task-tag a">서울 30평 이사</span>
+            <span class="task-tag a">에이전시 운영</span>
+            <span class="task-tag a">패시브 인컴 완성</span>
+          </div>
+          <div class="income-row"><span class="income-badge">목표</span><span class="income-target a">월 700만+ / 자기자본 3~5억</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 역산 -->
+  <div class="reverse-box">
+    <div class="reverse-title">📌 2028년 아파트 역산</div>
+    <div class="reverse-item"><span class="reverse-label">서울 30평 타겟 가격</span><span class="reverse-val">5~9억</span></div>
+    <div class="reverse-item"><span class="reverse-label">필요 자기자본</span><span class="reverse-val">3~5억</span></div>
+    <div class="reverse-item"><span class="reverse-label">현 아파트 매각 예상</span><span class="reverse-val">갭투자 활용</span></div>
+    <div class="reverse-item"><span class="reverse-label">월 100만 × 24개월</span><span class="reverse-val">2,400만원</span></div>
+    <div class="reverse-item"><span class="reverse-label">Phase 2 진입 조건</span><span class="reverse-val">수주 3건/월 이상</span></div>
+    <div class="reverse-item"><span class="reverse-label">이사 실행 조건</span><span class="reverse-val">월수입 6개월 안정</span></div>
+  </div>
+</div>
+</body>
+</html>

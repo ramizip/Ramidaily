@@ -11,20 +11,20 @@
   --bg:#F6F4EF;--card:#fff;--border:#EBEBEB;
   --text:#4A3728;--sub:#7A6858;--muted:#B0A090;
   --clay:#D4724A;--clay-l:#FEF0EA;--clay-b:#F0C4A8;
-  --sage:#5A9E72;--sage-l:#EBF7F0;--sage-b:#A8D8BA;
-  --purple:#7E6BBE;--purple-l:#F0EDFB;--purple-b:#C4BAF5;
   --grow:#1D9E75;--grow-l:#E1F5EE;--grow-b:#5DCAA5;
   --studio:#534AB7;--studio-l:#EEEDFE;--studio-b:#AFA9EC;
+  --sage:#5A9E72;--sage-l:#EBF7F0;--sage-b:#A8D8BA;
+  --amber:#BA7517;--amber-l:#FEF3DC;--amber-b:#EF9F27;
+  --coral:#D85A30;--coral-l:#FAECE7;--coral-b:#F0997B;
+  --pink:#C2587A;--pink-l:#FCEEF4;--pink-b:#F0A0BF;
 }
 body{
   background:var(--bg);
   font-family:'Noto Sans KR',sans-serif;
   color:var(--text);
   min-height:100vh;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  padding:28px 20px 60px;
+  display:flex;flex-direction:column;align-items:center;
+  padding:28px 20px 80px;
 }
 .hub{width:100%;max-width:420px;}
 
@@ -34,110 +34,172 @@ body{
 .hub-date{font-size:13px;color:var(--muted);margin-bottom:4px;}
 .hub-msg{font-size:13px;color:var(--sub);line-height:1.6;}
 
-/* Phase 현황 */
-.phase-box{
-  background:var(--clay-l);border:1px solid var(--clay-b);
-  border-radius:14px;padding:14px 16px;margin-bottom:10px;
-}
+/* Phase 박스 */
+.phase-box{background:var(--clay-l);border:1px solid var(--clay-b);border-radius:14px;padding:14px 16px;margin-bottom:10px;}
 .phase-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;}
 .phase-label{font-size:12px;color:var(--sub);}
 .phase-val{font-size:13px;font-weight:700;color:var(--clay);}
 .phase-sub{font-size:11px;color:var(--muted);margin-top:8px;}
 
 /* 목표 칩 */
-.goal-strip{display:flex;gap:8px;margin-bottom:22px;}
+.goal-strip{display:flex;gap:8px;margin-bottom:24px;}
 .goal-chip{flex:1;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 6px;text-align:center;}
 .goal-num{font-size:14px;font-weight:700;color:var(--clay);}
 .goal-desc{font-size:10px;color:var(--muted);margin-top:2px;line-height:1.4;}
 
 /* 섹션 라벨 */
 .section-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 10px 2px;}
+.section-gap{margin-top:24px;}
 
-/* ★ 오늘 실행 섹션 */
-.today-section{
-  background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%);
-  border-radius:16px;padding:16px;margin-bottom:22px;
-}
+/* ⚡ 오늘 실행 */
+.today-section{background:linear-gradient(135deg,#1a1a2e,#16213e);border-radius:16px;padding:16px;margin-bottom:14px;}
 .today-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:10px;}
 .today-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
-.today-card{
-  border-radius:12px;padding:14px 14px 12px;text-decoration:none;
-  display:flex;flex-direction:column;gap:6px;
-  transition:opacity .15s;
-}
+.today-card{border-radius:12px;padding:14px;text-decoration:none;display:flex;flex-direction:column;gap:6px;transition:opacity .15s;}
 .today-card:hover{opacity:.88;}
 .today-card.grow-card{background:linear-gradient(135deg,#0EA87A,#0d8a63);}
 .today-card.studio-card{background:linear-gradient(135deg,#534AB7,#3C3489);}
 .today-icon{font-size:22px;}
 .today-title{font-size:14px;font-weight:700;color:#fff;line-height:1.3;}
 .today-desc{font-size:11px;color:rgba(255,255,255,.65);line-height:1.5;}
-.today-badge{
-  display:inline-flex;align-items:center;gap:4px;
-  font-size:10px;font-weight:700;color:#fff;
-  background:rgba(255,255,255,.2);
-  border-radius:20px;padding:3px 8px;margin-top:2px;
-  width:fit-content;
-}
-.pulse{width:6px;height:6px;border-radius:50%;background:#fff;animation:blink 1.2s ease-in-out infinite;}
+.today-badge{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;color:#fff;background:rgba(255,255,255,.2);border-radius:20px;padding:3px 8px;margin-top:2px;width:fit-content;}
+.pulse{width:6px;height:6px;border-radius:50%;background:#fff;animation:blink 1.2s ease-in-out infinite;flex-shrink:0;}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
 
-/* 카드 공통 */
-.hub-cards{display:flex;flex-direction:column;gap:10px;margin-bottom:22px;}
-.hub-card{
-  background:var(--card);border:1px solid var(--border);border-radius:16px;
-  padding:16px 18px;text-decoration:none;color:var(--text);
-  display:flex;align-items:flex-start;gap:14px;
-  transition:all .2s;box-shadow:0 2px 8px rgba(0,0,0,.04);
-}
-.hub-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.08);}
-.hub-icon{font-size:26px;flex-shrink:0;margin-top:2px;}
-.hub-info{flex:1;min-width:0;}
-.hub-title{font-size:15px;font-weight:700;margin-bottom:4px;}
-.hub-desc{font-size:12px;color:var(--muted);line-height:1.55;}
-.hub-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px;}
-.hub-tag{font-size:10px;padding:2px 8px;border-radius:20px;font-weight:500;border:1px solid;}
-.hub-arrow{font-size:18px;color:var(--muted);flex-shrink:0;align-self:center;}
-
-.card-daily{border-left:4px solid var(--clay);}
-.card-daily .hub-title{color:var(--clay);}
-.tag-clay{background:var(--clay-l);color:var(--clay);border-color:var(--clay-b);}
-.card-morning{border-left:4px solid var(--sage);}
-.card-morning .hub-title{color:var(--sage);}
-.tag-sage{background:var(--sage-l);color:var(--sage);border-color:var(--sage-b);}
-.card-content{border-left:4px solid var(--purple);}
-.card-content .hub-title{color:var(--purple);}
-.tag-purple{background:var(--purple-l);color:var(--purple);border-color:var(--purple-b);}
-.card-grow{border-left:4px solid var(--grow);}
-.card-grow .hub-title{color:var(--grow);}
-.tag-grow{background:var(--grow-l);color:var(--grow);border-color:var(--grow-b);}
-.card-studio{border-left:4px solid var(--studio);}
-.card-studio .hub-title{color:var(--studio);}
-.tag-studio{background:var(--studio-l);color:var(--studio);border-color:var(--studio-b);}
-
-/* 루틴 가이드 */
-.routine-box{
-  background:var(--card);border:1px solid var(--border);
-  border-radius:14px;padding:16px;margin-bottom:22px;
-}
-.routine-title{font-size:12px;font-weight:700;color:var(--sub);margin-bottom:12px;}
-.routine-step{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);}
-.routine-step:last-child{border-bottom:none;}
-.step-num{width:22px;height:22px;border-radius:50%;background:var(--clay);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
-.step-body{flex:1;}
-.step-title{font-size:13px;font-weight:500;color:var(--text);}
-.step-desc{font-size:11px;color:var(--muted);margin-top:2px;line-height:1.5;}
-.step-tag{display:inline-block;font-size:10px;padding:1px 7px;border-radius:20px;margin-top:4px;font-weight:500;}
+/* 📅 하루 루틴 */
+.routine-box{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 16px;margin-bottom:10px;}
+.routine-row{display:flex;align-items:flex-start;gap:10px;padding:7px 0;border-bottom:1px solid var(--border);}
+.routine-row:last-child{border-bottom:none;}
+.r-num{width:20px;height:20px;border-radius:50%;background:var(--clay);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.r-body{flex:1;}
+.r-title{font-size:12px;font-weight:500;color:var(--text);}
+.r-desc{font-size:11px;color:var(--muted);margin-top:2px;line-height:1.4;}
+.r-tag{display:inline-block;font-size:9px;padding:1px 7px;border-radius:20px;margin-top:3px;font-weight:700;}
 .tag-am{background:#FFF3E0;color:#E65100;border:1px solid #FFCC80;}
-.tag-pm{background:#E8F5E9;color:#2E7D32;border:1px solid #A5D6A7;}
-.tag-night{background:#EDE7F6;color:#4527A0;border:1px solid #B39DDB;}
-.tag-week{background:#E3F2FD;color:#1565C0;border:1px solid #90CAF9;}
+.tag-pm{background:var(--grow-l);color:var(--grow);border:1px solid var(--grow-b);}
+.tag-any{background:var(--studio-l);color:var(--studio);border:1px solid var(--studio-b);}
+.tag-fri{background:var(--amber-l);color:var(--amber);border:1px solid var(--amber-b);}
+
+/* ✅ 오늘 체크리스트 */
+.checklist-box{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 16px;margin-bottom:24px;}
+.checklist-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.checklist-title{font-size:12px;font-weight:700;color:var(--sub);}
+.reset-btn{font-size:10px;padding:3px 10px;border:1px solid var(--border);border-radius:20px;background:transparent;cursor:pointer;color:var(--muted);font-family:'Noto Sans KR',sans-serif;}
+.check-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);cursor:pointer;}
+.check-item:last-child{border-bottom:none;}
+.cb{width:20px;height:20px;border-radius:6px;border:1.5px solid #CCC;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+.cb.done{background:var(--clay);border-color:var(--clay);}
+.cb-check{display:none;width:11px;height:11px;stroke:#fff;stroke-width:2.5;fill:none;}
+.cb.done .cb-check{display:block;}
+.check-text{font-size:12px;color:var(--text);flex:1;transition:color .15s;}
+.check-text.done{text-decoration:line-through;color:#BBB;}
+.check-cat{font-size:9px;padding:2px 7px;border-radius:20px;font-weight:700;flex-shrink:0;}
+.cat-grow{background:var(--grow-l);color:var(--grow);border:1px solid var(--grow-b);}
+.cat-studio{background:var(--studio-l);color:var(--studio);border:1px solid var(--studio-b);}
+.cat-life{background:var(--pink-l);color:var(--pink);border:1px solid var(--pink-b);}
+.progress-bar{height:4px;background:var(--border);border-radius:2px;margin-top:10px;overflow:hidden;}
+.progress-fill{height:100%;background:var(--clay);border-radius:2px;transition:width .4s;}
+.progress-text{font-size:10px;color:var(--muted);margin-top:4px;text-align:right;}
+
+/* 💰 기록 */
+.record-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px;}
+.record-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;text-decoration:none;color:var(--text);transition:all .2s;display:flex;flex-direction:column;gap:6px;}
+.record-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.08);}
+.record-card.revenue{border-top:3px solid var(--studio);}
+.record-card.tracker{border-top:3px solid var(--grow);}
+.record-icon{font-size:22px;}
+.record-title{font-size:14px;font-weight:700;}
+.record-card.revenue .record-title{color:var(--studio);}
+.record-card.tracker .record-title{color:var(--grow);}
+.record-desc{font-size:11px;color:var(--muted);line-height:1.5;}
+.record-when{font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;width:fit-content;margin-top:2px;}
+.when-any{background:var(--studio-l);color:var(--studio);border:1px solid var(--studio-b);}
+.when-fri{background:var(--grow-l);color:var(--grow);border:1px solid var(--grow-b);}
+
+/* 주간/월간/전략 블록 */
+.review-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;}
+.review-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;text-decoration:none;color:var(--text);display:flex;flex-direction:column;gap:5px;transition:all .2s;}
+.review-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.08);}
+.review-card.weekly{border-top:3px solid var(--sage);}
+.review-card.monthly{border-top:3px solid var(--amber);}
+.review-icon{font-size:20px;}
+.review-title{font-size:13px;font-weight:700;}
+.review-card.weekly .review-title{color:var(--sage);}
+.review-card.monthly .review-title{color:var(--amber);}
+.review-desc{font-size:11px;color:var(--muted);line-height:1.5;}
+.review-when{font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;width:fit-content;}
+.when-sun{background:var(--sage-l);color:var(--sage);border:1px solid var(--sage-b);}
+.when-month{background:var(--amber-l);color:var(--amber);border:1px solid var(--amber-b);}
+
+.strategy-card{background:linear-gradient(135deg,#2D1B69,#1a1a3e);border-radius:14px;padding:16px;text-decoration:none;display:flex;align-items:center;gap:14px;margin-bottom:24px;transition:opacity .15s;}
+.strategy-card:hover{opacity:.88;}
+.strategy-icon{font-size:28px;flex-shrink:0;}
+.strategy-info{flex:1;}
+.strategy-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:4px;}
+.strategy-desc{font-size:11px;color:rgba(255,255,255,.6);line-height:1.5;}
+.strategy-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px;}
+.strategy-tag{font-size:10px;padding:2px 8px;border-radius:20px;background:rgba(255,255,255,.15);color:rgba(255,255,255,.8);font-weight:500;}
+.strategy-arrow{font-size:18px;color:rgba(255,255,255,.4);flex-shrink:0;}
+
+/* 🏠 라이프 & 육아 */
+.life-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:24px;}
+.life-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;text-decoration:none;color:var(--text);display:flex;flex-direction:column;gap:5px;transition:all .2s;}
+.life-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.08);}
+.life-card.food{border-top:3px solid var(--coral);}
+.life-card.dev{border-top:3px solid var(--pink);}
+.life-icon{font-size:20px;}
+.life-title{font-size:13px;font-weight:700;}
+.life-card.food .life-title{color:var(--coral);}
+.life-card.dev .life-title{color:var(--pink);}
+.life-desc{font-size:11px;color:var(--muted);line-height:1.5;}
+
+/* 📚 참고 자료 */
+.ref-toggle{width:100%;padding:13px 16px;background:var(--card);border:1px solid var(--border);border-radius:14px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;font-family:'Noto Sans KR',sans-serif;color:var(--text);margin-bottom:0;}
+.ref-toggle-left{display:flex;align-items:center;gap:10px;}
+.ref-toggle-title{font-size:14px;font-weight:700;color:var(--sub);}
+.ref-toggle-sub{font-size:11px;color:var(--muted);margin-top:2px;}
+.ref-arr{font-size:12px;color:var(--muted);transition:transform .25s;}
+.ref-arr.open{transform:rotate(180deg);}
+.ref-body{display:none;margin-top:8px;}
+.ref-body.open{display:block;}
+.ref-tabs{display:flex;gap:4px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:4px;margin-bottom:12px;}
+.ref-tab{flex:1;padding:7px 4px;font-size:11px;font-family:'Noto Sans KR',sans-serif;font-weight:500;border:none;border-radius:7px;cursor:pointer;background:transparent;color:var(--muted);transition:all .2s;}
+.ref-tab.active{background:var(--clay);color:#fff;}
+.ref-pane{display:none;}
+.ref-pane.active{display:block;}
+.content-block{background:var(--bg);border-radius:10px;padding:12px;margin-bottom:8px;}
+.content-block-title{font-size:11px;font-weight:700;color:var(--sub);margin-bottom:8px;}
+.hash-wrap{display:flex;flex-wrap:wrap;gap:4px;}
+.hash-tag{font-size:10px;padding:3px 9px;border-radius:20px;background:var(--grow-l);color:var(--grow);border:1px solid var(--grow-b);cursor:pointer;font-weight:500;}
+.hash-tag:active{background:var(--grow);color:#fff;}
+.week-plan{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;}
+.wday-name{font-size:9px;color:var(--muted);margin-bottom:3px;text-align:center;}
+.wday-task{font-size:9px;background:var(--grow-l);color:#085041;border-radius:6px;padding:4px 2px;line-height:1.4;min-height:34px;display:flex;align-items:center;justify-content:center;text-align:center;}
+.wday-task.off{background:var(--bg);color:var(--muted);}
+.tmpl-mini{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:10px 12px;margin-bottom:6px;font-size:11px;color:var(--sub);line-height:1.7;white-space:pre-wrap;}
+.tmpl-mini-label{font-size:10px;font-weight:700;color:var(--grow);margin-bottom:4px;}
+.copy-btn-sm{display:block;width:100%;margin-top:6px;padding:8px;background:var(--grow);border:none;border-radius:8px;color:#fff;font-size:11px;font-weight:700;font-family:'Noto Sans KR',sans-serif;cursor:pointer;}
+.copy-btn-sm.studio{background:var(--studio);}
+.pkg-row{display:flex;gap:8px;margin-bottom:8px;}
+.pkg{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:10px;text-align:center;}
+.pkg.main{background:var(--studio-l);border-color:var(--studio-b);}
+.pkg-name{font-size:10px;color:var(--muted);margin-bottom:3px;}
+.pkg-price{font-size:15px;font-weight:700;color:var(--studio);}
+.pkg-main-badge{font-size:9px;color:var(--studio);font-weight:700;margin-top:2px;}
+.port-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);}
+.port-item:last-child{border-bottom:none;}
+.port-rank{font-size:14px;font-weight:700;color:var(--studio-b);flex-shrink:0;width:22px;}
+.port-title{font-size:12px;font-weight:500;color:var(--text);}
+.port-tags{display:flex;flex-wrap:wrap;gap:3px;margin-top:3px;}
+.port-tag{font-size:9px;padding:1px 6px;border-radius:20px;background:var(--studio-l);color:var(--studio);border:1px solid var(--studio-b);}
+.caution-sm{background:#FFFBF0;border:1px solid #F5D98A;border-radius:8px;padding:10px 12px;font-size:11px;color:#7A5C00;line-height:1.6;margin-top:8px;}
+.stat-row{display:flex;flex-direction:column;gap:5px;}
+.stat-item{display:flex;justify-content:space-between;padding:7px 10px;background:var(--card);border-radius:8px;border:1px solid var(--border);font-size:12px;color:var(--sub);}
+.stat-item strong{color:var(--grow);}
+.dm-body{font-size:11px;color:var(--sub);line-height:1.9;background:var(--card);border-radius:8px;padding:10px;border:1px solid var(--border);white-space:pre-wrap;}
 
 /* 푸터 */
 .hub-footer{text-align:center;margin-top:8px;font-size:11px;color:var(--muted);}
-.fb-row{display:flex;gap:8px;justify-content:center;margin-bottom:8px;}
-.fb{font-size:11px;padding:3px 10px;border-radius:20px;border:1px solid;}
-.fb-grow{background:var(--grow-l);color:var(--grow);border-color:var(--grow-b);}
-.fb-studio{background:var(--studio-l);color:var(--studio);border-color:var(--studio-b);}
 </style>
 </head>
 <body>
@@ -170,9 +232,9 @@ body{
     <div class="goal-chip"><div class="goal-num">24개월</div><div class="goal-desc">수입 안정화<br>기한</div></div>
   </div>
 
-  <!-- ★ 오늘 실행 (브리핑) -->
+  <!-- ⚡ 오늘 실행 -->
+  <div class="section-label">⚡ 오늘 실행 — 매일 아침 여기서 시작</div>
   <div class="today-section">
-    <div class="today-label">⚡ 오늘 실행 — 매일 아침 여기서 시작</div>
     <div class="today-grid">
       <a class="today-card grow-card" href="./라미그로우-브리핑.html">
         <div class="today-icon">🌱</div>
@@ -189,211 +251,363 @@ body{
     </div>
   </div>
 
-  <!-- 매일 루틴 가이드 -->
+  <!-- 📅 하루 루틴 -->
+  <div class="section-label section-gap">📅 하루 루틴</div>
   <div class="routine-box">
-    <div class="routine-title">📅 수진씨 하루 루틴</div>
-    <div class="routine-step">
-      <div class="step-num">1</div>
-      <div class="step-body">
-        <div class="step-title">허브 열기 → 목표 확인</div>
-        <div class="step-desc">Phase / D-day / 3~5억 목표 눈에 새기기</div>
-        <span class="step-tag tag-am">🌅 기상 직후</span>
+    <div class="routine-row">
+      <div class="r-num">1</div>
+      <div class="r-body">
+        <div class="r-title">허브 열기 · Phase & 목표 확인</div>
+        <div class="r-desc">3~5억 · D-day 눈에 새기기</div>
+        <span class="r-tag tag-am">🌅 기상 직후</span>
       </div>
     </div>
-    <div class="routine-step">
-      <div class="step-num">2</div>
-      <div class="step-body">
-        <div class="step-title">그로우 브리핑 → SNS 오늘 할일 체크</div>
-        <div class="step-desc">포스팅 주제 확인 · 프롬프트 복사 · Claude로 초안 작성</div>
-        <span class="step-tag tag-am">🌅 오전</span>
+    <div class="routine-row">
+      <div class="r-num">2</div>
+      <div class="r-body">
+        <div class="r-title">그로우 브리핑 → SNS 포스팅</div>
+        <div class="r-desc">오늘 주제 확인 · 프롬프트 복사 · Claude로 초안 작성 · 업로드</div>
+        <span class="r-tag tag-am">🌅 오전</span>
       </div>
     </div>
-    <div class="routine-step">
-      <div class="step-num">3</div>
-      <div class="step-body">
-        <div class="step-title">스튜디오 브리핑 → 수주 할일 체크</div>
-        <div class="step-desc">DM 발송 · 크몽 문의 응대 · 작업 진행</div>
-        <span class="step-tag tag-pm">☀️ 오후</span>
+    <div class="routine-row">
+      <div class="r-num">3</div>
+      <div class="r-body">
+        <div class="r-title">스튜디오 브리핑 → DM 3건 발송</div>
+        <div class="r-desc">스크립트 복사 · 스마트스토어 셀러 타겟 · 크몽 문의 응대</div>
+        <span class="r-tag tag-pm">☀️ 오후</span>
       </div>
     </div>
-    <div class="routine-step">
-      <div class="step-num">4</div>
-      <div class="step-body">
-        <div class="step-title">수익 트래커 → 수주 완료 시 바로 기록</div>
-        <div class="step-desc">금액 입력 → 이달 달성률 확인</div>
-        <span class="step-tag tag-pm">☀️ 수주 완료 후</span>
+    <div class="routine-row">
+      <div class="r-num">4</div>
+      <div class="r-body">
+        <div class="r-title">수주 완료 → 수익 트래커 입력</div>
+        <div class="r-desc">금액 바로 기록 · 이달 달성률 확인</div>
+        <span class="r-tag tag-any">수주할 때마다</span>
       </div>
     </div>
-    <div class="routine-step">
-      <div class="step-num">5</div>
-      <div class="step-body">
-        <div class="step-title">성장 트래커 → 주간 지표 기록</div>
-        <div class="step-desc">팔로워 · 저장율 · DM 유입 입력</div>
-        <span class="step-tag tag-week">📅 매주 금요일</span>
+    <div class="routine-row">
+      <div class="r-num">5</div>
+      <div class="r-body">
+        <div class="r-title">성장 트래커 → 주간 지표 입력</div>
+        <div class="r-desc">팔로워 · 저장율 · DM 유입 기록</div>
+        <span class="r-tag tag-fri">📅 매주 금요일</span>
       </div>
     </div>
   </div>
 
-  <!-- 데일리 운영 -->
-  <div class="section-label">📋 데일리 운영</div>
-  <div class="hub-cards">
-    <a href="./lami-daily-master.html" class="hub-card card-daily">
-      <span class="hub-icon">📋</span>
-      <div class="hub-info">
-        <div class="hub-title">라미 데일리</div>
-        <div class="hub-desc">오늘 할일 · 타임블록 · 루틴 체크<br>주간 · 월간 · 수익화 · 육아맘</div>
-        <div class="hub-tags">
-          <span class="hub-tag tag-clay">할일 체크</span>
-          <span class="hub-tag tag-clay">타임블록</span>
-          <span class="hub-tag tag-clay">루틴</span>
-        </div>
-      </div>
-      <span class="hub-arrow">›</span>
-    </a>
-    <a href="./lami-morning.html" class="hub-card card-morning">
-      <span class="hub-icon">🌅</span>
-      <div class="hub-info">
-        <div class="hub-title">라미 모닝</div>
-        <div class="hub-desc">아침 브리핑 · 오늘의 집중 포인트<br>매일 10시 시작 전 확인</div>
-        <div class="hub-tags">
-          <span class="hub-tag tag-sage">아침 루틴</span>
-          <span class="hub-tag tag-sage">집중 포인트</span>
-        </div>
-      </div>
-      <span class="hub-arrow">›</span>
-    </a>
-    <a href="./june-content-plan.html" class="hub-card card-content">
-      <span class="hub-icon">🔥</span>
-      <div class="hub-info">
-        <div class="hub-title">6월 콘텐츠 플랜</div>
-        <div class="hub-desc">주차별 체크리스트 · 채널별 아이디어<br>프롬프트 키트 · 채널 전략</div>
-        <div class="hub-tags">
-          <span class="hub-tag tag-purple">주차별 플랜</span>
-          <span class="hub-tag tag-purple">프롬프트 킷</span>
-        </div>
-      </div>
-      <span class="hub-arrow">›</span>
-    </a>
-  </div>
-
-  <!-- 라미그로우 -->
-  <div class="section-label">🌱 라미그로우 — 퍼스널 브랜딩 & 콘텐츠</div>
-  <div class="hub-cards">
-    <a href="./grow-sns-strategy.html" class="hub-card card-grow">
-      <span class="hub-icon">📱</span>
-      <div class="hub-info">
-        <div class="hub-title">SNS 채널 전략</div>
-        <div class="hub-desc">인스타·스레드·블로그·유튜브쇼츠<br>팔로워 500 → 1,000명 로드맵</div>
-        <div class="hub-tags">
-          <span class="hub-tag tag-grow">인스타</span>
-          <span class="hub-tag tag-grow">스레드</span>
-          <span class="hub-tag tag-grow">쇼츠</span>
-          <span class="hub-tag tag-grow">블로그</span>
-        </div>
-      </div>
-      <span class="hub-arrow">›</span>
-    </a>
-    <a href="./grow-content-kit.html" class="hub-card card-grow">
-      <span class="hub-icon">✍️</span>
-      <div class="hub-info">
-        <div class="hub-title">콘텐츠 프롬프트 킷</div>
-        <div class="hub-desc">고저장률 콘텐츠 템플릿 · 주 3회 루틴<br>해시태그 20선 탭하면 복사</div>
-        <div class="hub-tags">
-          <span class="hub-tag tag-grow">저장률 UP</span>
-          <span class="hub-tag tag-grow">템플릿</span>
-          <span class="hub-tag tag-grow">해시태그</span>
-        </div>
-      </div>
-      <span class="hub-arrow">›</span>
-    </a>
-    <a href="./grow-tracker.html" class="hub-card card-grow">
-      <span class="hub-icon">📊</span>
-      <div class="hub-info">
-        <div class="hub-title">성장 지표 트래커</div>
-        <div class="hub-desc">팔로워·저장율·DM 주간 기록<br>목표 달성률 시각화</div>
-        <div class="hub-tags">
-          <span class="hub-tag tag-grow">팔로워 추적</span>
-          <span class="hub-tag tag-grow">저장율</span>
-          <span class="hub-tag tag-grow">DM 유입</span>
-        </div>
-      </div>
-      <span class="hub-arrow">›</span>
-    </a>
-  </div>
-
-  <!-- 라미스튜디오 -->
-  <div class="section-label">✏️ 라미스튜디오 — 상세페이지 디자인 수주</div>
-  <div class="hub-cards">
-    <a href="./studio-kmong.html" class="hub-card card-studio">
-      <span class="hub-icon">🏪</span>
-      <div class="hub-info">
-        <div class="hub-title">크몽 서비스 관리</div>
-        <div class="hub-desc">프로필·단가·DM 스크립트<br>스마트스토어 셀러 아웃바운드</div>
-        <div class="hub-tags">
-          <span class="hub-tag tag-studio">프로필 개편</span>
-          <span class="hub-tag tag-studio">단가 관리</span>
-          <span class="hub-tag tag-studio">DM 템플릿</span>
-        </div>
-      </div>
-      <span class="hub-arrow">›</span>
-    </a>
-    <a href="./studio-revenue.html" class="hub-card card-studio">
-      <span class="hub-icon">💰</span>
-      <div class="hub-info">
-        <div class="hub-title">수익 트래커</div>
-        <div class="hub-desc">월별 수입·수주 건수·목표 달성률<br>Phase 1 목표: 월 150~200만원</div>
-        <div class="hub-tags">
-          <span class="hub-tag tag-studio">월별 수입</span>
-          <span class="hub-tag tag-studio">수주 건수</span>
-          <span class="hub-tag tag-studio">달성률</span>
-        </div>
-      </div>
-      <span class="hub-arrow">›</span>
-    </a>
-    <a href="./studio-portfolio.html" class="hub-card card-studio">
-      <span class="hub-icon">📁</span>
-      <div class="hub-info">
-        <div class="hub-title">포트폴리오 관리</div>
-        <div class="hub-desc">11년 경력 TOP 작업물·케이스 스터디<br>신규 클라이언트 상담용</div>
-        <div class="hub-tags">
-          <span class="hub-tag tag-studio">TOP 5</span>
-          <span class="hub-tag tag-studio">케이스 스터디</span>
-        </div>
-      </div>
-      <span class="hub-arrow">›</span>
-    </a>
-  </div>
-
-  <!-- 푸터 -->
-  <div class="hub-footer">
-    <div class="fb-row">
-      <span class="fb fb-grow">🌱 라미그로우</span>
-      <span class="fb fb-studio">✏️ 라미스튜디오</span>
+  <!-- ✅ 오늘 체크리스트 -->
+  <div class="section-label">✅ 오늘 체크리스트</div>
+  <div class="checklist-box">
+    <div class="checklist-header">
+      <div class="checklist-title">오늘 할 일 <span id="check-count" style="color:var(--clay);">0/7</span></div>
+      <button class="reset-btn" onclick="resetChecks()">초기화</button>
     </div>
-    오늘도 차근차근, 할 수 있어요 🌿
+    <div id="checklist"></div>
+    <div class="progress-bar"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
+    <div class="progress-text" id="prog-text">0% 완료</div>
   </div>
 
+  <!-- 💰 기록 -->
+  <div class="section-label section-gap">💰 기록</div>
+  <div class="record-grid">
+    <a class="record-card revenue" href="./studio-revenue.html">
+      <div class="record-icon">💰</div>
+      <div class="record-title">수익 트래커</div>
+      <div class="record-desc">수주 완료 시<br>금액 바로 입력</div>
+      <div class="record-when when-any">수주할 때마다</div>
+    </a>
+    <a class="record-card tracker" href="./grow-tracker.html">
+      <div class="record-icon">📊</div>
+      <div class="record-title">성장 트래커</div>
+      <div class="record-desc">팔로워·저장율<br>DM 유입 기록</div>
+      <div class="record-when when-fri">매주 금요일</div>
+    </a>
+  </div>
+
+  <!-- 📆 주간 / 월간 리뷰 -->
+  <div class="section-label section-gap">📆 주간 · 월간 리뷰</div>
+  <div class="review-grid">
+    <a class="review-card weekly" href="./weekly-review.html">
+      <div class="review-icon">📋</div>
+      <div class="review-title">주간 리뷰</div>
+      <div class="review-desc">수주·SNS·목표<br>이번 주 돌아보기</div>
+      <div class="review-when when-sun">매주 일요일</div>
+    </a>
+    <a class="review-card monthly" href="./monthly-review.html">
+      <div class="review-icon">📅</div>
+      <div class="review-title">월간 리뷰</div>
+      <div class="review-desc">수입·성장·계획<br>다음 달 준비</div>
+      <div class="review-when when-month">매달 말일</div>
+    </a>
+  </div>
+
+  <!-- 🗺️ 미래 전략지도 -->
+  <div class="section-label">🗺️ 미래 전략지도</div>
+  <a class="strategy-card" href="./strategy-map.html">
+    <div class="strategy-icon">🗺️</div>
+    <div class="strategy-info">
+      <div class="strategy-title">2026~2028 전략지도</div>
+      <div class="strategy-desc">Phase 1→4 로드맵 · 서울 30평 이사 역산 전략</div>
+      <div class="strategy-tags">
+        <span class="strategy-tag">Phase 1~4</span>
+        <span class="strategy-tag">서울 30평</span>
+        <span class="strategy-tag">월 700만+</span>
+      </div>
+    </div>
+    <div class="strategy-arrow">›</div>
+  </a>
+
+  <!-- 🏠 라이프 & 육아 -->
+  <div class="section-label section-gap">🏠 라이프 & 육아</div>
+  <div class="life-grid">
+    <a class="life-card food" href="./life-food.html">
+      <div class="life-icon">🥗</div>
+      <div class="life-title">아이 식단 플랜</div>
+      <div class="life-desc">주간 식단 관리<br>영양 균형 체크</div>
+    </a>
+    <a class="life-card dev" href="./life-dev.html">
+      <div class="life-icon">📚</div>
+      <div class="life-title">발달 계획표</div>
+      <div class="life-desc">K-DST 기반<br>6영역 마일스톤</div>
+    </a>
+  </div>
+
+  <!-- 📚 참고 자료 -->
+  <div class="section-label">📚 참고 자료 — 필요할 때만</div>
+  <button class="ref-toggle" onclick="toggleRef()">
+    <div class="ref-toggle-left">
+      <span style="font-size:18px;">📂</span>
+      <div>
+        <div class="ref-toggle-title">전략·콘텐츠·포트폴리오</div>
+        <div class="ref-toggle-sub">탭해서 펼치기</div>
+      </div>
+    </div>
+    <span class="ref-arr" id="refArr">▼</span>
+  </button>
+
+  <div class="ref-body" id="refBody">
+    <div class="ref-tabs">
+      <button class="ref-tab active" onclick="switchTab('grow',this)">🌱 그로우</button>
+      <button class="ref-tab" onclick="switchTab('studio',this)">✏️ 스튜디오</button>
+      <button class="ref-tab" onclick="switchTab('content',this)">📝 콘텐츠</button>
+    </div>
+
+    <!-- 그로우 -->
+    <div class="ref-pane active" id="tab-grow">
+      <div class="content-block">
+        <div class="content-block-title">📅 주간 포스팅 루틴</div>
+        <div class="week-plan">
+          <div><div class="wday-name">월</div><div class="wday-task">인스타<br>카드뉴스</div></div>
+          <div><div class="wday-name">화</div><div class="wday-task off">스레드만</div></div>
+          <div><div class="wday-name">수</div><div class="wday-task">블로그<br>포스팅</div></div>
+          <div><div class="wday-name">목</div><div class="wday-task">인스타<br>릴스</div></div>
+          <div><div class="wday-name">금</div><div class="wday-task">블로그<br>포스팅</div></div>
+          <div><div class="wday-name">토</div><div class="wday-task">인스타<br>일상글</div></div>
+          <div><div class="wday-name">일</div><div class="wday-task off">휴식</div></div>
+        </div>
+      </div>
+      <div class="content-block">
+        <div class="content-block-title"># 해시태그 (탭하면 복사)</div>
+        <div style="font-size:10px;color:var(--muted);margin-bottom:5px;">고볼륨</div>
+        <div class="hash-wrap" style="margin-bottom:8px;">
+          <span class="hash-tag" onclick="copyHash(this)">#상세페이지</span>
+          <span class="hash-tag" onclick="copyHash(this)">#크몽</span>
+          <span class="hash-tag" onclick="copyHash(this)">#프리랜서</span>
+          <span class="hash-tag" onclick="copyHash(this)">#스마트스토어</span>
+        </div>
+        <div style="font-size:10px;color:var(--muted);margin-bottom:5px;">중볼륨</div>
+        <div class="hash-wrap" style="margin-bottom:8px;">
+          <span class="hash-tag" onclick="copyHash(this)">#상세페이지디자인</span>
+          <span class="hash-tag" onclick="copyHash(this)">#AI디자인</span>
+          <span class="hash-tag" onclick="copyHash(this)">#육아맘프리랜서</span>
+          <span class="hash-tag" onclick="copyHash(this)">#크몽디자이너</span>
+        </div>
+        <div style="font-size:10px;color:var(--muted);margin-bottom:5px;">저볼륨</div>
+        <div class="hash-wrap">
+          <span class="hash-tag" onclick="copyHash(this)">#라미스튜디오</span>
+          <span class="hash-tag" onclick="copyHash(this)">#라미그로우</span>
+          <span class="hash-tag" onclick="copyHash(this)">#11년차디자이너</span>
+          <span class="hash-tag" onclick="copyHash(this)">#스마트스토어상세페이지</span>
+        </div>
+        <div class="caution-sm">한 포스팅에 5~8개 · 고·중·저 섞어서 사용</div>
+      </div>
+      <div class="content-block">
+        <div class="content-block-title">🎯 채널 목표 (Phase 1)</div>
+        <div class="stat-row">
+          <div class="stat-item"><span>📸 인스타 팔로워</span><strong>500명</strong></div>
+          <div class="stat-item"><span>💾 저장율</span><strong>10% 이상</strong></div>
+          <div class="stat-item"><span>💬 월 DM 유입</span><strong>5건</strong></div>
+          <div class="stat-item"><span>📝 블로그 월 유입</span><strong>200명</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 스튜디오 -->
+    <div class="ref-pane" id="tab-studio">
+      <div class="content-block">
+        <div class="content-block-title">💰 패키지 단가</div>
+        <div class="pkg-row">
+          <div class="pkg"><div class="pkg-name">베이직</div><div class="pkg-price">99,000</div></div>
+          <div class="pkg main"><div class="pkg-name">딜럭스</div><div class="pkg-price">120,000</div><div class="pkg-main-badge">★ 주력</div></div>
+          <div class="pkg"><div class="pkg-name">프리미엄</div><div class="pkg-price">200,000</div></div>
+        </div>
+        <div class="caution-sm">⚠ 단가 절대 낮추지 않기! 딜럭스 120,000원 기준 유지</div>
+      </div>
+      <div class="content-block">
+        <div class="content-block-title">💬 DM 스크립트</div>
+        <div class="dm-body">안녕하세요! [셀러명] 셀러님 🌿
+
+[상품명] 보고 연락드렸어요.
+11년차 상세페이지 디자이너 라미스튜디오입니다.
+
+상세페이지 업그레이드 생각해보신 적 있으신가요?
+AI 활용으로 빠르게, 전환율 높게 작업해드려요.
+
+첫 의뢰 30% 할인 중이에요! 크몽 채팅 주세요 😊</div>
+        <button class="copy-btn-sm studio" onclick="copyDM()">복사하기</button>
+      </div>
+      <div class="content-block">
+        <div class="content-block-title">⭐ TOP 5 포트폴리오</div>
+        <div class="port-item"><div class="port-rank">01</div><div><div class="port-title">건강식품 — 다이어트 상세페이지</div><div class="port-tags"><span class="port-tag">AI 활용</span><span class="port-tag">Before/After</span></div></div></div>
+        <div class="port-item"><div class="port-rank">02</div><div><div class="port-title">패션·의류 — 시즌 신상 브랜드</div><div class="port-tags"><span class="port-tag">감성 디자인</span></div></div></div>
+        <div class="port-item"><div class="port-rank">03</div><div><div class="port-title">생활용품 — 주방용품 멀티플랫폼</div><div class="port-tags"><span class="port-tag">쿠팡+스마트스토어</span></div></div></div>
+        <div class="port-item"><div class="port-rank">04</div><div><div class="port-title">뷰티 — 기능성 스킨케어</div><div class="port-tags"><span class="port-tag">인포그래픽</span></div></div></div>
+        <div class="port-item"><div class="port-rank">05</div><div><div class="port-title">반려동물 — 펫푸드 브랜드</div><div class="port-tags"><span class="port-tag">감성 디자인</span></div></div></div>
+      </div>
+    </div>
+
+    <!-- 콘텐츠 -->
+    <div class="ref-pane" id="tab-content">
+      <div class="content-block">
+        <div class="content-block-title">📋 포스팅 템플릿</div>
+        <div class="tmpl-mini">
+          <div class="tmpl-mini-label">인스타 카드뉴스 캡션</div>저장해두면 써먹을 수 있어요 🔖
+
+[숫자]가지만 알면 상세페이지 완성돼요.
+1️⃣ [팁1] → [설명]
+2️⃣ [팁2] → [설명]
+3️⃣ [팁3] → [설명]
+
+크몽에서 의뢰받아요 🔗 프로필 링크
+          <button class="copy-btn-sm" onclick="copyTmpl(0)">복사하기</button>
+        </div>
+        <div class="tmpl-mini">
+          <div class="tmpl-mini-label">스레드 일상</div>오늘 [업종] 상세페이지 작업했어요.
+포인트는 [핵심].
+AI로 [시간]에 초안, 손으로 다듬었어요.
+11년 경력 + AI = 빠르고 퀄리티 있게 🎯
+#프리랜서일상 #라미스튜디오
+          <button class="copy-btn-sm" onclick="copyTmpl(1)">복사하기</button>
+        </div>
+      </div>
+      <div class="content-block">
+        <div class="content-block-title">📌 고저장률 공식</div>
+        <div class="stat-row">
+          <div class="stat-item" style="border-left:3px solid var(--grow);"><span>① 첫 줄에 숫자</span><span style="color:var(--muted);font-size:11px;">"3가지만 알면..."</span></div>
+          <div class="stat-item" style="border-left:3px solid var(--grow);"><span>② 저장 유도 문구</span><span style="color:var(--muted);font-size:11px;">"저장해두고 써먹어요"</span></div>
+          <div class="stat-item" style="border-left:3px solid var(--grow);"><span>③ 마지막 슬라이드</span><span style="color:var(--muted);font-size:11px;">크몽 링크 유도</span></div>
+          <div class="stat-item" style="border-left:3px solid var(--grow);"><span>④ 정보 밀도 높게</span><span style="color:var(--muted);font-size:11px;">1장에 핵심만</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hub-footer" style="margin-top:28px;">오늘도 차근차근, 할 수 있어요 🌿</div>
 </div>
+
 <script>
+// 날짜
 var now = new Date();
 var days = ['일','월','화','수','목','금','토'];
 document.getElementById('dateEl').textContent =
   now.getFullYear()+'년 '+(now.getMonth()+1)+'월 '+now.getDate()+'일 ('+days[now.getDay()]+')';
-
-var msgs = [
-  '완벽하지 않아도 괜찮아요. 오늘도 열어봤다는 것만으로 충분해요 🌿',
-  '작은 것 하나 완성하는 게 크게 계획만 세우는 것보다 강해요.',
-  '육아하면서 이걸 해내고 있다는 것 자체가 대단한 거예요 💪',
-  '콘텐츠 하나가 쌓이면 자산이 돼요. 오늘 하나, 내일 하나.',
-  '매일 조금씩이 결국 3억을 만들어요. 멈추지 말아요.',
-  '잘 안 되는 날도 괜찮아요. 중요한 건 다시 여는 것이에요.',
-  '수진씨는 이미 많은 걸 갖고 있어요. 지금 필요한 건 행동이에요.',
-];
+var msgs = ['완벽하지 않아도 괜찮아요. 오늘도 열어봤다는 것만으로 충분해요 🌿','작은 것 하나 완성하는 게 크게 계획만 세우는 것보다 강해요.','육아하면서 이걸 해내고 있다는 것 자체가 대단한 거예요 💪','콘텐츠 하나가 쌓이면 자산이 돼요. 오늘 하나, 내일 하나.','매일 조금씩이 결국 3억을 만들어요. 멈추지 말아요.','잘 안 되는 날도 괜찮아요. 중요한 건 다시 여는 것이에요.','수진씨는 이미 많은 걸 갖고 있어요. 지금 필요한 건 행동이에요.'];
 document.getElementById('msgEl').textContent = msgs[now.getDay() % msgs.length];
-
 var target = new Date('2026-07-08');
-var diff = Math.ceil((target - now) / 86400000);
-document.getElementById('ddayEl').textContent = Math.max(0, diff);
+document.getElementById('ddayEl').textContent = Math.max(0, Math.ceil((target - now) / 86400000));
+
+// 체크리스트
+var CHECKS = [
+  {t:'그로우 브리핑 확인 · 포스팅 초안 작성', cat:'cat-grow', label:'그로우'},
+  {t:'인스타 or 스레드 포스팅 1개 업로드', cat:'cat-grow', label:'그로우'},
+  {t:'스튜디오 브리핑 확인 · 오늘 작업 파악', cat:'cat-studio', label:'스튜디오'},
+  {t:'DM 3건 발송 (스마트스토어 셀러)', cat:'cat-studio', label:'스튜디오'},
+  {t:'크몽 문의 1시간 내 답변', cat:'cat-studio', label:'스튜디오'},
+  {t:'수입 발생 시 수익 트래커 기록', cat:'cat-studio', label:'기록'},
+  {t:'아이 오늘 식단 · 활동 체크', cat:'cat-life', label:'육아'},
+];
+var todayKey = 'checks_'+now.toDateString();
+var checkDone = JSON.parse(localStorage.getItem(todayKey)||'[]');
+
+function renderChecks(){
+  var el = document.getElementById('checklist');
+  el.innerHTML = CHECKS.map((c,i)=>`
+    <div class="check-item" onclick="toggleCheck(${i})">
+      <div class="cb${checkDone.includes(i)?' done':''}">
+        <svg class="cb-check" viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
+      </div>
+      <div class="check-text${checkDone.includes(i)?' done':''}">${c.t}</div>
+      <span class="check-cat ${c.cat}">${c.label}</span>
+    </div>`).join('');
+  var pct = Math.round(checkDone.length / CHECKS.length * 100);
+  document.getElementById('prog-fill').style.width = pct+'%';
+  document.getElementById('prog-text').textContent = pct+'% 완료';
+  document.getElementById('check-count').textContent = checkDone.length+'/'+CHECKS.length;
+}
+
+function toggleCheck(i){
+  if(checkDone.includes(i)) checkDone = checkDone.filter(x=>x!==i);
+  else checkDone.push(i);
+  localStorage.setItem(todayKey, JSON.stringify(checkDone));
+  renderChecks();
+}
+
+function resetChecks(){
+  checkDone = [];
+  localStorage.setItem(todayKey, JSON.stringify(checkDone));
+  renderChecks();
+}
+renderChecks();
+
+// 참고 자료 토글
+function toggleRef(){
+  document.getElementById('refBody').classList.toggle('open');
+  document.getElementById('refArr').classList.toggle('open');
+}
+function switchTab(name, btn){
+  document.querySelectorAll('.ref-pane').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.ref-tab').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  btn.classList.add('active');
+}
+
+// 복사
+function copyHash(el){
+  navigator.clipboard.writeText(el.textContent).then(()=>{
+    el.style.background='var(--grow)';el.style.color='#fff';
+    setTimeout(()=>{el.style.background='';el.style.color='';},1000);
+  });
+}
+var tmpls = [
+  `저장해두면 써먹을 수 있어요 🔖\n\n[숫자]가지만 알면 상세페이지 완성돼요.\n1️⃣ [팁1] → [설명]\n2️⃣ [팁2] → [설명]\n3️⃣ [팁3] → [설명]\n\n크몽에서 의뢰받아요 🔗 프로필 링크`,
+  `오늘 [업종] 상세페이지 작업했어요.\n포인트는 [핵심].\nAI로 [시간]에 초안, 손으로 다듬었어요.\n11년 경력 + AI = 빠르고 퀄리티 있게 🎯\n#프리랜서일상 #라미스튜디오`
+];
+function copyTmpl(i){
+  var btns = document.querySelectorAll('.copy-btn-sm:not(.studio)');
+  navigator.clipboard.writeText(tmpls[i]).then(()=>{
+    btns[i].textContent='✓ 복사됨!';
+    setTimeout(()=>btns[i].textContent='복사하기',2000);
+  });
+}
+function copyDM(){
+  var txt = document.querySelector('.dm-body').textContent;
+  var btn = document.querySelector('.copy-btn-sm.studio');
+  navigator.clipboard.writeText(txt).then(()=>{
+    btn.textContent='✓ 복사됨!';
+    setTimeout(()=>btn.textContent='복사하기',2000);
+  });
+}
 </script>
 </body>
 </html>
