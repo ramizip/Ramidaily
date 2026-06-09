@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>📚 발달 계획표 — 라미 허브</title>
+<title>📚 발달 계획표 — 서빈·단우</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#F7F5F0;--card:#fff;--border:rgba(0,0,0,0.08);--text:#1A1A1A;--muted:#888;--sub:#555;--pink:#C2587A;--pink-l:#FCEEF4;--pink-b:#F0A0BF;--radius:16px;--radius-sm:10px;}
+:root{--bg:#F7F5F0;--card:#fff;--border:rgba(0,0,0,0.08);--text:#1A1A1A;--muted:#888;--sub:#555;--pink:#C2587A;--pink-l:#FCEEF4;--pink-b:#F0A0BF;--blue:#4A7CC7;--blue-l:#EBF2FF;--blue-b:#90B8F0;--radius:16px;--radius-sm:10px;}
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:24px 16px 60px;}
 .container{max-width:480px;margin:0 auto;}
@@ -17,35 +17,49 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:12px;}
 .card-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;}
 
+/* 아이 선택 */
+.child-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;}
+.child-tab{padding:14px;border:1.5px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;text-align:center;background:var(--card);transition:all .2s;}
+.child-tab.active.seobin{border-color:var(--pink);background:var(--pink-l);}
+.child-tab.active.danwoo{border-color:var(--blue);background:var(--blue-l);}
+.child-name{font-size:16px;font-weight:700;color:var(--text);}
+.child-tab.active.seobin .child-name{color:var(--pink);}
+.child-tab.active.danwoo .child-name{color:var(--blue);}
+.child-age{font-size:11px;color:var(--muted);margin-top:2px;}
+.child-emoji{font-size:24px;margin-bottom:6px;}
+
 /* 영역 탭 */
 .area-tabs{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:12px;}
-.area-tab{padding:6px 12px;font-size:11px;font-family:'Noto Sans KR',sans-serif;font-weight:500;border:1px solid var(--border);border-radius:20px;cursor:pointer;background:var(--card);color:var(--muted);transition:all .2s;}
-.area-tab.active{background:var(--pink);color:#fff;border-color:var(--pink);}
-
-.area-pane{display:none;}
-.area-pane.active{display:block;}
+.area-tab{padding:6px 11px;font-size:11px;font-family:'Noto Sans KR',sans-serif;font-weight:500;border:1px solid var(--border);border-radius:20px;cursor:pointer;background:var(--card);color:var(--muted);transition:all .2s;}
+.area-tab.active.seobin{background:var(--pink);color:#fff;border-color:var(--pink);}
+.area-tab.active.danwoo{background:var(--blue);color:#fff;border-color:var(--blue);}
 
 /* 마일스톤 */
 .milestone-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);cursor:pointer;}
 .milestone-item:last-child{border-bottom:none;}
 .m-cb{width:20px;height:20px;border-radius:50%;border:2px solid #CCC;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;color:transparent;transition:all .15s;margin-top:1px;}
-.m-cb.done{background:var(--pink);border-color:var(--pink);color:#fff;}
-.m-body{flex:1;}
-.m-text{font-size:13px;color:var(--text);line-height:1.5;}
+.m-cb.done.seobin{background:var(--pink);border-color:var(--pink);color:#fff;}
+.m-cb.done.danwoo{background:var(--blue);border-color:var(--blue);color:#fff;}
+.m-text{font-size:13px;color:var(--text);line-height:1.5;flex:1;}
 .m-text.done{text-decoration:line-through;color:#BBB;}
 .m-age{font-size:10px;color:var(--muted);margin-top:2px;}
-
-/* 성장 메모 */
-.growth-input{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;font-size:13px;font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);outline:none;resize:none;line-height:1.6;margin-bottom:8px;}
-.growth-input:focus{border-color:var(--pink-b);}
+.m-new{font-size:9px;padding:1px 6px;border-radius:20px;background:#FEF3DC;color:#BA7517;border:1px solid #EF9F27;font-weight:700;margin-left:6px;}
 
 /* 진행률 */
-.prog-section{margin-bottom:10px;}
+.prog-section{margin-bottom:8px;}
 .prog-row{display:flex;justify-content:space-between;font-size:11px;color:var(--sub);margin-bottom:4px;}
 .prog-track{height:6px;background:var(--border);border-radius:3px;overflow:hidden;}
-.prog-fill{height:100%;background:var(--pink);border-radius:3px;transition:width .4s;}
+.prog-fill-seobin{height:100%;background:var(--pink);border-radius:3px;transition:width .4s;}
+.prog-fill-danwoo{height:100%;background:var(--blue);border-radius:3px;transition:width .4s;}
 
-.save-btn{width:100%;padding:12px;background:var(--pink);color:#fff;border:none;border-radius:var(--radius-sm);font-size:13px;font-weight:500;font-family:'Noto Sans KR',sans-serif;cursor:pointer;}
+/* 성장일지 */
+.growth-input{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;font-size:13px;font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);outline:none;resize:none;line-height:1.6;margin-bottom:8px;}
+.save-btn{width:100%;padding:12px;border:none;border-radius:var(--radius-sm);font-size:13px;font-weight:500;font-family:'Noto Sans KR',sans-serif;cursor:pointer;color:#fff;}
+.save-btn.seobin{background:var(--pink);}
+.save-btn.danwoo{background:var(--blue);}
+
+.tip-box{background:var(--pink-l);border:1px solid var(--pink-b);border-radius:var(--radius-sm);padding:12px 14px;font-size:12px;color:#7A2550;line-height:1.7;margin-bottom:10px;}
+.tip-box.danwoo{background:var(--blue-l);border-color:var(--blue-b);color:#1A3A7A;}
 </style>
 </head>
 <body>
@@ -53,97 +67,183 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
   <a href="./index.html" class="back-btn">← 라미 허브</a>
   <div class="page-brand">🏠 라이프 & 육아</div>
   <div class="page-title">발달 계획표</div>
-  <div class="page-sub">K-DST 기반 6영역 발달 마일스톤 체크</div>
+  <div class="page-sub">서빈(37개월) · 단우(18개월) K-DST 발달 체크</div>
+
+  <!-- 아이 선택 -->
+  <div class="child-tabs">
+    <div class="child-tab seobin active" id="tab-seobin" onclick="switchChild('seobin')">
+      <div class="child-emoji">👧</div>
+      <div class="child-name">서빈</div>
+      <div class="child-age">37개월</div>
+    </div>
+    <div class="child-tab danwoo" id="tab-danwoo" onclick="switchChild('danwoo')">
+      <div class="child-emoji">👦</div>
+      <div class="child-name">단우</div>
+      <div class="child-age">18개월</div>
+    </div>
+  </div>
 
   <!-- 전체 진행률 -->
   <div class="card">
-    <div class="card-label">📊 6영역 전체 달성률</div>
+    <div class="card-label" id="prog-title">📊 서빈 6영역 달성률</div>
     <div id="all-progress"></div>
   </div>
+
+  <!-- 이 시기 발달 팁 -->
+  <div id="dev-tip"></div>
 
   <!-- 영역 탭 -->
   <div class="area-tabs" id="areaTabs"></div>
 
-  <!-- 영역별 마일스톤 -->
+  <!-- 마일스톤 -->
   <div class="card">
     <div id="area-content"></div>
   </div>
 
   <!-- 성장 일지 -->
   <div class="card">
-    <div class="card-label">📝 오늘 성장 일지</div>
-    <textarea class="growth-input" id="growth-memo" rows="4" placeholder="오늘 새로 한 것, 특별한 순간, 재밌었던 것..."></textarea>
-    <button class="save-btn" onclick="saveGrowth()">💾 오늘 기록 저장</button>
+    <div class="card-label" id="journal-label">📝 서빈 성장 일지</div>
+    <textarea class="growth-input" id="growth-memo" rows="3" placeholder="오늘 새로 한 것, 특별한 순간..."></textarea>
+    <button class="save-btn seobin" id="save-btn" onclick="saveGrowth()">💾 오늘 기록 저장</button>
   </div>
 
-  <!-- 성장 기록 -->
+  <!-- 기록 -->
   <div class="card">
-    <div class="card-label">📅 성장 기록</div>
+    <div class="card-label" id="history-label">📅 서빈 성장 기록</div>
     <div id="growth-history"></div>
   </div>
 </div>
 <script>
-var AREAS = [
-  {name:'대근육', icon:'🏃', items:[
-    {t:'혼자 계단 오르내리기', age:'24~36개월'},
-    {t:'두 발 모아 제자리 뛰기', age:'24~30개월'},
-    {t:'세발자전거 페달 밟기', age:'30~36개월'},
-    {t:'한 발로 2초 이상 서기', age:'36개월+'},
-  ]},
-  {name:'소근육', icon:'✋', items:[
-    {t:'크레파스로 선 그리기', age:'24~30개월'},
-    {t:'블록 6개 이상 쌓기', age:'24~30개월'},
-    {t:'원 모양 그리기', age:'30~36개월'},
-    {t:'가위로 종이 자르기', age:'36개월+'},
-  ]},
-  {name:'언어', icon:'💬', items:[
-    {t:'두 단어 조합 말하기', age:'18~24개월'},
-    {t:'자기 이름 말하기', age:'24개월'},
-    {t:'세 단어 문장 사용', age:'24~30개월'},
-    {t:'간단한 노래 따라 부르기', age:'30~36개월'},
-  ]},
-  {name:'인지', icon:'🧠', items:[
-    {t:'색깔 2가지 이상 구별', age:'24~30개월'},
-    {t:'큰것/작은것 구별', age:'24~30개월'},
-    {t:'1~5까지 수 세기', age:'30~36개월'},
-    {t:'퍼즐 4조각 맞추기', age:'30~36개월'},
-  ]},
-  {name:'사회정서', icon:'💕', items:[
-    {t:'또래와 나란히 놀기', age:'24~30개월'},
-    {t:'"내꺼" 개념 이해', age:'24개월'},
-    {t:'차례 지키기 시도', age:'30~36개월'},
-    {t:'간단한 역할놀이', age:'30~36개월'},
-  ]},
-  {name:'자조', icon:'🌟', items:[
-    {t:'숟가락으로 혼자 먹기', age:'18~24개월'},
-    {t:'혼자 신발 벗기', age:'24~30개월'},
-    {t:'손 씻기 도움 받아 하기', age:'24~30개월'},
-    {t:'혼자 옷 입기 시도', age:'30~36개월'},
-  ]},
-];
+var CHILDREN = {
+  seobin: {
+    name:'서빈', age:'37개월', emoji:'👧', color:'seobin',
+    tip:'🌟 37개월 서빈이 이 시기 포인트: 역할놀이·상상력 폭발! 친구와 협동놀이 시작. 4~5단어 문장 자연스럽게 사용해요.',
+    areas:[
+      {name:'대근육', icon:'🏃', items:[
+        {t:'한 발로 2초 이상 서기', age:'36개월+', new:true},
+        {t:'세발자전거 잘 타기', age:'36개월+', new:true},
+        {t:'계단 혼자 오르내리기', age:'36개월'},
+        {t:'공 차기·던지기', age:'36개월+', new:true},
+      ]},
+      {name:'소근육', icon:'✋', items:[
+        {t:'가위로 선 따라 자르기', age:'36개월+', new:true},
+        {t:'원·십자 모양 그리기', age:'36개월+', new:true},
+        {t:'단추 끼우기 시도', age:'36개월+'},
+        {t:'점토로 모양 만들기', age:'36개월+'},
+      ]},
+      {name:'언어', icon:'💬', items:[
+        {t:'4~5단어 문장 말하기', age:'36개월+', new:true},
+        {t:'"왜?" 질문 많이 하기', age:'36개월+', new:true},
+        {t:'자기 이름·나이 말하기', age:'36개월'},
+        {t:'간단한 동화책 이해', age:'36개월+'},
+      ]},
+      {name:'인지', icon:'🧠', items:[
+        {t:'색깔 4가지 이상 구별', age:'36개월+', new:true},
+        {t:'1~10 수 세기', age:'36개월+', new:true},
+        {t:'크기 순서 맞추기', age:'36개월+'},
+        {t:'퍼즐 6~8조각 맞추기', age:'36개월+', new:true},
+      ]},
+      {name:'사회정서', icon:'💕', items:[
+        {t:'친구와 협동놀이', age:'36개월+', new:true},
+        {t:'차례 지키기', age:'36개월'},
+        {t:'역할놀이 (엄마·의사 등)', age:'36개월+', new:true},
+        {t:'규칙 이해하고 따르기', age:'36개월+'},
+      ]},
+      {name:'자조', icon:'🌟', items:[
+        {t:'혼자 밥 먹기', age:'36개월'},
+        {t:'혼자 옷 입기 시도', age:'36개월+', new:true},
+        {t:'손 씻기 혼자 하기', age:'36개월+'},
+        {t:'화장실 혼자 가기 시도', age:'36개월+', new:true},
+      ]},
+    ]
+  },
+  danwoo: {
+    name:'단우', age:'18개월', emoji:'👦', color:'danwoo',
+    tip:'🌟 18개월 단우 이 시기 포인트: 걷기 완성·뛰기 시작! 단어 10개 이상 목표. 손가락으로 원하는 것 가리키기 중요해요.',
+    areas:[
+      {name:'대근육', icon:'🏃', items:[
+        {t:'혼자 잘 걷기', age:'12~18개월', new:true},
+        {t:'뛰기 시작', age:'18개월', new:true},
+        {t:'계단 잡고 오르기', age:'18개월'},
+        {t:'공 발로 차기 시도', age:'18~24개월'},
+      ]},
+      {name:'소근육', icon:'✋', items:[
+        {t:'블록 2~3개 쌓기', age:'15~18개월', new:true},
+        {t:'낙서하기 (크레파스)', age:'18개월'},
+        {t:'뚜껑 열고 닫기', age:'15~18개월'},
+        {t:'숟가락 혼자 사용 시도', age:'18개월', new:true},
+      ]},
+      {name:'언어', icon:'💬', items:[
+        {t:'의미 있는 단어 10개+', age:'18개월', new:true},
+        {t:'손가락으로 가리키기', age:'12~18개월', new:true},
+        {t:'"아니오" 표현하기', age:'18개월'},
+        {t:'두 단어 조합 시작', age:'18~24개월'},
+      ]},
+      {name:'인지', icon:'🧠', items:[
+        {t:'신체 부위 1~2개 알기', age:'15~18개월', new:true},
+        {t:'간단한 지시 따르기', age:'15~18개월'},
+        {t:'숨긴 물건 찾기', age:'18개월'},
+        {t:'모양 맞추기 시도', age:'18~24개월'},
+      ]},
+      {name:'사회정서', icon:'💕', items:[
+        {t:'낯선 사람 경계 (분리불안)', age:'12~18개월'},
+        {t:'다른 아이 관심 갖기', age:'18개월'},
+        {t:'모방 놀이 (엄마 따라하기)', age:'15~18개월', new:true},
+        {t:'"내꺼" 인식 시작', age:'18~24개월'},
+      ]},
+      {name:'자조', icon:'🌟', items:[
+        {t:'컵으로 혼자 마시기', age:'15~18개월', new:true},
+        {t:'신발 벗기 시도', age:'18개월'},
+        {t:'빗질 흉내내기', age:'15~18개월'},
+        {t:'손 씻기 도움 받아', age:'18개월'},
+      ]},
+    ]
+  }
+};
 
+var curChild = 'seobin';
 var curArea = 0;
-var done = JSON.parse(localStorage.getItem('dev_done')||'{}');
+var done = JSON.parse(localStorage.getItem('dev_done2')||'{}');
+
+function switchChild(child){
+  curChild = child; curArea = 0;
+  document.getElementById('tab-seobin').className = 'child-tab seobin'+(child==='seobin'?' active':'');
+  document.getElementById('tab-danwoo').className = 'child-tab danwoo'+(child==='danwoo'?' active':'');
+  var c = CHILDREN[child];
+  document.getElementById('prog-title').textContent = '📊 '+c.name+' 6영역 달성률';
+  document.getElementById('journal-label').textContent = '📝 '+c.name+' 성장 일지';
+  document.getElementById('history-label').textContent = '📅 '+c.name+' 성장 기록';
+  document.getElementById('save-btn').className = 'save-btn '+child;
+  document.getElementById('growth-memo').placeholder = '오늘 '+c.name+'이가 한 것, 특별한 순간...';
+  var tip = document.getElementById('dev-tip');
+  tip.innerHTML = '<div class="tip-box '+child+'">'+c.tip+'</div>';
+  renderTabs(); renderArea(); renderAllProgress();
+  renderHistory(JSON.parse(localStorage.getItem('growth_'+child)||'[]'));
+}
 
 function renderTabs(){
+  var c = CHILDREN[curChild];
   var el = document.getElementById('areaTabs');
-  el.innerHTML = AREAS.map((a,i)=>`<button class="area-tab${i===curArea?' active':''}" onclick="switchArea(${i})">${a.icon} ${a.name}</button>`).join('');
+  el.innerHTML = c.areas.map((a,i)=>`<button class="area-tab${i===curArea?' active '+curChild:''}" onclick="switchArea(${i})">${a.icon} ${a.name}</button>`).join('');
 }
 
 function switchArea(i){ curArea=i; renderTabs(); renderArea(); }
 
 function renderArea(){
-  var a = AREAS[curArea];
-  var key = 'area_'+curArea;
+  var c = CHILDREN[curChild];
+  var a = c.areas[curArea];
   var el = document.getElementById('area-content');
-  el.innerHTML = `<div style="font-size:12px;font-weight:700;color:var(--sub);margin-bottom:12px;">${a.icon} ${a.name} 영역</div>`+
+  el.innerHTML = `<div style="font-size:12px;font-weight:700;color:var(--sub);margin-bottom:12px;">${a.icon} ${a.name} 영역 — ${c.name}(${c.age})</div>`+
     a.items.map((item,i)=>{
-      var gkey = key+'_'+i;
+      var gkey = curChild+'_'+curArea+'_'+i;
       var isDone = !!done[gkey];
       return `<div class="milestone-item" onclick="toggleMilestone('${gkey}')">
-        <div class="m-cb${isDone?' done':''}">${isDone?'✓':''}</div>
-        <div class="m-body">
-          <div class="m-text${isDone?' done':''}">${item.t}</div>
+        <div class="m-cb${isDone?' done '+curChild:''}">${isDone?'✓':''}</div>
+        <div style="flex:1;">
+          <div style="display:flex;align-items:center;">
+            <div class="m-text${isDone?' done':''}">${item.t}</div>
+            ${item.new?'<span class="m-new">이 시기!</span>':''}
+          </div>
           <div class="m-age">${item.age}</div>
         </div>
       </div>`;
@@ -152,51 +252,49 @@ function renderArea(){
 
 function toggleMilestone(key){
   done[key] = !done[key];
-  localStorage.setItem('dev_done', JSON.stringify(done));
-  renderArea();
-  renderAllProgress();
+  localStorage.setItem('dev_done2', JSON.stringify(done));
+  renderArea(); renderAllProgress();
 }
 
 function renderAllProgress(){
+  var c = CHILDREN[curChild];
   var el = document.getElementById('all-progress');
-  el.innerHTML = AREAS.map((a,i)=>{
+  el.innerHTML = c.areas.map((a,i)=>{
     var total = a.items.length;
-    var cnt = a.items.filter((_,j)=>done['area_'+i+'_'+j]).length;
+    var cnt = a.items.filter((_,j)=>done[curChild+'_'+i+'_'+j]).length;
     var pct = Math.round(cnt/total*100);
     return `<div class="prog-section">
-      <div class="prog-row"><span>${a.icon} ${a.name}</span><span style="color:var(--pink);font-weight:500;">${cnt}/${total}</span></div>
-      <div class="prog-track"><div class="prog-fill" style="width:${pct}%"></div></div>
+      <div class="prog-row"><span>${a.icon} ${a.name}</span><span style="font-weight:500;">${cnt}/${total}</span></div>
+      <div class="prog-track"><div class="prog-fill-${curChild}" style="width:${pct}%"></div></div>
     </div>`;
   }).join('');
 }
 
 function saveGrowth(){
-  var records = JSON.parse(localStorage.getItem('growth_records')||'[]');
+  var records = JSON.parse(localStorage.getItem('growth_'+curChild)||'[]');
   var memo = document.getElementById('growth-memo').value.trim();
   if(!memo){ alert('내용을 입력해주세요!'); return; }
   var now = new Date();
-  records.unshift({ date: now.toLocaleDateString('ko-KR'), memo });
+  records.unshift({date: now.toLocaleDateString('ko-KR'), memo});
   if(records.length>30) records=records.slice(0,30);
-  localStorage.setItem('growth_records', JSON.stringify(records));
+  localStorage.setItem('growth_'+curChild, JSON.stringify(records));
   document.getElementById('growth-memo').value='';
   renderHistory(records);
-  alert('저장됐어요! 🌸');
+  alert(CHILDREN[curChild].name+'이 기록 저장됐어요 🌸');
 }
 
 function renderHistory(records){
   var el = document.getElementById('growth-history');
-  if(!records.length){ el.innerHTML='<div style="text-align:center;padding:16px;color:var(--muted);font-size:13px;">아직 기록이 없어요.</div>'; return; }
+  var color = curChild==='seobin'?'var(--pink)':'var(--blue)';
+  if(!records.length){el.innerHTML='<div style="text-align:center;padding:16px;color:var(--muted);font-size:13px;">아직 기록이 없어요.</div>';return;}
   el.innerHTML = records.map(r=>`
     <div style="padding:10px 0;border-bottom:1px solid var(--border);">
-      <div style="font-size:10px;color:var(--pink);font-weight:700;margin-bottom:4px;">${r.date}</div>
+      <div style="font-size:10px;font-weight:700;color:${color};margin-bottom:4px;">${r.date}</div>
       <div style="font-size:12px;color:var(--sub);line-height:1.6;">${r.memo}</div>
     </div>`).join('');
 }
 
-renderTabs();
-renderArea();
-renderAllProgress();
-renderHistory(JSON.parse(localStorage.getItem('growth_records')||'[]'));
+switchChild('seobin');
 </script>
 </body>
 </html>

@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🥗 아이 식단 플랜 — 라미 허브</title>
+<title>🥗 아이 식단 플랜 — 서빈·단우</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#F7F5F0;--card:#fff;--border:rgba(0,0,0,0.08);--text:#1A1A1A;--muted:#888;--sub:#555;--coral:#D85A30;--coral-l:#FAECE7;--coral-b:#F0997B;--radius:16px;--radius-sm:10px;}
+:root{--bg:#F7F5F0;--card:#fff;--border:rgba(0,0,0,0.08);--text:#1A1A1A;--muted:#888;--sub:#555;--coral:#D85A30;--coral-l:#FAECE7;--coral-b:#F0997B;--blue:#4A7CC7;--blue-l:#EBF2FF;--blue-b:#90B8F0;--radius:16px;--radius-sm:10px;}
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:24px 16px 60px;}
 .container{max-width:480px;margin:0 auto;}
@@ -17,31 +17,49 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:12px;}
 .card-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;}
 
+/* 아이 탭 */
+.child-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;}
+.child-tab{padding:12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;text-align:center;background:var(--card);transition:all .2s;}
+.child-tab.active.seobin{border-color:var(--coral);background:var(--coral-l);}
+.child-tab.active.danwoo{border-color:var(--blue);background:var(--blue-l);}
+.child-name{font-size:15px;font-weight:700;color:var(--text);}
+.child-tab.active.seobin .child-name{color:var(--coral);}
+.child-tab.active.danwoo .child-name{color:var(--blue);}
+.child-age{font-size:11px;color:var(--muted);margin-top:2px;}
+
 /* 요일 탭 */
-.day-tabs{display:flex;gap:4px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:4px;margin-bottom:12px;overflow-x:auto;}
-.day-tab{flex-shrink:0;padding:7px 10px;font-size:11px;font-family:'Noto Sans KR',sans-serif;font-weight:500;border:none;border-radius:7px;cursor:pointer;background:transparent;color:var(--muted);transition:all .2s;}
-.day-tab.active{background:var(--coral);color:#fff;}
+.day-tabs{display:flex;gap:4px;overflow-x:auto;padding-bottom:4px;margin-bottom:12px;}
+.day-tab{flex-shrink:0;padding:7px 12px;font-size:11px;font-family:'Noto Sans KR',sans-serif;font-weight:500;border:1px solid var(--border);border-radius:20px;cursor:pointer;background:var(--card);color:var(--muted);transition:all .2s;white-space:nowrap;}
+.day-tab.active.seobin{background:var(--coral);color:#fff;border-color:var(--coral);}
+.day-tab.active.danwoo{background:var(--blue);color:#fff;border-color:var(--blue);}
 
-/* 식단 입력 */
-.meal-block{margin-bottom:14px;}
-.meal-title{font-size:12px;font-weight:700;color:var(--sub);margin-bottom:6px;display:flex;align-items:center;gap:6px;}
-.meal-input{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;font-size:13px;font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);outline:none;resize:none;line-height:1.6;}
-.meal-input:focus{border-color:var(--coral-b);}
+/* 식단 */
+.meal-block{margin-bottom:12px;}
+.meal-title{font-size:12px;font-weight:700;color:var(--sub);margin-bottom:5px;}
+.meal-text{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;font-size:13px;font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);outline:none;resize:none;line-height:1.6;}
+.meal-text:focus{border-color:var(--coral-b);}
+.meal-text.danwoo:focus{border-color:var(--blue-b);}
 
-/* 체크리스트 */
-.nutrition-check{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--border);cursor:pointer;}
-.nutrition-check:last-child{border-bottom:none;}
-.n-cb{width:18px;height:18px;border-radius:5px;border:1.5px solid #CCC;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s;}
-.n-cb.done{background:var(--coral);border-color:var(--coral);}
-.n-check{display:none;font-size:10px;color:#fff;}
-.n-cb.done .n-check{display:block;}
+/* 영양 체크 */
+.n-item{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--border);cursor:pointer;}
+.n-item:last-child{border-bottom:none;}
+.n-cb{width:18px;height:18px;border-radius:5px;border:1.5px solid #CCC;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;color:transparent;transition:all .15s;}
+.n-cb.done.seobin{background:var(--coral);border-color:var(--coral);color:#fff;}
+.n-cb.done.danwoo{background:var(--blue);border-color:var(--blue);color:#fff;}
 .n-text{font-size:12px;color:var(--text);}
 
-/* 메모 */
-.memo-input{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;font-size:12px;font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);outline:none;resize:none;line-height:1.6;}
-.memo-input:focus{border-color:var(--coral-b);}
+.save-btn{width:100%;padding:12px;border:none;border-radius:var(--radius-sm);font-size:13px;font-weight:500;font-family:'Noto Sans KR',sans-serif;cursor:pointer;color:#fff;margin-top:4px;}
+.save-btn.seobin{background:var(--coral);}
+.save-btn.danwoo{background:var(--blue);}
 
-.save-btn{width:100%;padding:12px;background:var(--coral);color:#fff;border:none;border-radius:var(--radius-sm);font-size:13px;font-weight:500;font-family:'Noto Sans KR',sans-serif;cursor:pointer;margin-top:4px;}
+/* 주간 요약 */
+.week-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);}
+.week-row:last-child{border-bottom:none;}
+.day-badge{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;}
+
+.tip-box{border-radius:var(--radius-sm);padding:12px 14px;font-size:12px;line-height:1.7;margin-bottom:12px;}
+.tip-box.seobin{background:var(--coral-l);border:1px solid var(--coral-b);color:#7A2510;}
+.tip-box.danwoo{background:var(--blue-l);border:1px solid var(--blue-b);color:#1A3A7A;}
 </style>
 </head>
 <body>
@@ -49,109 +67,170 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
   <a href="./index.html" class="back-btn">← 라미 허브</a>
   <div class="page-brand">🏠 라이프 & 육아</div>
   <div class="page-title">아이 식단 플랜</div>
-  <div class="page-sub">주간 식단 관리 · 영양 균형 체크</div>
+  <div class="page-sub">서빈(37개월) · 단우(18개월) 주간 식단</div>
+
+  <!-- 아이 선택 -->
+  <div class="child-tabs">
+    <div class="child-tab seobin active" id="ctab-seobin" onclick="switchChild('seobin')">
+      <div style="font-size:20px;margin-bottom:4px;">👧</div>
+      <div class="child-name">서빈</div>
+      <div class="child-age">37개월</div>
+    </div>
+    <div class="child-tab danwoo" id="ctab-danwoo" onclick="switchChild('danwoo')">
+      <div style="font-size:20px;margin-bottom:4px;">👦</div>
+      <div class="child-name">단우</div>
+      <div class="child-age">18개월</div>
+    </div>
+  </div>
+
+  <!-- 식단 팁 -->
+  <div id="food-tip"></div>
 
   <!-- 요일 탭 -->
   <div class="day-tabs" id="dayTabs"></div>
 
   <!-- 오늘 식단 -->
   <div class="card">
-    <div class="card-label" id="meal-date-label">오늘 식단</div>
+    <div class="card-label" id="meal-label">서빈 — 월요일 식단</div>
     <div class="meal-block">
       <div class="meal-title">🌅 아침</div>
-      <textarea class="meal-input" id="m-breakfast" rows="2" placeholder="아침 메뉴..."></textarea>
+      <textarea class="meal-text" id="m-breakfast" rows="2"></textarea>
     </div>
     <div class="meal-block">
       <div class="meal-title">☀️ 점심</div>
-      <textarea class="meal-input" id="m-lunch" rows="2" placeholder="점심 메뉴..."></textarea>
+      <textarea class="meal-text" id="m-lunch" rows="2"></textarea>
     </div>
     <div class="meal-block">
       <div class="meal-title">🌙 저녁</div>
-      <textarea class="meal-input" id="m-dinner" rows="2" placeholder="저녁 메뉴..."></textarea>
+      <textarea class="meal-text" id="m-dinner" rows="2"></textarea>
     </div>
     <div class="meal-block">
       <div class="meal-title">🍎 간식</div>
-      <textarea class="meal-input" id="m-snack" rows="1" placeholder="간식..."></textarea>
+      <textarea class="meal-text" id="m-snack" rows="1"></textarea>
     </div>
+    <button class="save-btn seobin" id="save-btn" onclick="saveDay()">💾 식단 저장</button>
   </div>
 
   <!-- 영양 체크 -->
   <div class="card">
-    <div class="card-label">✅ 오늘 영양 체크</div>
+    <div class="card-label" id="nutrition-label">✅ 오늘 영양 체크</div>
     <div id="nutrition-list"></div>
   </div>
 
-  <!-- 메모 -->
-  <div class="card">
-    <div class="card-label">📝 오늘 메모</div>
-    <textarea class="memo-input" id="m-memo" rows="3" placeholder="컨디션, 특이사항, 잘 먹은 것, 거부한 것..."></textarea>
-  </div>
-
-  <button class="save-btn" onclick="saveDay()">💾 오늘 식단 저장</button>
-
   <!-- 이번 주 요약 -->
-  <div class="card" style="margin-top:12px;">
-    <div class="card-label">📅 이번 주 식단 요약</div>
+  <div class="card">
+    <div class="card-label" id="week-label">📅 서빈 이번 주 식단</div>
     <div id="week-summary"></div>
   </div>
 </div>
+
 <script>
 var DAYS = ['일','월','화','수','목','금','토'];
-var NUTRIENTS = ['단백질 (고기·생선·달걀·두부)','채소 2가지 이상','탄수화물 (밥·빵·면)','유제품 (우유·치즈·요거트)','과일 1가지 이상','물 충분히'];
 var now = new Date();
+var curChild = 'seobin';
 var curDay = now.getDay();
-var curKey = 'food_'+now.toDateString();
-var nDone = JSON.parse(localStorage.getItem(curKey+'_n')||'[]');
 
-// 요일 탭
-var tabs = document.getElementById('dayTabs');
-DAYS.forEach((d,i)=>{
-  var btn = document.createElement('button');
-  btn.className = 'day-tab'+(i===curDay?' active':'');
-  btn.textContent = d;
-  btn.onclick = ()=>{ curDay=i; document.querySelectorAll('.day-tab').forEach((b,j)=>b.classList.toggle('active',j===i)); loadDay(); };
-  tabs.appendChild(btn);
-});
+// 이번 주 추천 식단 (서빈 37개월 - 일반식, 단우 18개월 - 유아식)
+var WEEKLY_MENU = {
+  seobin: {
+    1: {breakfast:'현미밥 + 된장국 + 계란찜', lunch:'잡채밥 + 미역국 + 과일', dinner:'소고기볶음밥 + 두부조림', snack:'바나나 + 우유'},
+    2: {breakfast:'식빵 + 달걀 스크램블 + 우유', lunch:'비빔밥 + 콩나물국', dinner:'닭갈비 + 흰밥', snack:'사과 + 치즈'},
+    3: {breakfast:'흰밥 + 미역국 + 연어구이', lunch:'카레라이스 + 오이무침', dinner:'삼겹살 + 쌈채소 + 밥', snack:'요거트 + 딸기'},
+    4: {breakfast:'오트밀 + 블루베리 + 우유', lunch:'김치볶음밥 + 달걀후라이', dinner:'갈비탕 + 흰밥', snack:'고구마 + 우유'},
+    5: {breakfast:'흰밥 + 북어국 + 시금치나물', lunch:'불고기덮밥 + 된장국', dinner:'생선구이 + 밥 + 콩나물무침', snack:'수박 + 치즈'},
+    6: {breakfast:'팬케이크 + 과일 + 우유', lunch:'유부초밥 + 미역국', dinner:'삼계탕', snack:'포도 + 요거트'},
+    0: {breakfast:'흰밥 + 계란국 + 멸치볶음', lunch:'스파게티 + 샐러드', dinner:'갈비찜 + 밥', snack:'바나나 + 우유'},
+  },
+  danwoo: {
+    1: {breakfast:'쌀죽 + 단호박퓨레', lunch:'소고기진밥 + 브로콜리무침', dinner:'흰밥 + 두부된장국', snack:'바나나 으깬것 + 분유'},
+    2: {breakfast:'감자달걀죽', lunch:'닭고기채소진밥', dinner:'흰밥 + 미역국 + 계란찜', snack:'사과퓨레 + 요거트'},
+    3: {breakfast:'오트밀 + 블루베리 으깬것', lunch:'참치채소진밥', dinner:'흰밥 + 콩나물국', snack:'고구마 으깬것 + 분유'},
+    4: {breakfast:'쌀죽 + 달걀노른자', lunch:'소고기당근진밥', dinner:'흰밥 + 북어국', snack:'배퓨레 + 치즈'},
+    5: {breakfast:'감자퓨레 + 달걀스크램블', lunch:'연두부진밥 + 시금치', dinner:'흰밥 + 된장국', snack:'수박 (씨제거) + 분유'},
+    6: {breakfast:'쌀죽 + 단호박', lunch:'닭고기브로콜리진밥', dinner:'흰밥 + 미역국', snack:'바나나 으깬것 + 요거트'},
+    0: {breakfast:'오트밀 + 사과퓨레', lunch:'소고기채소진밥', dinner:'흰밥 + 계란국', snack:'고구마 으깬것 + 분유'},
+  }
+};
 
-function getKey(d){ var dt=new Date(); dt.setDate(dt.getDate()-(now.getDay()-d)); return 'food_'+dt.toDateString(); }
+var NUTRITION = {
+  seobin: ['단백질 (고기·생선·달걀)','채소 2가지 이상','탄수화물 (밥)','유제품 (우유·치즈·요거트)','과일 1가지 이상','물 충분히'],
+  danwoo: ['단백질 (소고기·닭·두부)','채소 퓨레/잘게','쌀밥·진밥·죽','유제품 (분유·요거트)','과일 으깨거나 작게','물·보리차'],
+};
+
+var done = JSON.parse(localStorage.getItem('food_nutrition')||'{}');
+
+function switchChild(child){
+  curChild = child;
+  document.getElementById('ctab-seobin').className='child-tab seobin'+(child==='seobin'?' active':'');
+  document.getElementById('ctab-danwoo').className='child-tab danwoo'+(child==='danwoo'?' active':'');
+  document.getElementById('save-btn').className='save-btn '+child;
+  document.getElementById('nutrition-label').textContent='✅ '+( child==='seobin'?'서빈':'단우')+' 오늘 영양 체크';
+  document.getElementById('week-label').textContent='📅 '+(child==='seobin'?'서빈':'단우')+' 이번 주 식단';
+
+  var tips = {
+    seobin:'🥗 서빈(37개월) 식단 포인트: 일반 가족식 가능! 짜지 않게, 채소 다양하게. 스스로 먹는 연습 중요해요.',
+    danwoo:'🍚 단우(18개월) 식단 포인트: 진밥·무른밥 위주. 소금·설탕 최소화. 새 음식은 3일 간격으로 시도해요.'
+  };
+  document.getElementById('food-tip').innerHTML='<div class="tip-box '+child+'">'+tips[child]+'</div>';
+
+  renderDayTabs();
+  loadDay();
+  renderWeek();
+}
+
+function renderDayTabs(){
+  var el = document.getElementById('dayTabs');
+  el.innerHTML = DAYS.map((d,i)=>`<button class="day-tab${i===curDay?' active '+curChild:''}" onclick="switchDay(${i})">${d}요일</button>`).join('');
+}
+
+function switchDay(i){
+  curDay=i; renderDayTabs(); loadDay();
+  document.getElementById('meal-label').textContent=(curChild==='seobin'?'서빈':'단우')+' — '+DAYS[i]+'요일 식단';
+}
+
+function getKey(){ return curChild+'_food_'+curDay+'_'+getWeekStart(); }
+function getWeekStart(){
+  var d=new Date(now); d.setDate(d.getDate()-now.getDay()); return d.toDateString();
+}
 
 function loadDay(){
-  var key = getKey(curDay);
-  var data = JSON.parse(localStorage.getItem(key)||'{}');
+  var key = getKey();
+  var saved = JSON.parse(localStorage.getItem(key)||'null');
+  var menu = WEEKLY_MENU[curChild][curDay] || {breakfast:'',lunch:'',dinner:'',snack:''};
+  var data = saved || menu;
   document.getElementById('m-breakfast').value = data.breakfast||'';
   document.getElementById('m-lunch').value = data.lunch||'';
   document.getElementById('m-dinner').value = data.dinner||'';
   document.getElementById('m-snack').value = data.snack||'';
-  document.getElementById('m-memo').value = data.memo||'';
-  nDone = JSON.parse(localStorage.getItem(key+'_n')||'[]');
+  document.getElementById('meal-label').textContent=(curChild==='seobin'?'서빈':'단우')+' — '+DAYS[curDay]+'요일 식단';
   renderNutrition();
-  document.getElementById('meal-date-label').textContent = DAYS[curDay]+'요일 식단';
 }
 
 function renderNutrition(){
   var el = document.getElementById('nutrition-list');
-  el.innerHTML = NUTRIENTS.map((n,i)=>`
-    <div class="nutrition-check" onclick="toggleN(${i})">
-      <div class="n-cb${nDone.includes(i)?' done':''}"><span class="n-check">✓</span></div>
+  var nKey = curChild+'_n_'+curDay+'_'+getWeekStart();
+  var nDone = JSON.parse(localStorage.getItem(nKey)||'[]');
+  el.innerHTML = NUTRITION[curChild].map((n,i)=>`
+    <div class="n-item" onclick="toggleN(${i})">
+      <div class="n-cb${nDone.includes(i)?' done '+curChild:''}">${nDone.includes(i)?'✓':''}</div>
       <div class="n-text">${n}</div>
     </div>`).join('');
 }
 
 function toggleN(i){
-  var key = getKey(curDay);
+  var nKey = curChild+'_n_'+curDay+'_'+getWeekStart();
+  var nDone = JSON.parse(localStorage.getItem(nKey)||'[]');
   if(nDone.includes(i)) nDone=nDone.filter(x=>x!==i); else nDone.push(i);
-  localStorage.setItem(key+'_n', JSON.stringify(nDone));
+  localStorage.setItem(nKey, JSON.stringify(nDone));
   renderNutrition();
 }
 
 function saveDay(){
-  var key = getKey(curDay);
-  localStorage.setItem(key, JSON.stringify({
+  localStorage.setItem(getKey(), JSON.stringify({
     breakfast: document.getElementById('m-breakfast').value,
     lunch: document.getElementById('m-lunch').value,
     dinner: document.getElementById('m-dinner').value,
     snack: document.getElementById('m-snack').value,
-    memo: document.getElementById('m-memo').value,
   }));
   renderWeek();
   alert('저장됐어요! 🥗');
@@ -159,21 +238,26 @@ function saveDay(){
 
 function renderWeek(){
   var el = document.getElementById('week-summary');
+  var color = curChild==='seobin'?'var(--coral)':'var(--blue)';
+  var bgColor = curChild==='seobin'?'var(--coral-l)':'var(--blue-l)';
   el.innerHTML = DAYS.map((d,i)=>{
-    var key = getKey(i);
-    var data = JSON.parse(localStorage.getItem(key)||'{}');
-    var n = (JSON.parse(localStorage.getItem(key+'_n')||'[]')).length;
-    var hasData = data.breakfast||data.lunch||data.dinner;
-    return `<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);${i===DAYS.length-1?'border-bottom:none':''}">
-      <div style="width:22px;height:22px;border-radius:50%;background:${i===curDay?'var(--coral)':'var(--border)'};color:${i===curDay?'#fff':'var(--muted)'};font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;">${d}</div>
-      <div style="flex:1;font-size:12px;color:var(--sub);">${hasData?data.breakfast||data.lunch||data.dinner:'미입력'}</div>
-      <div style="font-size:10px;color:${n>=4?'var(--coral)':'var(--muted)'};">${n}/6 영양</div>
+    var key = curChild+'_food_'+i+'_'+getWeekStart();
+    var saved = JSON.parse(localStorage.getItem(key)||'null');
+    var menu = WEEKLY_MENU[curChild][i] || {};
+    var data = saved || menu;
+    var isToday = i===now.getDay();
+    return `<div class="week-row">
+      <div class="day-badge" style="background:${isToday?color:'var(--border)'};color:${isToday?'#fff':'var(--muted)'};">${d}</div>
+      <div style="flex:1;">
+        <div style="font-size:12px;color:var(--sub);">${data.breakfast||'미입력'}</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:1px;">${data.lunch||''}</div>
+      </div>
+      ${isToday?`<div style="font-size:9px;padding:2px 7px;border-radius:20px;background:${bgColor};color:${color};font-weight:700;border:1px solid ${color};">오늘</div>`:''}
     </div>`;
   }).join('');
 }
 
-loadDay();
-renderWeek();
+switchChild('seobin');
 </script>
 </body>
 </html>
