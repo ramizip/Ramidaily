@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🏪 크몽 서비스 관리 — 라미스튜디오</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F7F5F0;--card:#fff;--border:rgba(0,0,0,0.08);
+  --text:#1A1A1A;--muted:#888;--sub:#555;
+  --studio:#534AB7;--studio-light:#EEEDFE;--studio-mid:#AFA9EC;
+  --radius:16px;--radius-sm:10px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:24px 16px 60px;}
+.container{max-width:480px;margin:0 auto;}
+.back-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);text-decoration:none;margin-bottom:20px;}
+.page-brand{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--studio);margin-bottom:4px;}
+.page-title{font-size:22px;font-weight:700;margin-bottom:6px;}
+.page-sub{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:20px;}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:12px;}
+.card-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;}
+
+/* 패키지 */
+.pkg-grid{display:flex;flex-direction:column;gap:8px;}
+.pkg{border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;position:relative;}
+.pkg.main{border-color:var(--studio-mid);background:var(--studio-light);}
+.pkg-badge{position:absolute;top:12px;right:12px;font-size:10px;padding:2px 8px;border-radius:20px;font-weight:700;}
+.badge-main{background:var(--studio);color:#fff;}
+.badge-up{background:#E1F5EE;color:#0F6E56;border:1px solid #5DCAA5;}
+.pkg-name{font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px;}
+.pkg-price{font-family:'DM Mono',monospace;font-size:20px;font-weight:500;color:var(--studio);margin-bottom:6px;}
+.pkg-items{font-size:12px;color:var(--sub);line-height:1.8;}
+.pkg-item::before{content:'· ';}
+
+/* DM 스크립트 */
+.dm-card{border:1px solid var(--studio-mid);border-radius:var(--radius-sm);padding:14px;margin-bottom:10px;background:var(--studio-light);}
+.dm-type{font-size:10px;font-weight:700;color:var(--studio);letter-spacing:.05em;margin-bottom:6px;}
+.dm-title{font-size:13px;font-weight:700;color:#3C3489;margin-bottom:8px;}
+.dm-body{font-size:12px;color:#534AB7;line-height:1.9;background:#fff;border-radius:8px;padding:12px;border:1px solid var(--studio-mid);}
+.copy-btn{display:inline-block;margin-top:8px;font-size:11px;padding:5px 12px;border:1px solid var(--studio-mid);border-radius:20px;background:#fff;color:var(--studio);cursor:pointer;font-family:'Noto Sans KR',sans-serif;font-weight:500;}
+.copy-btn:hover{background:var(--studio);color:#fff;}
+
+/* 체크리스트 */
+.checklist{display:flex;flex-direction:column;gap:0;}
+.check-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);cursor:pointer;}
+.check-item:last-child{border-bottom:none;}
+.cb{width:20px;height:20px;border-radius:6px;border:1.5px solid #CCC;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+.cb.done{background:var(--studio);border-color:var(--studio);}
+.check-svg{display:none;width:11px;height:11px;stroke:#fff;stroke-width:2.5;fill:none;}
+.cb.done .check-svg{display:block;}
+.check-text{font-size:13px;color:var(--text);line-height:1.5;transition:color .15s;}
+.check-text.done{text-decoration:line-through;color:#BBB;}
+.check-tag{font-size:10px;padding:2px 7px;border-radius:20px;margin-top:4px;display:inline-block;background:var(--studio-light);color:var(--studio);border:1px solid var(--studio-mid);}
+
+.caution{background:#FFFBF0;border:1px solid #F5D98A;border-radius:var(--radius-sm);padding:12px 14px;font-size:12px;color:#7A5C00;line-height:1.7;margin-top:8px;}
+.quick-btn{display:block;width:100%;padding:12px;background:var(--studio);color:#fff;border:none;border-radius:var(--radius-sm);font-size:13px;font-weight:500;font-family:'Noto Sans KR',sans-serif;cursor:pointer;text-align:center;text-decoration:none;margin-top:8px;}
+.quick-btn:hover{background:#3C3489;}
+</style>
+</head>
+<body>
+<div class="container">
+  <a href="./index.html" class="back-btn">← 라미 허브</a>
+  <div class="page-brand">✏️ 라미스튜디오</div>
+  <div class="page-title">크몽 서비스 관리</div>
+  <div class="page-sub">프로필 · 패키지 단가 · DM 스크립트 · 아웃바운드 전략</div>
+
+  <!-- 패키지 현황 -->
+  <div class="card">
+    <div class="card-label">💰 패키지 단가 현황</div>
+    <div class="pkg-grid">
+      <div class="pkg">
+        <span class="pkg-badge badge-up">↑ 인상 예정</span>
+        <div class="pkg-name">베이직</div>
+        <div class="pkg-price">99,000원</div>
+        <div class="pkg-items">
+          <div class="pkg-item">상세페이지 1종</div>
+          <div class="pkg-item">수정 1회</div>
+          <div class="pkg-item">납기 5일</div>
+        </div>
+      </div>
+      <div class="pkg main">
+        <span class="pkg-badge badge-main">주력</span>
+        <div class="pkg-name">딜럭스</div>
+        <div class="pkg-price">120,000원</div>
+        <div class="pkg-items">
+          <div class="pkg-item">상세페이지 1종 + 썸네일</div>
+          <div class="pkg-item">수정 2회</div>
+          <div class="pkg-item">납기 5일</div>
+          <div class="pkg-item">AI 기반 빠른 작업</div>
+        </div>
+      </div>
+      <div class="pkg">
+        <div class="pkg-name">프리미엄</div>
+        <div class="pkg-price">200,000원</div>
+        <div class="pkg-items">
+          <div class="pkg-item">상세페이지 + 전체 이미지 패키지</div>
+          <div class="pkg-item">수정 3회</div>
+          <div class="pkg-item">납기 7일</div>
+        </div>
+      </div>
+    </div>
+    <div class="caution">⚠ 수주 없다고 단가 낮추지 않기! 딜럭스 120,000원 기준 절대 유지.</div>
+  </div>
+
+  <!-- 프로필 체크리스트 -->
+  <div class="card">
+    <div class="card-label">✅ 프로필 완성도 체크</div>
+    <div class="checklist" id="checklist"></div>
+  </div>
+
+  <!-- DM 스크립트 -->
+  <div class="card">
+    <div class="card-label">💬 DM 아웃바운드 스크립트</div>
+
+    <div class="dm-card">
+      <div class="dm-type">스마트스토어 셀러 타겟</div>
+      <div class="dm-title">첫 DM — 상세페이지 제안</div>
+      <div class="dm-body">안녕하세요! [셀러명] 셀러님 🌿
+
+[상품명] 판매하시는 거 보고 연락드렸어요.
+
+저는 크몽에서 활동 중인 11년차 상세페이지 디자이너 라미스튜디오입니다.
+
+혹시 상세페이지 업그레이드 생각해보신 적 있으신가요?
+AI 활용으로 빠르게 작업하고, 전환율 높은 디자인 제작해드려요.
+
+첫 의뢰 30% 할인 프로모션 중이에요!
+관심 있으시면 크몽 채팅으로 편하게 문의 주세요 😊
+
+라미스튜디오 드림</div>
+      <button class="copy-btn" onclick="copyDM(this)">복사하기</button>
+    </div>
+
+    <div class="dm-card">
+      <div class="dm-type">재구매 유도</div>
+      <div class="dm-title">기존 고객 리텐션 DM</div>
+      <div class="dm-body">안녕하세요, [고객명]님! 라미스튜디오예요 🌿
+
+지난번 [작업명] 작업 이후 잘 사용하고 계신가요?
+
+새 시즌 상품 출시 예정이시면
+상세페이지 미리 준비하시는 게 좋아요!
+
+기존 고객분께는 재구매 10% 할인 적용해드려요.
+편하게 크몽 채팅 주세요 😊</div>
+      <button class="copy-btn" onclick="copyDM(this)">복사하기</button>
+    </div>
+  </div>
+
+  <!-- 이번 주 아웃바운드 -->
+  <div class="card">
+    <div class="card-label">📋 이번 주 DM 발송 현황</div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+      <span style="font-size:13px;color:var(--sub);">이번 주 목표: <strong style="color:var(--studio);">3건</strong></span>
+      <span style="font-family:'DM Mono',monospace;font-size:18px;font-weight:500;color:var(--studio);" id="dm-count">0 / 3</span>
+    </div>
+    <div style="display:flex;gap:8px;">
+      <button onclick="addDM()" style="flex:1;padding:10px;background:var(--studio);color:#fff;border:none;border-radius:var(--radius-sm);font-size:13px;font-family:'Noto Sans KR',sans-serif;cursor:pointer;font-weight:500;">+ DM 발송 완료</button>
+      <button onclick="resetDM()" style="padding:10px 14px;background:var(--bg);color:var(--muted);border:1px solid var(--border);border-radius:var(--radius-sm);font-size:12px;font-family:'Noto Sans KR',sans-serif;cursor:pointer;">초기화</button>
+    </div>
+  </div>
+
+  <a class="quick-btn" href="https://claude.ai/new?q=스마트스토어%20셀러한테%20보낼%20DM%203건%20같이%20써줘.%20라미스튜디오%20상세페이지%20전문%20디자이너야." target="_blank">💬 Claude로 DM 작성하기</a>
+</div>
+<script>
+const checks = [
+  {t:'프로필 사진 전문적 이미지로 교체',tag:'프로필'},
+  {t:'서비스 제목 → "매출 올리는 상세페이지" 키워드 포함',tag:'제목'},
+  {t:'포트폴리오 TOP 5 선별 업로드',tag:'포트폴리오'},
+  {t:'FAQ 3개 이상 작성',tag:'신뢰도'},
+  {t:'크몽 소개글에 리뷰 32개 5.0점 언급',tag:'리뷰'},
+  {t:'딜럭스 패키지 120,000원 세팅 확인',tag:'단가'},
+  {t:'숨고 프로필 개설 (9월 목표)',tag:'채널 확장'},
+];
+let done = JSON.parse(localStorage.getItem('kmong_checks')||'[]');
+function renderChecks(){
+  const el = document.getElementById('checklist');
+  el.innerHTML = checks.map((c,i)=>`
+    <div class="check-item" onclick="toggle(${i})">
+      <div class="cb${done.includes(i)?' done':''}">
+        <svg class="check-svg" viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
+      </div>
+      <div>
+        <div class="check-text${done.includes(i)?' done':''}">${c.t}</div>
+        <span class="check-tag">${c.tag}</span>
+      </div>
+    </div>`).join('');
+}
+function toggle(i){
+  if(done.includes(i))done=done.filter(x=>x!==i);else done.push(i);
+  localStorage.setItem('kmong_checks',JSON.stringify(done));
+  renderChecks();
+}
+renderChecks();
+
+let dmCount = parseInt(localStorage.getItem('dm_count')||'0');
+function updateDM(){document.getElementById('dm-count').textContent=dmCount+' / 3';}
+function addDM(){if(dmCount<3){dmCount++;localStorage.setItem('dm_count',dmCount);updateDM();if(dmCount===3)alert('이번 주 목표 달성! 🎉');}}
+function resetDM(){dmCount=0;localStorage.setItem('dm_count',0);updateDM();}
+updateDM();
+
+function copyDM(btn){
+  const body = btn.previousElementSibling;
+  navigator.clipboard.writeText(body.textContent).then(()=>{
+    btn.textContent='✓ 복사됨!';
+    setTimeout(()=>btn.textContent='복사하기',2000);
+  });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💰 수익 트래커 — 라미스튜디오</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F7F5F0;--card:#fff;--border:rgba(0,0,0,0.08);
+  --text:#1A1A1A;--muted:#888;--sub:#555;
+  --studio:#534AB7;--studio-light:#EEEDFE;--studio-mid:#AFA9EC;
+  --grow:#0EA87A;--grow-light:#E0F5EC;
+  --coral:#D85A30;--coral-light:#FAECE7;
+  --radius:16px;--radius-sm:10px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:24px 16px 60px;}
+.container{max-width:480px;margin:0 auto;}
+.back-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);text-decoration:none;margin-bottom:20px;}
+.page-brand{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--studio);margin-bottom:4px;}
+.page-title{font-size:22px;font-weight:700;margin-bottom:6px;}
+.page-sub{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:20px;}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:12px;}
+.card-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;}
+
+/* 이달 현황 */
+.month-hero{background:var(--studio-light);border:1px solid var(--studio-mid);border-radius:var(--radius-sm);padding:18px;margin-bottom:12px;text-align:center;}
+.hero-label{font-size:11px;color:var(--studio);font-weight:500;margin-bottom:6px;}
+.hero-amount{font-family:'DM Mono',monospace;font-size:36px;font-weight:500;color:var(--studio);}
+.hero-target{font-size:12px;color:#534AB7;margin-top:4px;}
+
+/* 진행바 */
+.prog-section{margin-bottom:14px;}
+.prog-row{display:flex;justify-content:space-between;font-size:12px;color:var(--sub);margin-bottom:5px;}
+.prog-pct{font-weight:700;}
+.prog-track{height:10px;background:var(--border);border-radius:5px;overflow:hidden;}
+.prog-fill{height:100%;border-radius:5px;transition:width .6s cubic-bezier(.4,0,.2,1);}
+.fill-studio{background:var(--studio);}
+.fill-grow{background:var(--grow);}
+.fill-coral{background:var(--coral);}
+
+/* 수주 기록 입력 */
+.input-row{display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid var(--border);}
+.input-row:last-child{border-bottom:none;}
+.input-label{font-size:13px;color:var(--text);flex:1;}
+.input-sub{font-size:11px;color:var(--muted);}
+.num-input{width:100px;padding:7px 10px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;font-family:'DM Mono',monospace;text-align:right;background:var(--bg);color:var(--text);outline:none;}
+.num-input:focus{border-color:var(--studio-mid);}
+
+/* 수주 내역 */
+.order-item{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);}
+.order-item:last-child{border-bottom:none;}
+.order-info{}
+.order-client{font-size:13px;font-weight:500;color:var(--text);}
+.order-detail{font-size:11px;color:var(--muted);margin-top:2px;}
+.order-price{font-family:'DM Mono',monospace;font-size:14px;font-weight:500;color:var(--studio);}
+.order-del{font-size:12px;padding:3px 8px;border:1px solid var(--border);border-radius:6px;background:transparent;cursor:pointer;color:var(--muted);}
+
+/* Phase 목표 */
+.phase-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);}
+.phase-row:last-child{border-bottom:none;}
+.phase-name{font-size:13px;color:var(--sub);}
+.phase-target{font-family:'DM Mono',monospace;font-size:13px;font-weight:500;color:var(--text);}
+.phase-current{font-size:11px;padding:2px 8px;border-radius:20px;font-weight:500;}
+.current-on{background:var(--studio-light);color:var(--studio);border:1px solid var(--studio-mid);}
+.current-future{background:var(--bg);color:var(--muted);border:1px solid var(--border);}
+
+.save-btn{width:100%;padding:12px;background:var(--studio);color:#fff;border:none;border-radius:var(--radius-sm);font-size:13px;font-weight:500;font-family:'Noto Sans KR',sans-serif;cursor:pointer;margin-top:10px;}
+.caution{background:#FFFBF0;border:1px solid #F5D98A;border-radius:var(--radius-sm);padding:12px 14px;font-size:12px;color:#7A5C00;line-height:1.7;margin-top:8px;}
+</style>
+</head>
+<body>
+<div class="container">
+  <a href="./index.html" class="back-btn">← 라미 허브</a>
+  <div class="page-brand">✏️ 라미스튜디오</div>
+  <div class="page-title">수익 트래커</div>
+  <div class="page-sub">월별 수입 · 수주 건수 · Phase 목표 달성률</div>
+
+  <!-- 이달 현황 -->
+  <div class="month-hero">
+    <div class="hero-label" id="month-label">이번 달 수입</div>
+    <div class="hero-amount">￦<span id="total-amount">0</span></div>
+    <div class="hero-target">목표: 1,500,000원 (Phase 1)</div>
+  </div>
+
+  <!-- 목표 달성률 -->
+  <div class="card">
+    <div class="card-label">📊 이달 목표 달성률</div>
+    <div class="prog-section">
+      <div class="prog-row">
+        <span>💰 수주 수입</span>
+        <span class="prog-pct" id="pct-order" style="color:var(--studio)">0%</span>
+      </div>
+      <div class="prog-track"><div class="prog-fill fill-studio" id="fill-order" style="width:0%"></div></div>
+    </div>
+    <div class="prog-section">
+      <div class="prog-row">
+        <span>🌱 콘텐츠·기타</span>
+        <span class="prog-pct" id="pct-etc" style="color:var(--grow)">0%</span>
+      </div>
+      <div class="prog-track"><div class="prog-fill fill-grow" id="fill-etc" style="width:0%"></div></div>
+    </div>
+    <div class="prog-section">
+      <div class="prog-row">
+        <span>🏠 전체 목표 달성</span>
+        <span class="prog-pct" id="pct-total" style="color:var(--coral)">0%</span>
+      </div>
+      <div class="prog-track"><div class="prog-fill fill-coral" id="fill-total" style="width:0%"></div></div>
+    </div>
+  </div>
+
+  <!-- 수입 입력 -->
+  <div class="card">
+    <div class="card-label">➕ 수입 추가</div>
+    <div class="input-row">
+      <div><div class="input-label">클라이언트명</div></div>
+      <input class="num-input" type="text" id="i-client" placeholder="셀러명" style="width:120px;font-family:'Noto Sans KR',sans-serif;font-size:12px;">
+    </div>
+    <div class="input-row">
+      <div><div class="input-label">금액</div><div class="input-sub">수수료 제외 실수령액</div></div>
+      <input class="num-input" type="number" id="i-amount" placeholder="0">
+    </div>
+    <div class="input-row">
+      <div><div class="input-label">구분</div></div>
+      <select id="i-type" style="padding:7px 10px;border:1.5px solid var(--border);border-radius:8px;font-size:12px;font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);outline:none;">
+        <option value="order">크몽 수주</option>
+        <option value="etc">콘텐츠·기타</option>
+      </select>
+    </div>
+    <button class="save-btn" onclick="addOrder()">+ 수입 추가</button>
+  </div>
+
+  <!-- 수주 내역 -->
+  <div class="card">
+    <div class="card-label">📋 이달 수주 내역</div>
+    <div id="order-list">
+      <div style="text-align:center;padding:16px;color:var(--muted);font-size:13px;">아직 기록이 없어요.<br>위에서 수입을 추가해보세요!</div>
+    </div>
+  </div>
+
+  <!-- Phase 목표표 -->
+  <div class="card">
+    <div class="card-label">🗺️ Phase별 수입 목표</div>
+    <div class="phase-row">
+      <div><div class="phase-name">Phase 1 (7~12월)</div><div style="font-size:11px;color:var(--muted);">수입 파이프 뚫기</div></div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span class="phase-target">150~200만</span>
+        <span class="phase-current current-on">진행 중</span>
+      </div>
+    </div>
+    <div class="phase-row">
+      <div><div class="phase-name">Phase 2 (2027 상반기)</div><div style="font-size:11px;color:var(--muted);">수입 다변화</div></div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span class="phase-target">300~400만</span>
+        <span class="phase-current current-future">예정</span>
+      </div>
+    </div>
+    <div class="phase-row">
+      <div><div class="phase-name">Phase 3 (2027 하반기)</div><div style="font-size:11px;color:var(--muted);">에이전시 구조화</div></div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span class="phase-target">500만+</span>
+        <span class="phase-current current-future">예정</span>
+      </div>
+    </div>
+    <div class="phase-row">
+      <div><div class="phase-name">Phase 4 (2028~)</div><div style="font-size:11px;color:var(--muted);">자산 전환 & 이사</div></div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span class="phase-target">700만+</span>
+        <span class="phase-current current-future">목표</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="caution">⚠ 매달 100만원 이상 저축 목표. 수입이 늘어도 고정비 최소화 유지!</div>
+</div>
+<script>
+var now = new Date();
+var monthKey = now.getFullYear()+'_'+(now.getMonth()+1);
+document.getElementById('month-label').textContent = (now.getMonth()+1)+'월 수입';
+
+function loadOrders(){return JSON.parse(localStorage.getItem('orders_'+monthKey)||'[]');}
+function saveOrders(arr){localStorage.setItem('orders_'+monthKey,JSON.stringify(arr));}
+
+function addOrder(){
+  var client = document.getElementById('i-client').value.trim()||'미입력';
+  var amount = parseInt(document.getElementById('i-amount').value)||0;
+  var type = document.getElementById('i-type').value;
+  if(!amount){alert('금액을 입력해주세요!');return;}
+  var orders = loadOrders();
+  orders.unshift({client,amount,type,date:new Date().toLocaleDateString('ko-KR')});
+  saveOrders(orders);
+  document.getElementById('i-client').value='';
+  document.getElementById('i-amount').value='';
+  renderAll();
+}
+
+function deleteOrder(i){
+  var orders=loadOrders();orders.splice(i,1);saveOrders(orders);renderAll();
+}
+
+function renderAll(){
+  var orders=loadOrders();
+  var orderTotal=orders.filter(o=>o.type==='order').reduce((a,o)=>a+o.amount,0);
+  var etcTotal=orders.filter(o=>o.type==='etc').reduce((a,o)=>a+o.amount,0);
+  var total=orderTotal+etcTotal;
+  var target=1500000;
+
+  document.getElementById('total-amount').textContent=total.toLocaleString();
+  var po=Math.min(100,Math.round(orderTotal/target*100));
+  var pe=Math.min(100,Math.round(etcTotal/target*100));
+  var pt=Math.min(100,Math.round(total/target*100));
+  document.getElementById('fill-order').style.width=po+'%';
+  document.getElementById('pct-order').textContent=po+'%';
+  document.getElementById('fill-etc').style.width=pe+'%';
+  document.getElementById('pct-etc').textContent=pe+'%';
+  document.getElementById('fill-total').style.width=pt+'%';
+  document.getElementById('pct-total').textContent=pt+'%';
+
+  var el=document.getElementById('order-list');
+  if(!orders.length){
+    el.innerHTML='<div style="text-align:center;padding:16px;color:var(--muted);font-size:13px;">아직 기록이 없어요.</div>';
+    return;
+  }
+  el.innerHTML=orders.map((o,i)=>`
+    <div class="order-item">
+      <div class="order-info">
+        <div class="order-client">${o.client}</div>
+        <div class="order-detail">${o.date} · ${o.type==='order'?'크몽 수주':'콘텐츠·기타'}</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="order-price">${o.amount.toLocaleString()}원</div>
+        <button class="order-del" onclick="deleteOrder(${i})">삭제</button>
+      </div>
+    </div>`).join('');
+}
+renderAll();
+</script>
+</body>
+</html>

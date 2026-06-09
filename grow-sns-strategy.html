@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📱 SNS 채널 전략 — 라미그로우</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F7F5F0;--card:#fff;--border:rgba(0,0,0,0.08);
+  --text:#1A1A1A;--muted:#888;--sub:#555;
+  --grow:#0EA87A;--grow-light:#E0F5EC;--grow-mid:#5DCAA5;
+  --radius:16px;--radius-sm:10px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:24px 16px 60px;}
+.container{max-width:480px;margin:0 auto;}
+
+.back-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);text-decoration:none;margin-bottom:20px;padding:6px 0;}
+.back-btn:hover{color:var(--text);}
+
+.page-header{margin-bottom:20px;}
+.page-brand{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--grow);margin-bottom:4px;}
+.page-title{font-size:22px;font-weight:700;color:var(--text);margin-bottom:6px;}
+.page-sub{font-size:13px;color:var(--muted);line-height:1.6;}
+
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:12px;}
+.card-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;}
+
+/* 목표 그리드 */
+.goal-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}
+.goal-item{background:var(--grow-light);border-radius:var(--radius-sm);padding:12px;text-align:center;border:1px solid var(--grow-mid);}
+.goal-num{font-family:'DM Mono',monospace;font-size:20px;font-weight:500;color:var(--grow);}
+.goal-desc{font-size:11px;color:#085041;margin-top:3px;line-height:1.4;}
+
+/* 채널 카드 */
+.channel-block{border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden;margin-bottom:10px;}
+.channel-hd{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;cursor:pointer;background:var(--card);}
+.channel-hd:hover{background:#fafafa;}
+.ch-left{display:flex;align-items:center;gap:10px;}
+.ch-icon{font-size:22px;}
+.ch-name{font-size:14px;font-weight:700;color:var(--text);}
+.ch-status{font-size:11px;color:var(--muted);margin-top:2px;}
+.ch-badge{font-size:11px;padding:3px 10px;border-radius:20px;font-weight:500;}
+.badge-active{background:var(--grow-light);color:var(--grow);border:1px solid var(--grow-mid);}
+.badge-plan{background:#FEF3DC;color:#854F0B;border:1px solid #EF9F27;}
+.ch-arr{font-size:11px;color:var(--muted);transition:transform .25s;margin-left:8px;}
+.channel-block.open .ch-arr{transform:rotate(180deg);}
+.channel-bd{display:none;padding:14px 16px;border-top:1px solid var(--border);background:#fafafa;}
+.channel-block.open .channel-bd{display:block;}
+
+.kpi-row{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:12px;}
+.kpi{background:var(--card);border-radius:var(--radius-sm);padding:9px;text-align:center;border:1px solid var(--border);}
+.kpi-num{font-family:'DM Mono',monospace;font-size:15px;font-weight:500;color:var(--text);}
+.kpi-desc{font-size:9px;color:var(--muted);margin-top:2px;}
+
+.strat-list{list-style:none;display:flex;flex-direction:column;gap:6px;}
+.strat-item{font-size:12px;color:var(--sub);line-height:1.6;padding:8px 10px;background:var(--card);border-radius:8px;border-left:3px solid var(--grow-mid);}
+
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px;}
+.tag{font-size:10px;padding:3px 9px;border-radius:20px;background:var(--grow-light);color:var(--grow);border:1px solid var(--grow-mid);font-weight:500;}
+
+/* 주간 루틴 */
+.week-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;}
+.day-col{text-align:center;}
+.day-name{font-size:9px;color:var(--muted);margin-bottom:4px;}
+.day-task{font-size:9px;background:var(--grow-light);color:#085041;border-radius:6px;padding:4px 2px;line-height:1.4;min-height:36px;display:flex;align-items:center;justify-content:center;}
+.day-task.off{background:var(--bg);color:var(--muted);}
+
+.caution{background:#FFFBF0;border:1px solid #F5D98A;border-radius:var(--radius-sm);padding:12px 14px;font-size:12px;color:#7A5C00;line-height:1.7;margin-top:8px;}
+
+.quick-btn{display:block;width:100%;padding:12px;background:var(--grow);color:#fff;border:none;border-radius:var(--radius-sm);font-size:13px;font-weight:500;font-family:'Noto Sans KR',sans-serif;cursor:pointer;text-align:center;text-decoration:none;margin-top:8px;}
+.quick-btn:hover{background:#089A6D;}
+</style>
+</head>
+<body>
+<div class="container">
+  <a href="./index.html" class="back-btn">← 라미 허브</a>
+
+  <div class="page-header">
+    <div class="page-brand">🌱 라미그로우</div>
+    <div class="page-title">SNS 채널 전략</div>
+    <div class="page-sub">팔로워 500 → 1,000명 로드맵 · 채널별 운영 방향</div>
+  </div>
+
+  <!-- 목표 -->
+  <div class="card">
+    <div class="card-label">Phase 1 채널 목표 (7~12월)</div>
+    <div class="goal-grid">
+      <div class="goal-item"><div class="goal-num">500</div><div class="goal-desc">인스타<br>팔로워</div></div>
+      <div class="goal-item"><div class="goal-num">주 3회</div><div class="goal-desc">포스팅<br>루틴</div></div>
+      <div class="goal-item"><div class="goal-num">10%+</div><div class="goal-desc">저장율<br>목표</div></div>
+      <div class="goal-item"><div class="goal-num">월 5건</div><div class="goal-desc">DM<br>유입</div></div>
+    </div>
+  </div>
+
+  <!-- 채널별 -->
+  <div class="card">
+    <div class="card-label">채널별 전략</div>
+
+    <div class="channel-block open" id="ch-insta">
+      <div class="channel-hd" onclick="toggleCh('ch-insta')">
+        <div class="ch-left">
+          <span class="ch-icon">📸</span>
+          <div><div class="ch-name">인스타그램</div><div class="ch-status">주력 채널 · 현재 운영 중</div></div>
+        </div>
+        <span class="ch-badge badge-active">주력</span>
+        <span class="ch-arr">▼</span>
+      </div>
+      <div class="channel-bd">
+        <div class="kpi-row">
+          <div class="kpi"><div class="kpi-num">주 3회</div><div class="kpi-desc">포스팅</div></div>
+          <div class="kpi"><div class="kpi-num">릴스</div><div class="kpi-desc">메인 포맷</div></div>
+          <div class="kpi"><div class="kpi-num">저장↑</div><div class="kpi-desc">알고리즘 핵심</div></div>
+        </div>
+        <ul class="strat-list">
+          <li class="strat-item">콘텐츠 방향: AI 활용 디자인 팁 + 육아맘 프리랜서 일상</li>
+          <li class="strat-item">포맷: 카드뉴스 1장짜리 정보글 → 저장율 UP</li>
+          <li class="strat-item">스토리: 매일 1개 이상 (수주 진행 상황, 오늘 작업)</li>
+          <li class="strat-item">바이오: 상세페이지 디자이너 + 크몽 링크 필수</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">#상세페이지디자인</span><span class="tag">#크몽디자이너</span>
+          <span class="tag">#AI디자인</span><span class="tag">#육아맘프리랜서</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="channel-block" id="ch-threads">
+      <div class="channel-hd" onclick="toggleCh('ch-threads')">
+        <div class="ch-left">
+          <span class="ch-icon">🧵</span>
+          <div><div class="ch-name">스레드</div><div class="ch-status">보조 채널 · 일 1포스팅</div></div>
+        </div>
+        <span class="ch-badge badge-active">운영 중</span>
+        <span class="ch-arr">▼</span>
+      </div>
+      <div class="channel-bd">
+        <div class="kpi-row">
+          <div class="kpi"><div class="kpi-num">매일</div><div class="kpi-desc">1포스팅</div></div>
+          <div class="kpi"><div class="kpi-num">텍스트</div><div class="kpi-desc">메인 포맷</div></div>
+          <div class="kpi"><div class="kpi-num">5분</div><div class="kpi-desc">작성 목표</div></div>
+        </div>
+        <ul class="strat-list">
+          <li class="strat-item">오늘 작업 한 줄 기록 → 일관성이 신뢰 만들어요</li>
+          <li class="strat-item">디자인 팁 1가지 · 프리랜서 수다 · 수주 후기</li>
+          <li class="strat-item">인스타 캡션 재활용 가능 → 시간 절약</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="channel-block" id="ch-blog">
+      <div class="channel-hd" onclick="toggleCh('ch-blog')">
+        <div class="ch-left">
+          <span class="ch-icon">📝</span>
+          <div><div class="ch-name">네이버 블로그</div><div class="ch-status">SEO 채널 · 주 2회</div></div>
+        </div>
+        <span class="ch-badge badge-active">운영 중</span>
+        <span class="ch-arr">▼</span>
+      </div>
+      <div class="channel-bd">
+        <div class="kpi-row">
+          <div class="kpi"><div class="kpi-num">주 2회</div><div class="kpi-desc">포스팅</div></div>
+          <div class="kpi"><div class="kpi-num">SEO</div><div class="kpi-desc">검색 유입</div></div>
+          <div class="kpi"><div class="kpi-num">1,000자+</div><div class="kpi-desc">글자수 목표</div></div>
+        </div>
+        <ul class="strat-list">
+          <li class="strat-item">키워드: "크몽 상세페이지" "스마트스토어 상세페이지 디자인"</li>
+          <li class="strat-item">포트폴리오 후기 → 신뢰도 + 검색 노출 동시 공략</li>
+          <li class="strat-item">애드포스트 수익 목표: 월 3~5만원 (부수입)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="channel-block" id="ch-shorts">
+      <div class="channel-hd" onclick="toggleCh('ch-shorts')">
+        <div class="ch-left">
+          <span class="ch-icon">🎬</span>
+          <div><div class="ch-name">유튜브 쇼츠</div><div class="ch-status">9월~ 테스트 시작</div></div>
+        </div>
+        <span class="ch-badge badge-plan">준비 중</span>
+        <span class="ch-arr">▼</span>
+      </div>
+      <div class="channel-bd">
+        <div class="kpi-row">
+          <div class="kpi"><div class="kpi-num">9월~</div><div class="kpi-desc">시작 시점</div></div>
+          <div class="kpi"><div class="kpi-num">주 2회</div><div class="kpi-desc">목표 빈도</div></div>
+          <div class="kpi"><div class="kpi-num">60초</div><div class="kpi-desc">길이 제한</div></div>
+        </div>
+        <ul class="strat-list">
+          <li class="strat-item">AI로 상세페이지 만드는 과정 타임랩스 → 관심도 높음</li>
+          <li class="strat-item">인스타 릴스 동시 업로드 → 제작 효율 UP</li>
+          <li class="strat-item">Phase 1 수주 루틴 잡힌 후 시작할 것</li>
+        </ul>
+        <div class="caution">⚠ 수주 월 3건 미만이면 쇼츠 시작 미루기. 콘텐츠보다 수주가 먼저!</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 주간 루틴 -->
+  <div class="card">
+    <div class="card-label">주간 포스팅 루틴</div>
+    <div class="week-grid">
+      <div class="day-col"><div class="day-name">월</div><div class="day-task">인스타<br>카드뉴스</div></div>
+      <div class="day-col"><div class="day-name">화</div><div class="day-task off">스레드만</div></div>
+      <div class="day-col"><div class="day-name">수</div><div class="day-task">블로그<br>포스팅</div></div>
+      <div class="day-col"><div class="day-name">목</div><div class="day-task">인스타<br>릴스</div></div>
+      <div class="day-col"><div class="day-name">금</div><div class="day-task">블로그<br>포스팅</div></div>
+      <div class="day-col"><div class="day-name">토</div><div class="day-task">인스타<br>일상글</div></div>
+      <div class="day-col"><div class="day-name">일</div><div class="day-task off">휴식</div></div>
+    </div>
+    <div class="caution" style="margin-top:12px;">⚠ 스레드는 매일 · 인스타·블로그는 주간 루틴 고정. 완벽보다 꾸준함!</div>
+  </div>
+
+  <a class="quick-btn" href="https://claude.ai/new?q=오늘%20라미그로우%20인스타%20포스팅%20초안%20같이%20써줘" target="_blank">💬 Claude로 오늘 포스팅 쓰기</a>
+</div>
+<script>
+function toggleCh(id){document.getElementById(id).classList.toggle('open');}
+</script>
+</body>
+</html>

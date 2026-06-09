@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📁 포트폴리오 관리 — 라미스튜디오</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F7F5F0;--card:#fff;--border:rgba(0,0,0,0.08);
+  --text:#1A1A1A;--muted:#888;--sub:#555;
+  --studio:#534AB7;--studio-light:#EEEDFE;--studio-mid:#AFA9EC;
+  --radius:16px;--radius-sm:10px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:24px 16px 60px;}
+.container{max-width:480px;margin:0 auto;}
+.back-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);text-decoration:none;margin-bottom:20px;}
+.page-brand{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--studio);margin-bottom:4px;}
+.page-title{font-size:22px;font-weight:700;margin-bottom:6px;}
+.page-sub{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:20px;}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:12px;}
+.card-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;}
+
+/* 포트폴리오 아이템 */
+.port-item{border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;margin-bottom:10px;display:flex;align-items:flex-start;gap:12px;}
+.port-item.top{border-color:var(--studio-mid);background:var(--studio-light);}
+.port-rank{font-family:'DM Mono',monospace;font-size:20px;font-weight:500;color:var(--studio-mid);flex-shrink:0;width:28px;}
+.port-item.top .port-rank{color:var(--studio);}
+.port-info{flex:1;}
+.port-industry{font-size:10px;font-weight:700;color:var(--studio);letter-spacing:.05em;margin-bottom:4px;}
+.port-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px;}
+.port-desc{font-size:12px;color:var(--sub);line-height:1.6;}
+.port-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px;}
+.port-tag{font-size:10px;padding:2px 8px;border-radius:20px;background:var(--studio-light);color:var(--studio);border:1px solid var(--studio-mid);font-weight:500;}
+.star{color:#F5A623;}
+
+/* 선별 가이드 */
+.guide-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);}
+.guide-item:last-child{border-bottom:none;}
+.guide-num{width:22px;height:22px;border-radius:50%;background:var(--studio);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.guide-text{font-size:13px;color:var(--text);line-height:1.6;}
+.guide-sub{font-size:11px;color:var(--muted);margin-top:2px;}
+
+/* 케이스 스터디 */
+.case-card{background:var(--studio-light);border:1px solid var(--studio-mid);border-radius:var(--radius-sm);padding:14px;margin-bottom:10px;}
+.case-industry{font-size:10px;font-weight:700;color:var(--studio);letter-spacing:.05em;margin-bottom:6px;}
+.case-title{font-size:14px;font-weight:700;color:#3C3489;margin-bottom:10px;}
+.case-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;}
+.case-box{background:#fff;border-radius:8px;padding:10px;border:1px solid var(--studio-mid);}
+.case-box-label{font-size:10px;font-weight:700;color:var(--muted);margin-bottom:4px;}
+.case-box-text{font-size:12px;color:var(--sub);line-height:1.6;}
+.case-result{background:#fff;border-radius:8px;padding:10px;border:1px solid var(--studio-mid);}
+.case-result-label{font-size:10px;font-weight:700;color:var(--studio);margin-bottom:4px;}
+.case-result-text{font-size:12px;color:#3C3489;line-height:1.6;}
+
+.caution{background:#FFFBF0;border:1px solid #F5D98A;border-radius:var(--radius-sm);padding:12px 14px;font-size:12px;color:#7A5C00;line-height:1.7;margin-top:8px;}
+.quick-btn{display:block;width:100%;padding:12px;background:var(--studio);color:#fff;border:none;border-radius:var(--radius-sm);font-size:13px;font-weight:500;font-family:'Noto Sans KR',sans-serif;cursor:pointer;text-align:center;text-decoration:none;margin-top:8px;}
+.quick-btn:hover{background:#3C3489;}
+</style>
+</head>
+<body>
+<div class="container">
+  <a href="./index.html" class="back-btn">← 라미 허브</a>
+  <div class="page-brand">✏️ 라미스튜디오</div>
+  <div class="page-title">포트폴리오 관리</div>
+  <div class="page-sub">11년 경력 TOP 작업물 · 신규 클라이언트용 케이스 스터디</div>
+
+  <!-- TOP 5 선별 -->
+  <div class="card">
+    <div class="card-label">⭐ 크몽 추천 TOP 5 포트폴리오</div>
+
+    <div class="port-item top">
+      <div class="port-rank">01</div>
+      <div class="port-info">
+        <div class="port-industry">건강식품 · 스마트스토어</div>
+        <div class="port-title">전환율 높은 다이어트 식품 상세페이지</div>
+        <div class="port-desc">Before/After 구성, 성분 인포그래픽, 구매 버튼 위치 최적화</div>
+        <div class="port-tags">
+          <span class="port-tag">AI 활용</span>
+          <span class="port-tag">인포그래픽</span>
+          <span class="port-tag">전환율 ↑</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="port-item top">
+      <div class="port-rank">02</div>
+      <div class="port-info">
+        <div class="port-industry">패션·의류 · 스마트스토어</div>
+        <div class="port-title">시즌 신상 의류 브랜드 상세페이지</div>
+        <div class="port-desc">감성 레이아웃, 사이즈 가이드 삽입, 스타일링 컷 구성</div>
+        <div class="port-tags">
+          <span class="port-tag">브랜딩</span>
+          <span class="port-tag">감성 디자인</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="port-item top">
+      <div class="port-rank">03</div>
+      <div class="port-info">
+        <div class="port-industry">생활용품 · 쿠팡</div>
+        <div class="port-title">주방용품 멀티 플랫폼 상세페이지</div>
+        <div class="port-desc">쿠팡/스마트스토어 동시 대응, 제품 기능 비교표, 리뷰 영역 배치</div>
+        <div class="port-tags">
+          <span class="port-tag">멀티 플랫폼</span>
+          <span class="port-tag">비교표</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="port-item">
+      <div class="port-rank">04</div>
+      <div class="port-info">
+        <div class="port-industry">뷰티·화장품</div>
+        <div class="port-title">기능성 스킨케어 상세페이지</div>
+        <div class="port-desc">성분 설명 인포그래픽, 피부 타입별 추천 구성</div>
+        <div class="port-tags"><span class="port-tag">인포그래픽</span><span class="port-tag">뷰티</span></div>
+      </div>
+    </div>
+
+    <div class="port-item">
+      <div class="port-rank">05</div>
+      <div class="port-info">
+        <div class="port-industry">반려동물</div>
+        <div class="port-title">펫푸드 브랜드 상세페이지</div>
+        <div class="port-desc">성분 강조, 귀여운 톤앤매너, 급여량 가이드 삽입</div>
+        <div class="port-tags"><span class="port-tag">감성 디자인</span><span class="port-tag">펫</span></div>
+      </div>
+    </div>
+
+    <div class="caution">⚠ 업종 다양성 확보하기! 한 업종만 있으면 다른 업종 클라이언트 유치 어려워요.</div>
+  </div>
+
+  <!-- 선별 기준 -->
+  <div class="card">
+    <div class="card-label">📌 포트폴리오 선별 기준</div>
+    <div class="guide-item">
+      <div class="guide-num">1</div>
+      <div><div class="guide-text">전환율 or 매출 성과가 있는 작업물 우선</div><div class="guide-sub">클라이언트 피드백, 리뷰 내용 활용</div></div>
+    </div>
+    <div class="guide-item">
+      <div class="guide-num">2</div>
+      <div><div class="guide-text">업종 다양성 확보 (패션·식품·뷰티·생활·펫)</div><div class="guide-sub">각 업종 최소 1개씩</div></div>
+    </div>
+    <div class="guide-item">
+      <div class="guide-num">3</div>
+      <div><div class="guide-text">AI 활용 작업물 별도 표시</div><div class="guide-sub">속도·비용 경쟁력 어필 포인트</div></div>
+    </div>
+    <div class="guide-item">
+      <div class="guide-num">4</div>
+      <div><div class="guide-text">Before/After 있는 리뉴얼 작업물 우선</div><div class="guide-sub">변화가 시각적으로 보여야 임팩트 있음</div></div>
+    </div>
+    <div class="guide-item">
+      <div class="guide-num">5</div>
+      <div><div class="guide-text">최근 1년 이내 작업물 위주</div><div class="guide-sub">오래된 작업물은 트렌드 안 맞을 수 있음</div></div>
+    </div>
+  </div>
+
+  <!-- 케이스 스터디 -->
+  <div class="card">
+    <div class="card-label">📋 신규 클라이언트용 케이스 스터디</div>
+
+    <div class="case-card">
+      <div class="case-industry">건강식품 · 스마트스토어</div>
+      <div class="case-title">다이어트 식품 상세페이지 리뉴얼</div>
+      <div class="case-row">
+        <div class="case-box">
+          <div class="case-box-label">😰 클라이언트 고민</div>
+          <div class="case-box-text">상세페이지 오래되고 촌스러워서 클릭만 하고 나가는 것 같아요</div>
+        </div>
+        <div class="case-box">
+          <div class="case-box-label">✅ 라미스튜디오 접근</div>
+          <div class="case-box-text">Before/After + 성분 인포그래픽 + 구매 버튼 위치 최적화</div>
+        </div>
+      </div>
+      <div class="case-result">
+        <div class="case-result-label">🎯 결과 & 피드백</div>
+        <div class="case-result-text">"상세페이지 바꾸고 나서 문의가 확 늘었어요. 재구매 고객도 생겼고요!" ⭐⭐⭐⭐⭐</div>
+      </div>
+    </div>
+
+    <div class="case-card">
+      <div class="case-industry">패션·의류</div>
+      <div class="case-title">신상 의류 브랜드 상세페이지 제작</div>
+      <div class="case-row">
+        <div class="case-box">
+          <div class="case-box-label">😰 클라이언트 고민</div>
+          <div class="case-box-text">브랜드 감성이 안 살고 제품이 싸 보여요</div>
+        </div>
+        <div class="case-box">
+          <div class="case-box-label">✅ 라미스튜디오 접근</div>
+          <div class="case-box-text">감성 레이아웃 + 스타일링 컷 구성 + 사이즈 가이드 삽입</div>
+        </div>
+      </div>
+      <div class="case-result">
+        <div class="case-result-label">🎯 결과 & 피드백</div>
+        <div class="case-result-text">"브랜드 느낌이 제대로 살았어요. 빠른 납기에 퀄리티까지 최고!" ⭐⭐⭐⭐⭐</div>
+      </div>
+    </div>
+  </div>
+
+  <a class="quick-btn" href="https://claude.ai/new?q=내%20포트폴리오%20케이스%20스터디%20문구%20같이%20써줘.%20라미스튜디오%2011년차%20상세페이지%20디자이너야." target="_blank">💬 Claude로 케이스 스터디 작성하기</a>
+</div>
+</body>
+</html>

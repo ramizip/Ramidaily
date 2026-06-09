@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📊 성장 지표 트래커 — 라미그로우</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F7F5F0;--card:#fff;--border:rgba(0,0,0,0.08);
+  --text:#1A1A1A;--muted:#888;--sub:#555;
+  --grow:#0EA87A;--grow-light:#E0F5EC;--grow-mid:#5DCAA5;
+  --radius:16px;--radius-sm:10px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:24px 16px 60px;}
+.container{max-width:480px;margin:0 auto;}
+.back-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);text-decoration:none;margin-bottom:20px;}
+.page-brand{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--grow);margin-bottom:4px;}
+.page-title{font-size:22px;font-weight:700;margin-bottom:6px;}
+.page-sub{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:20px;}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:12px;}
+.card-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;}
+
+/* 스탯 */
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px;}
+.stat{background:var(--bg);border-radius:var(--radius-sm);padding:12px;text-align:center;border:1px solid var(--border);}
+.stat-num{font-family:'DM Mono',monospace;font-size:22px;font-weight:500;color:var(--grow);}
+.stat-label{font-size:10px;color:var(--muted);margin-top:3px;}
+
+/* 입력 */
+.input-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);}
+.input-row:last-child{border-bottom:none;}
+.input-label{font-size:13px;color:var(--text);flex:1;}
+.input-sub{font-size:11px;color:var(--muted);margin-top:2px;}
+.num-input{width:90px;padding:7px 10px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;font-family:'DM Mono',monospace;text-align:right;background:var(--bg);color:var(--text);outline:none;}
+.num-input:focus{border-color:var(--grow-mid);}
+
+/* 진행바 */
+.prog-wrap{margin-bottom:12px;}
+.prog-row{display:flex;justify-content:space-between;font-size:12px;color:var(--sub);margin-bottom:5px;}
+.prog-pct{font-weight:500;color:var(--grow);}
+.prog-track{height:8px;background:var(--border);border-radius:4px;overflow:hidden;}
+.prog-fill{height:100%;background:var(--grow);border-radius:4px;transition:width .5s;}
+
+/* 주간 기록 */
+.week-table{width:100%;border-collapse:collapse;font-size:12px;}
+.week-table th{font-size:10px;font-weight:700;color:var(--muted);padding:6px 8px;text-align:center;border-bottom:1px solid var(--border);}
+.week-table td{padding:8px;text-align:center;border-bottom:1px solid var(--border);color:var(--sub);}
+.week-table tr:last-child td{border-bottom:none;}
+.week-table td:first-child{text-align:left;font-weight:500;color:var(--text);}
+.good{color:var(--grow);font-weight:700;}
+
+.caution{background:#FFFBF0;border:1px solid #F5D98A;border-radius:var(--radius-sm);padding:12px 14px;font-size:12px;color:#7A5C00;line-height:1.7;}
+.save-btn{width:100%;padding:12px;background:var(--grow);color:#fff;border:none;border-radius:var(--radius-sm);font-size:13px;font-weight:500;font-family:'Noto Sans KR',sans-serif;cursor:pointer;margin-top:8px;}
+.save-btn:hover{background:#089A6D;}
+</style>
+</head>
+<body>
+<div class="container">
+  <a href="./index.html" class="back-btn">← 라미 허브</a>
+  <div class="page-brand">🌱 라미그로우</div>
+  <div class="page-title">성장 지표 트래커</div>
+  <div class="page-sub">채널별 주간 핵심 지표 기록 · 매주 금요일 업데이트</div>
+
+  <!-- 이번 주 현황 -->
+  <div class="card">
+    <div class="card-label">이번 주 현황</div>
+    <div class="stat-grid">
+      <div class="stat"><div class="stat-num" id="s-insta">-</div><div class="stat-label">인스타 팔로워</div></div>
+      <div class="stat"><div class="stat-num" id="s-save">-</div><div class="stat-label">저장율</div></div>
+      <div class="stat"><div class="stat-num" id="s-dm">-</div><div class="stat-label">DM 유입</div></div>
+    </div>
+
+    <!-- 팔로워 목표 -->
+    <div class="prog-wrap">
+      <div class="prog-row"><span>인스타 팔로워 목표 500명</span><span class="prog-pct" id="prog-pct-f">0%</span></div>
+      <div class="prog-track"><div class="prog-fill" id="prog-fill-f" style="width:0%"></div></div>
+    </div>
+    <div class="prog-wrap">
+      <div class="prog-row"><span>블로그 유입 목표 월 200명</span><span class="prog-pct" id="prog-pct-b">0%</span></div>
+      <div class="prog-track"><div class="prog-fill" id="prog-fill-b" style="width:0%"></div></div>
+    </div>
+  </div>
+
+  <!-- 지표 입력 -->
+  <div class="card">
+    <div class="card-label">📝 이번 주 지표 입력</div>
+    <div class="input-row">
+      <div><div class="input-label">📸 인스타 팔로워</div><div class="input-sub">목표: 500명 (12월)</div></div>
+      <input class="num-input" type="number" id="i-insta" placeholder="0" oninput="updateStats()">
+    </div>
+    <div class="input-row">
+      <div><div class="input-label">🧵 스레드 팔로워</div><div class="input-sub">부수적 지표</div></div>
+      <input class="num-input" type="number" id="i-threads" placeholder="0" oninput="updateStats()">
+    </div>
+    <div class="input-row">
+      <div><div class="input-label">💾 인스타 저장율</div><div class="input-sub">목표: 10% 이상</div></div>
+      <input class="num-input" type="number" id="i-save" placeholder="%" oninput="updateStats()">
+    </div>
+    <div class="input-row">
+      <div><div class="input-label">💬 DM 유입</div><div class="input-sub">수주로 이어진 DM</div></div>
+      <input class="num-input" type="number" id="i-dm" placeholder="0건" oninput="updateStats()">
+    </div>
+    <div class="input-row">
+      <div><div class="input-label">📝 블로그 방문자</div><div class="input-sub">이번 달 누적</div></div>
+      <input class="num-input" type="number" id="i-blog" placeholder="0" oninput="updateStats()">
+    </div>
+    <div class="input-row">
+      <div><div class="input-label">📋 이번 주 포스팅</div><div class="input-sub">목표: 인스타3 + 블로그2</div></div>
+      <input class="num-input" type="number" id="i-post" placeholder="0개" oninput="updateStats()">
+    </div>
+    <button class="save-btn" onclick="saveData()">💾 이번 주 기록 저장</button>
+  </div>
+
+  <!-- 주간 기록표 -->
+  <div class="card">
+    <div class="card-label">📅 주간 기록 (최근 4주)</div>
+    <table class="week-table">
+      <thead>
+        <tr>
+          <th>주차</th><th>팔로워</th><th>저장율</th><th>DM</th><th>포스팅</th>
+        </tr>
+      </thead>
+      <tbody id="week-tbody">
+        <tr><td colspan="5" style="color:var(--muted);padding:16px;text-align:center;">아직 기록이 없어요.<br>위에서 첫 번째 지표를 입력해보세요!</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caution">⚠ 팔로워보다 저장율·DM 유입이 더 중요해요. 수주로 이어지는 지표에 집중하기!</div>
+</div>
+<script>
+function getWeek(){
+  var now=new Date();
+  var start=new Date(now.getFullYear(),0,1);
+  return Math.ceil(((now-start)/86400000+start.getDay()+1)/7);
+}
+function updateStats(){
+  var f=document.getElementById('i-insta').value||0;
+  var s=document.getElementById('i-save').value||0;
+  var d=document.getElementById('i-dm').value||0;
+  var b=document.getElementById('i-blog').value||0;
+  document.getElementById('s-insta').textContent=f?f+'명':'-';
+  document.getElementById('s-save').textContent=s?s+'%':'-';
+  document.getElementById('s-dm').textContent=d?d+'건':'-';
+  var pf=Math.min(100,Math.round(f/500*100));
+  var pb=Math.min(100,Math.round(b/200*100));
+  document.getElementById('prog-fill-f').style.width=pf+'%';
+  document.getElementById('prog-pct-f').textContent=pf+'%';
+  document.getElementById('prog-fill-b').style.width=pb+'%';
+  document.getElementById('prog-pct-b').textContent=pb+'%';
+}
+function saveData(){
+  var records=JSON.parse(localStorage.getItem('grow_tracker')||'[]');
+  var rec={
+    week:'6월 '+getWeek()+'주차',
+    follower:document.getElementById('i-insta').value||'-',
+    save:document.getElementById('i-save').value||'-',
+    dm:document.getElementById('i-dm').value||'-',
+    post:document.getElementById('i-post').value||'-',
+  };
+  records.unshift(rec);
+  if(records.length>4)records=records.slice(0,4);
+  localStorage.setItem('grow_tracker',JSON.stringify(records));
+  renderTable(records);
+  alert('저장됐어요! 🌿');
+}
+function renderTable(records){
+  var tbody=document.getElementById('week-tbody');
+  if(!records.length){tbody.innerHTML='<tr><td colspan="5" style="color:var(--muted);padding:16px;text-align:center;">기록이 없어요.</td></tr>';return;}
+  tbody.innerHTML=records.map(r=>`
+    <tr>
+      <td>${r.week}</td>
+      <td>${r.follower!=='-'?r.follower+'명':'-'}</td>
+      <td class="${r.save>=10?'good':''}">${r.save!=='-'?r.save+'%':'-'}</td>
+      <td class="${r.dm>=1?'good':''}">${r.dm!=='-'?r.dm+'건':'-'}</td>
+      <td class="${r.post>=5?'good':''}">${r.post!=='-'?r.post+'개':'-'}</td>
+    </tr>`).join('');
+}
+var saved=JSON.parse(localStorage.getItem('grow_tracker')||'[]');
+renderTable(saved);
+</script>
+</body>
+</html>

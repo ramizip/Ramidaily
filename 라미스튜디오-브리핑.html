@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>라미스튜디오 아침 브리핑</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --bg:#f0f2f5;--card:#fff;--dark:#0d1117;
+  --blue:#2563eb;--blue-l:#dbeafe;--blue-m:#93c5fd;
+  --mid:#4a5568;--light:#94a3b8;--border:#e2e8f0;
+  --teal:#0d9488;--navy:#1e3a5f;
+}
+body{background:var(--bg);font-family:'Noto Sans KR',sans-serif;color:var(--dark);min-height:100vh}
+
+/* HEADER */
+.hdr{background:var(--navy);padding:26px 20px 18px;position:relative;overflow:hidden}
+.hdr::after{content:'';position:absolute;right:-50px;top:-50px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(37,99,235,.3) 0%,transparent 70%)}
+.hdr-row{display:flex;justify-content:space-between;align-items:flex-start}
+.hdr-brand{font-size:10px;letter-spacing:4px;color:var(--blue-m);margin-bottom:4px}
+.hdr-date{font-family:'Bebas Neue',sans-serif;font-size:52px;color:#fff;line-height:.9;letter-spacing:2px}
+.hdr-date span{color:var(--blue-m)}
+.hdr-day{font-size:10px;color:rgba(255,255,255,.4);letter-spacing:3px;margin-top:5px}
+.hdr-right{text-align:right}
+.hdr-time{font-family:'Bebas Neue',sans-serif;font-size:30px;color:var(--blue-m);letter-spacing:2px;line-height:1}
+.hdr-greet{font-size:10px;color:rgba(255,255,255,.4);margin-top:4px;letter-spacing:1px}
+
+/* STRIP */
+.strip{background:var(--blue);padding:9px 20px;display:flex;align-items:center;justify-content:space-between}
+.strip-wk{font-size:10px;font-weight:700;color:rgba(255,255,255,.7);letter-spacing:2px}
+.strip-theme{font-size:13px;font-weight:700;color:#fff}
+
+/* MAIN */
+main{padding:14px 16px 90px;max-width:480px;margin:0 auto}
+.view{display:none}.view.active{display:block}
+
+/* MISSION */
+.mission{background:var(--navy);border-radius:16px;padding:18px;margin-bottom:12px;position:relative;overflow:hidden}
+.mission::before{content:'';position:absolute;bottom:-25px;right:-25px;width:100px;height:100px;border-radius:50%;background:radial-gradient(circle,rgba(37,99,235,.25) 0%,transparent 70%)}
+.m-label{font-size:9px;letter-spacing:3px;color:var(--blue-m);margin-bottom:5px}
+.m-theme{font-size:19px;font-weight:900;color:#fff;line-height:1.2;margin-bottom:4px}
+.m-hook{font-size:12px;color:rgba(255,255,255,.45);margin-bottom:12px;font-style:italic}
+.m-chs{display:flex;gap:5px;flex-wrap:wrap}
+.m-ch{font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px}
+
+/* PROG */
+.prog-row{display:flex;gap:8px;margin-bottom:12px}
+.pbox{flex:1;background:var(--card);border-radius:12px;padding:12px;border:1px solid var(--border);text-align:center}
+.pbox-n{font-family:'Bebas Neue',sans-serif;font-size:30px;color:var(--blue);line-height:1}
+.pbox-l{font-size:10px;color:var(--light);letter-spacing:1px;margin-top:1px}
+.pbar{height:4px;background:var(--border);border-radius:2px;margin-top:7px;overflow:hidden}
+.pbar-f{height:100%;background:var(--blue);border-radius:2px;transition:width .4s}
+
+/* TIME BLOCKS */
+.time-block{margin-bottom:14px}
+.tb-head{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.tb-time{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--blue);background:var(--blue-l);padding:3px 9px;border-radius:6px}
+.tb-desc{font-size:11px;color:var(--light)}
+
+/* TASKS */
+.task{display:flex;align-items:flex-start;gap:9px;padding:10px 13px;background:var(--card);border-radius:10px;margin-bottom:5px;border:1px solid var(--border);cursor:pointer;transition:all .15s}
+.task:active{transform:scale(.98)}
+.task.done{opacity:.4}
+.task.done .task-txt{text-decoration:line-through}
+.t-c{width:19px;height:19px;min-width:19px;border-radius:50%;border:2px solid var(--blue-m);display:flex;align-items:center;justify-content:center;font-size:10px;color:transparent;transition:all .15s;margin-top:1px}
+.task.done .t-c{background:var(--blue);border-color:var(--blue);color:#fff}
+.task-txt{font-size:12.5px;line-height:1.4;flex:1}
+.task-tag{font-size:9px;font-weight:700;padding:2px 6px;border-radius:6px;flex-shrink:0;margin-top:1px;letter-spacing:.5px}
+
+.sec{font-size:10px;letter-spacing:3px;color:var(--light);font-weight:700;margin:4px 0 9px}
+
+/* PROMPT */
+.p-card{background:var(--card);border-radius:14px;border:1px solid var(--border);margin-bottom:9px;overflow:hidden}
+.p-top{display:flex;align-items:center;gap:9px;padding:13px 15px 10px;cursor:pointer;border-bottom:1px solid transparent;transition:border-color .2s}
+.p-top.open{border-bottom-color:var(--border)}
+.p-ico{font-size:19px;flex-shrink:0}
+.p-info{flex:1}
+.p-tag{font-size:9px;font-weight:700;letter-spacing:1.5px;padding:2px 6px;border-radius:5px;margin-bottom:3px;display:inline-block}
+.p-name{font-size:13px;font-weight:700}
+.p-arr{font-size:11px;color:var(--light);transition:transform .2s;flex-shrink:0}
+.p-arr.open{transform:rotate(180deg)}
+.p-body{display:none;padding:0 14px 13px}
+.p-body.open{display:block}
+.pbox{background:#f0f4f8;border-radius:9px;padding:12px;font-size:11.5px;color:#1e3a5f;line-height:1.8;white-space:pre-wrap;word-break:break-word;margin-top:9px;border:1px solid var(--border)}
+.copy-btn{display:block;width:100%;margin-top:7px;padding:10px;background:var(--blue);border:none;border-radius:9px;color:#fff;font-size:12px;font-weight:700;font-family:'Noto Sans KR',sans-serif;cursor:pointer;letter-spacing:1px;transition:all .2s}
+.copy-btn.ok{background:#065f46}
+
+/* CALENDAR */
+.cal-day{background:var(--card);border-radius:11px;padding:12px 15px;margin-bottom:6px;border:1px solid var(--border);display:flex;align-items:center;gap:11px;cursor:pointer}
+.cal-day.today{background:var(--navy);border-color:var(--blue)}
+.cal-badge{width:36px;height:36px;border-radius:9px;background:var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0}
+.cal-day.today .cal-badge{background:var(--blue)}
+.cb-dn{font-size:8px;font-weight:700;color:var(--light)}
+.cal-day.today .cb-dn{color:rgba(255,255,255,.7)}
+.cb-dd{font-size:15px;font-weight:900;color:var(--dark);line-height:1}
+.cal-day.today .cb-dd{color:#fff}
+.cal-info{flex:1}
+.ci-theme{font-size:13px;font-weight:700;color:var(--dark)}
+.cal-day.today .ci-theme{color:#fff}
+.ci-hook{font-size:11px;color:var(--light);margin-top:2px}
+.cal-day.today .ci-hook{color:rgba(255,255,255,.5)}
+.cal-pct{font-size:11px;font-weight:700;color:var(--light);flex-shrink:0}
+.cal-day.today .cal-pct{color:var(--blue-m)}
+
+/* NAV */
+.nav{position:fixed;bottom:0;left:0;right:0;background:var(--navy);display:flex;border-top:1px solid rgba(255,255,255,.07);z-index:100}
+.nb{flex:1;padding:11px 4px 15px;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;border:none;background:none;color:rgba(255,255,255,.3);font-size:9px;font-family:'Noto Sans KR',sans-serif;font-weight:700;letter-spacing:.5px;transition:all .15s}
+.nb.active{color:var(--blue-m)}
+.nb-ico{font-size:19px;line-height:1}
+
+/* TAG COLORS */
+.t-reel{background:#fde8ee;color:#c0294a}
+.t-story{background:#fff0e0;color:#c87d2a}
+.t-thread{background:#dbeafe;color:#1d4ed8}
+.t-blog{background:#d1fae5;color:#065f46}
+.t-shorts{background:#ffecec;color:#c0392b}
+.t-kmong{background:#fef3c7;color:#92400e}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-row">
+    <div>
+      <div class="hdr-brand">🎨 라미스튜디오</div>
+      <div class="hdr-day" id="weekday">MONDAY</div>
+      <div class="hdr-date" id="dateNum">6<span>.</span>9</div>
+    </div>
+    <div class="hdr-right">
+      <div class="hdr-time" id="clock">--:--</div>
+      <div class="hdr-greet" id="greet">좋은 아침 ☀️</div>
+    </div>
+  </div>
+</div>
+<div class="strip">
+  <div class="strip-wk" id="stripWk">–</div>
+  <div class="strip-theme" id="stripTheme">로딩 중...</div>
+</div>
+
+<main>
+  <!-- TODAY -->
+  <div class="view active" id="view-today">
+    <div class="mission">
+      <div class="m-label">TODAY'S MISSION · 라미스튜디오</div>
+      <div class="m-theme" id="mTheme">–</div>
+      <div class="m-hook" id="mHook">–</div>
+      <div class="m-chs" id="mChs"></div>
+    </div>
+    <div class="prog-row">
+      <div class="pbox"><div class="pbox-n" id="pDone">0</div><div class="pbox-l">완료</div><div class="pbar"><div class="pbar-f" id="pFill" style="width:0%"></div></div></div>
+      <div class="pbox"><div class="pbox-n" id="pTotal">0</div><div class="pbox-l">전체</div><div class="pbar"><div class="pbar-f" style="width:100%;background:var(--border)"></div></div></div>
+      <div class="pbox"><div class="pbox-n" id="pLeft">0</div><div class="pbox-l">남음</div><div class="pbar"><div class="pbar-f" id="pLeft2" style="width:100%;background:var(--blue-l)"></div></div></div>
+    </div>
+    <div class="time-block">
+      <div class="tb-head"><div class="tb-time">🌅 오전</div><div class="tb-desc">Threads · 크몽 확인</div></div>
+      <div id="tasks-am"></div>
+    </div>
+    <div class="time-block">
+      <div class="tb-head"><div class="tb-time">☀️ 오후</div><div class="tb-desc">작업 콘텐츠 · 블로그</div></div>
+      <div id="tasks-pm"></div>
+    </div>
+    <div class="time-block">
+      <div class="tb-head"><div class="tb-time">🌙 밤</div><div class="tb-desc">릴스 · 쇼츠 · 문의 응대</div></div>
+      <div id="tasks-night"></div>
+    </div>
+  </div>
+
+  <!-- PROMPT -->
+  <div class="view" id="view-prompt">
+    <div class="sec">오늘 주제 자동 적용 프롬프트</div>
+
+    <div class="p-card">
+      <div class="p-top" onclick="toggleP(this)">
+        <div class="p-ico">⚡</div>
+        <div class="p-info"><div class="p-tag" style="background:#dbeafe;color:var(--blue)">MASTER · 추천</div><div class="p-name">전체 채널 한번에 기획</div></div>
+        <div class="p-arr">▼</div>
+      </div>
+      <div class="p-body"><div class="pbox" id="p-master"></div><button class="copy-btn" onclick="doCopy('p-master',this)">📋 복사 → ChatGPT 붙여넣기</button></div>
+    </div>
+
+    <div class="p-card">
+      <div class="p-top" onclick="toggleP(this)">
+        <div class="p-ico">🎬</div>
+        <div class="p-info"><div class="p-tag t-reel">릴스 스크립트</div><div class="p-name">전후비교 · 꿀팁 릴스 뽑기</div></div>
+        <div class="p-arr">▼</div>
+      </div>
+      <div class="p-body"><div class="pbox" id="p-reel"></div><button class="copy-btn" onclick="doCopy('p-reel',this)">📋 복사하기</button></div>
+    </div>
+
+    <div class="p-card">
+      <div class="p-top" onclick="toggleP(this)">
+        <div class="p-ico">🧵</div>
+        <div class="p-info"><div class="p-tag t-thread">스레드 3개</div><div class="p-name">실무팁 스레드 뽑기</div></div>
+        <div class="p-arr">▼</div>
+      </div>
+      <div class="p-body"><div class="pbox" id="p-thread"></div><button class="copy-btn" onclick="doCopy('p-thread',this)">📋 복사하기</button></div>
+    </div>
+
+    <div class="p-card">
+      <div class="p-top" onclick="toggleP(this)">
+        <div class="p-ico">✍️</div>
+        <div class="p-info"><div class="p-tag t-blog">블로그</div><div class="p-name">검색형 실무 블로그 작성</div></div>
+        <div class="p-arr">▼</div>
+      </div>
+      <div class="p-body"><div class="pbox" id="p-blog"></div><button class="copy-btn" onclick="doCopy('p-blog',this)">📋 복사하기</button></div>
+    </div>
+
+    <div class="p-card">
+      <div class="p-top" onclick="toggleP(this)">
+        <div class="p-ico">📸</div>
+        <div class="p-info"><div class="p-tag t-story">스토리 5개</div><div class="p-name">포트폴리오 · 문의 유도 스토리</div></div>
+        <div class="p-arr">▼</div>
+      </div>
+      <div class="p-body"><div class="pbox" id="p-story"></div><button class="copy-btn" onclick="doCopy('p-story',this)">📋 복사하기</button></div>
+    </div>
+  </div>
+
+  <!-- CALENDAR -->
+  <div class="view" id="view-cal">
+    <div class="sec">6월 라미스튜디오 전체 플랜</div>
+    <div id="calList"></div>
+  </div>
+</main>
+
+<nav class="nav">
+  <button class="nb active" onclick="showView('today',this)"><div class="nb-ico">☀️</div>오늘</button>
+  <button class="nb" onclick="showView('prompt',this)"><div class="nb-ico">⚡</div>프롬프트</button>
+  <button class="nb" onclick="showView('cal',this)"><div class="nb-ico">🗓</div>캘린더</button>
+</nav>
+
+<script>
+// ── 라미스튜디오 플랜 데이터 ─────────────────────────────
+// 전문가 브랜딩: 포트폴리오·실무팁·문의 유도·수익화
+const PLAN = {
+  "2026-06-09":{week:"1주차",goal:"포트폴리오 공개 시작",theme:"라미스튜디오 소개",hook:"초보 사장님을 도와주는 AI 디자인 스튜디오",chs:["릴스","스토리","스레드","쇼츠"],
+    am:[{ch:"스레드",t:"① 디자인은 예쁜 것보다 전달력이 중요하다"},{ch:"스레드",t:"② 초보 사장님일수록 브랜딩이 중요하다"},{ch:"스레드",t:"③ 좋은 디자인은 설명이 필요 없다"}],
+    pm:[{ch:"스토리",t:"① 라미스튜디오 소개 텍스트"},{ch:"스토리",t:"② 서비스 종류 안내 (상세페이지·SNS디자인·콘텐츠)"}],
+    night:[{ch:"릴스",t:"라미스튜디오 소개 릴스 — 어떤 스튜디오인지"},{ch:"쇼츠",t:"쇼츠 업로드"},{ch:"스토리",t:"③ 크몽 프로필 링크 공유"},{ch:"스토리",t:"④ '디자인 고민 있으면 DM 주세요'"},{ch:"스토리",t:"⑤ 릴스 공유"}]},
+
+  "2026-06-10":{week:"1주차",goal:"포트폴리오 공개 시작",theme:"상세페이지 전후 비교 ①",hook:"Before → After 첫 공개",chs:["릴스","스토리","스레드","쇼츠"],
+    am:[{ch:"스레드",t:"① 상세페이지는 첫 3초가 중요하다"},{ch:"스레드",t:"② 고객은 디자인보다 결과를 본다"},{ch:"스레드",t:"③ 썸네일 하나로 클릭률이 달라진다"}],
+    pm:[{ch:"스토리",t:"① Before 이미지 공개"},{ch:"스토리",t:"② After 이미지 + 개선 포인트 설명"}],
+    night:[{ch:"릴스",t:"상세페이지 전후 비교 ① (Before→After)"},{ch:"쇼츠",t:"쇼츠 업로드"},{ch:"스토리",t:"③ 작업 핵심 포인트 2가지"},{ch:"스토리",t:"④ '이런 작업 문의는 DM으로'"},{ch:"스토리",t:"⑤ 릴스 공유"}]},
+
+  "2026-06-11":{week:"1주차",goal:"포트폴리오 공개 시작",theme:"저장되는 피드 만드는 법",hook:"초보 사장님 꿀팁 ①",chs:["릴스","스토리","스레드","블로그","쇼츠"],
+    am:[{ch:"스레드",t:"① 저장되는 콘텐츠엔 이유가 있다"},{ch:"스레드",t:"② 브랜드는 반복 노출이다"},{ch:"스레드",t:"③ 콘텐츠는 자산이 된다"}],
+    pm:[{ch:"블로그",t:"저장되는 인스타 피드 만드는 방법"},{ch:"스토리",t:"① 저장 유발 피드 구성 팁 공개"}],
+    night:[{ch:"릴스",t:"저장되는 피드 만드는 법 (디자이너 꿀팁)"},{ch:"쇼츠",t:"쇼츠 업로드"},{ch:"스토리",t:"② '피드 고민 있어요?' 투표 스티커"},{ch:"스토리",t:"③ 릴스 공유"},{ch:"스토리",t:"④ DM 문의 유도"}]},
+
+  "2026-06-12":{week:"1주차",goal:"포트폴리오 공개 시작",theme:"클릭률 높이는 썸네일 팁",hook:"한 장으로 클릭이 달라진다",chs:["릴스","스토리","스레드","쇼츠"],
+    am:[{ch:"스레드",t:"① 썸네일 하나로 클릭률이 달라진다"},{ch:"스레드",t:"② AI 잘 쓰면 작업속도 진짜 빨라진다"},{ch:"스레드",t:"③ 요즘은 디자인도 AI 활용이 필수"}],
+    pm:[{ch:"스토리",t:"① 클릭률 낮은 썸네일 vs 높은 썸네일 비교"},{ch:"스토리",t:"② 썸네일 3대 원칙 공개"}],
+    night:[{ch:"릴스",t:"클릭률 높이는 썸네일 3가지 법칙"},{ch:"쇼츠",t:"쇼츠 업로드"},{ch:"스토리",t:"③ '썸네일 제작 문의 받습니다'"},{ch:"스토리",t:"④ 릴스 공유"},{ch:"스토리",t:"⑤ 크몽 링크 공유"}]},
+
+  "2026-06-13":{week:"1주차 주말",goal:"쉬면서 가볍게",theme:"주말 — 실무팁 스레드",hook:"짧은 꿀팁만",chs:["스레드","스토리"],
+    am:[{ch:"스레드",t:"① 디자인은 결국 설득이다"},{ch:"스레드",t:"② 결국 남는 건 브랜딩이다"}],
+    pm:[{ch:"스토리",t:"① 이번 주 작업물 재공유"},{ch:"스토리",t:"② 팔로워 감사 인사"}],
+    night:[{ch:"스토리",t:"③ 다음 주 예고 '작업 과정 공개합니다'"},{ch:"스토리",t:"④ 문의 받는다는 CTA"}]},
+
+  "2026-06-14":{week:"1주차 주말",goal:"1주차 정리",theme:"1주차 정리 + 서비스 소개",hook:"라미스튜디오가 하는 일",chs:["릴스","스토리","스레드","쇼츠"],
+    am:[{ch:"스레드",t:"① 좋은 디자인은 설명이 필요 없다"},{ch:"스레드",t:"② AI는 디자이너를 대체가 아니라 강화한다"}],
+    pm:[{ch:"스토리",t:"① 1주차 포트폴리오 하이라이트"},{ch:"스토리",t:"② 서비스 소개 + 단가 공개"}],
+    night:[{ch:"릴스",t:"라미스튜디오 서비스 총정리 릴스"},{ch:"쇼츠",t:"쇼츠 업로드"},{ch:"스토리",t:"③ 2주차 예고 'AI 활용 작업 공개'"},{ch:"스토리",t:"④ '의뢰 상담은 DM으로'"},{ch:"스토리",t:"⑤ 릴스 공유"}]},
+
+  "2026-06-15":{week:"2주차",goal:"AI 활용 + 작업 과정 공개",theme:"AI로 만든 인스타 디자인",hook:"AI + 디자이너 = 이런 결과",chs:["릴스","스토리","스레드","블로그","쇼츠"],
+    am:[{ch:"스레드",t:"① AI 잘 쓰면 작업속도 진짜 빨라진다"},{ch:"스레드",t:"② 요즘은 디자인도 AI 활용이 필수"},{ch:"스레드",t:"③ AI는 디자이너를 강화한다"}],
+    pm:[{ch:"블로그",t:"AI로 콘텐츠 제작하는 방법 (실무 가이드)"},{ch:"스토리",t:"① AI 작업 과정 화면 공유"}],
+    night:[{ch:"릴스",t:"AI로 만든 인스타 디자인 과정 공개"},{ch:"쇼츠",t:"쇼츠 업로드"},{ch:"스토리",t:"② 완성 결과물 비포애프터"},{ch:"스토리",t:"③ '이런 작업 의뢰 가능해요'"},{ch:"스토리",t:"④ 릴스 공유"},{ch:"스토리",t:"⑤ 크몽 링크"}]},
+
+  "2026-06-16":{week:"2주차",goal:"AI 활용 + 작업 과정 공개",theme:"작업 브이로그",hook:"실제 작업 화면 공개",chs:["릴스","스토리","스레드","쇼츠"],
+    am:[{ch:"스레드",t:"① 디자인 작업 프로세스가 중요한 이유"},{ch:"스레드",t:"② 콘텐츠는 꾸준함이 제일 중요하다"},{ch:"스레드",t:"③ 브랜드는 반복 노출이다"}],
+    pm:[{ch:"스토리",t:"① 오늘 작업 화면 캡처 공유"},{ch:"스토리",t:"② 작업 중 팁 1가지 공개"}],
+    night:[{ch:"릴스",t:"작업 브이로그 — 실제 작업 화면 공개"},{ch:"쇼츠",t:"쇼츠 업로드"},{ch:"스토리",t:"③ 완성 결과물 미리보기"},{ch:"스토리",t:"④ 릴스 공유"},{ch:"스토리",t:"⑤ '이런 작업 얼마면 의뢰할 것 같아요?' 질문"}]},
+
+  "2026-06-17":{week:"2주차",goal:"AI 활용 + 작업 과정 공개",theme:"Canva 활용법",hook:"디자이너가 알려주는 캔바 실전 팁",chs:["릴스","스토리","스레드","블로그","쇼츠"],
+    am:[{ch:"스레드",t:"① 초보 사장님이 캔바로 할 수 있는 것들"},{ch:"스레드",t:"② 저장되는 콘텐츠엔 공식이 있다"},{ch:"스레드",t:"③ 좋은 디자인은 도구보다 안목이다"}],
+    pm:[{ch:"블로그",t:"Canva 디자인 꿀팁 — 초보 사장님 필독"},{ch:"스토리",t:"① 캔바 실전 팁 3가지 공개"}],
+    night:[{ch:"릴스",t:"디자이너가 알려주는 캔바 활용법 TOP3"},{ch:"쇼츠",t:"쇼츠 업로드"},{ch:"스토리",t:"② '캔바 쓰세요?' 투표"},{ch:"스토리",t:"③ 릴스 공유"},{ch:"스토리",t:"④ DM 문의 유도"}]},
+
+  "2026-06-18":{week:"2주차",goal:"AI 활용 + 작업 과정 공개",theme:"상세페이지 전후 비교 ②",hook:"쇼핑몰 상세페이지 실무 케이스",chs:["릴스","스토리","스레드","쇼츠"],
+    am:[{ch:"스레드",t:"① 상세페이지는 첫 3초가 중요하다"},{ch:"스레드",t:"② 고객이 클릭하는 디자인의 특징"},{ch:"스레드",t:"③ 디자인 외주 맡기기 전 확인할 것"}],
+    pm:[{ch:"스토리",t:"① Before 이미지 공개"},{ch:"스토리",t:"② After + 작업 포인트"}],
+    night:[{ch:"릴스",t:"쇼핑몰 상세페이지 전후 비교 ② (실무 케이스)"},{ch:"쇼츠",t:"쇼츠 업로드"},{ch:"스토리",t:"③ 핵심 개선 포인트 설명"},{ch:"스토리",t:"④ '상세페이지 고민 있으면 DM'"},{ch:"스토리",t:"⑤ 릴스 공유"}]},
+
+  "2026-06-19":{week:"2주차",goal:"AI 활용 + 작업 과정 공개",theme:"SNS 디자인 꿀팁",hook:"초보 사장님 SNS 운영 팁",chs:["릴스","스토리","스레드","블로그","쇼츠"],
+    am:[{ch:"스레드",t:"① 소상공인 SNS 운영에서 제일 중요한 것"},{ch:"스레드",t:"② 팔로워보다 저장이 중요한 이유"},{ch:"스레드",t:"③ 콘텐츠는 자산이 된다"}],
+    pm:[{ch:"블로그",t:"소상공인 SNS 운영 팁 — 초보 사장님 필독"},{ch:"스토리",t:"① SNS 디자인 잘하는 법 3가지"}],
+    night:[{ch:"릴스",t:"초보 사장님 SNS 디자인 꿀팁 (저장 필수)"},{ch:"쇼츠",t:"쇼츠 업로드"},{ch:"스토리",t:"② '이번 주 반응 좋았던 콘텐츠 공유'"},{ch:"스토리",t:"③ 릴스 공유"},{ch:"스토리",t:"④ 주말 예고"}]},
+
+  "2026-06-20":{week:"2주차 주말",goal:"쉬면서 가볍게",theme:"주말 — 실무팁 스레드",hook:"짧은 팁만",chs:["스레드","스토리"],
+    am:[{ch:"스레드",t:"① 결국 남는 건 브랜딩이다"},{ch:"스레드",t:"② AI는 디자이너를 강화한다"}],
+    pm:[{ch:"스토리",t:"① 이번 주 작업물 하이라이트"},{ch:"스토리",t:"② 팔로워 DM 감사 공유"}],
+    night:[{ch:"스토리",t:"③ 다음 주 예고"},{ch:"스토리",t:"④ 크몽 링크 공유"}]},
+
+  "2026-06-21":{week:"2주차 주말",goal:"2주차 정리",theme:"2주차 작업 정리",hook:"이번 주 완성한 것들",chs:["릴스","스토리","스레드","쇼츠"],
+    am:[{ch:"스레드",t:"① 디자인은 결국 설득이다"},{ch:"스레드",t:"② 좋은 포트폴리오가 최고의 영업이다"}],
+    pm:[{ch:"스토리",t:"① 2주차 포트폴리오 하이라이트"},{ch:"스토리",t:"② 받은 문의 후기 공유"}],
+    night:[{ch:"릴스",t:"AI 활용 디자인 루틴 — 이렇게 작업합니다"},{ch:"쇼츠",t:"쇼츠 업로드"},{ch:"스토리",t:"③ 3주차 예고 '포트폴리오 대방출'"},{ch:"스토리",t:"④ DM 문의 유도"},{ch:"스토리",t:"⑤ 릴스 공유"}]},
+
+  "2026-06-22":{week:"3주차",goal:"신뢰 확보 + 문의 연결",theme:"포트폴리오 대방출 ①",hook:"작업했던 것들 한번에 공개",chs:["릴스","스토리","스레드","블로그","쇼츠"],
+    am:[{ch:"스레드",t:"① 포트폴리오는 말보다 강하다"},{ch:"스레드",t:"② 고객은 디자인보다 결과를 본다"},{ch:"스레드",t:"③ 브랜드 컬러 정하는 게 왜 중요한지"}],
+    pm:[{ch:"블로그",t:"상세페이지 제작 팁 — 클릭률 높이는 법"},{ch:"스토리",t:"① 포트폴리오 이미지 3장 연속 공개"}],
+    night:[{ch:"릴스",t:"포트폴리오 대방출 — 상세페이지 케이스 모음"},{ch:"쇼츠",t:"쇼츠 업로드"},{ch:"스토리",t:"② '이 중 제일 마음에 드는 것?' 투표"},{ch:"스토리",t:"③ 작업 의뢰 방법 안내"},{ch:"스토리",t:"④ 릴스 공유"},{ch:"스토리",t:"⑤ 크몽 링크"}]},
+
+  "2026-06-23":{week:"3주차",goal:"신뢰 확보 + 문의 연결",theme:"쇼핑몰 디자인 실수",hook:"이것만 고쳐도 달라진다",chs:["릴스","스토리","스레드","쇼츠"],
+    am:[{ch:"스레드",t:"① 쇼핑몰에서 제일 많이 보이는 디자인 실수"},{ch:"스레드",t:"② 첫 화면에서 고객이 이탈하는 이유"},{ch:"스레드",t:"③ 디자인 외주 맡기기 전 체크리스트"}],
+    pm:[{ch:"스토리",t:"① 흔한 실수 사례 이미지 공개"},{ch:"스토리",t:"② 개선 전/후 비교"}],
+    night:[{ch:"릴스",t:"쇼핑몰 디자인 실수 TOP3 — 이것만 고치세요"},{ch:"쇼츠",t:"쇼츠 업로드"},{ch:"스토리",t:"③ '혹시 이 실수 하고 있어요?' 질문"},{ch:"스토리",t:"④ 릴스 공유"},{ch:"스토리",t:"⑤ '수정 의뢰 가능해요 DM 주세요'"}]},
+
+  "2026-06-24":{week:"3주차",goal:"신뢰 확보 + 문의 연결",theme:"포트폴리오 대방출 ②",hook:"SNS 디자인 케이스",chs:["릴스","스토리","스레드","블로그","쇼츠"],
+    am:[{ch:"스레드",t:"① SNS 디자인 잘하면 팔로워가 따라온다"},{ch:"스레드",t:"② 저장되는 피드는 공식이 있다"},{ch:"스레드",t:"③ 브랜드는 반복 노출이다"}],
+    pm:[{ch:"블로그",t:"초보 사장님 브랜딩 방법 — 작은 가게도 브랜드"},{ch:"스토리",t:"① SNS 디자인 포트폴리오 3장 공개"}],
+    night:[{ch:"릴스",t:"SNS 디자인 포트폴리오 대방출"},{ch:"쇼츠",t:"쇼츠 업로드"},{ch:"스토리",t:"② '어떤 SNS 운영해요?' 질문"},{ch:"스토리",t:"③ 디자인 의뢰 안내"},{ch:"스토리",t:"④ 릴스 공유"},{ch:"스토리",t:"⑤ 크몽 링크"}]},
+
+  "2026-06-25":{week:"3주차",goal:"신뢰 확보 + 문의 연결",theme:"고객이 좋아하는 디자인 특징",hook:"실제 의뢰 경험에서 나온 인사이트",chs:["릴스","스토리","스레드","쇼츠"],
+    am:[{ch:"스레드",t:"① 고객은 디자인보다 결과를 본다"},{ch:"스레드",t:"② 의뢰인이 제일 좋아하는 작업물의 공통점"},{ch:"스레드",t:"③ 결국 남는 건 브랜딩이다"}],
+    pm:[{ch:"스토리",t:"① 고객 반응 좋았던 작업물 공개"},{ch:"스토리",t:"② '이런 점이 좋았대요' 후기 텍스트"}],
+    night:[{ch:"릴스",t:"고객이 좋아하는 디자인 특징 3가지"},{ch:"쇼츠",t:"쇼츠 업로드"},{ch:"스토리",t:"③ 의뢰 가능 서비스 안내"},{ch:"스토리",t:"④ '지금 의뢰 받습니다' DM 유도"},{ch:"스토리",t:"⑤ 릴스 공유"}]},
+
+  "2026-06-26":{week:"3주차",goal:"신뢰 확보 + 문의 연결",theme:"브랜드 컬러 정하는 법",hook:"색 하나로 브랜드가 달라진다",chs:["릴스","스토리","스레드","블로그","쇼츠"],
+    am:[{ch:"스레드",t:"① 브랜드 컬러 정하는 게 왜 중요한지"},{ch:"스레드",t:"② 색 하나로 신뢰감이 달라진다"},{ch:"스레드",t:"③ 브랜딩은 사치가 아니라 전략이다"}],
+    pm:[{ch:"블로그",t:"브랜드 컬러 정하는 방법 (소상공인 실전 가이드)"},{ch:"스토리",t:"① 브랜드 컬러 예시 3가지 공개"}],
+    night:[{ch:"릴스",t:"브랜드 컬러 정하는 법 — 색 하나로 달라진다"},{ch:"쇼츠",t:"쇼츠 업로드"},{ch:"스토리",t:"② '내 브랜드 컬러는 뭘까?' 질문"},{ch:"스토리",t:"③ 릴스 공유"},{ch:"스토리",t:"④ DM 의뢰 안내"}]},
+
+  "2026-06-27":{week:"3주차 주말",goal:"쉬면서 가볍게",theme:"주말 — 실무팁만",hook:"짧게",chs:["스레드","스토리"],
+    am:[{ch:"스레드",t:"① 디자인은 결국 설득이다"},{ch:"스레드",t:"② 포트폴리오가 최고의 영업이다"}],
+    pm:[{ch:"스토리",t:"① 이번 주 포트폴리오 재공유"},{ch:"스토리",t:"② 팔로워 감사"}],
+    night:[{ch:"스토리",t:"③ 다음 주 예고"},{ch:"스토리",t:"④ 크몽 링크"}]},
+
+  "2026-06-28":{week:"3주차 주말",goal:"3주차 정리",theme:"3주차 작업 총정리",hook:"이번 달 작업한 것들",chs:["릴스","스토리","스레드","쇼츠"],
+    am:[{ch:"스레드",t:"① AI + 디자인 조합이 생각보다 강하다"},{ch:"스레드",t:"② 콘텐츠는 자산이 된다"}],
+    pm:[{ch:"스토리",t:"① 3주차 포트폴리오 하이라이트"},{ch:"스토리",t:"② 받은 DM·문의 감사 공유"}],
+    night:[{ch:"릴스",t:"3주 동안 작업한 것들 총정리"},{ch:"쇼츠",t:"쇼츠 업로드"},{ch:"스토리",t:"③ 4주차 예고 '수익화 과정 공개'"},{ch:"스토리",t:"④ 의뢰 마감 예고 CTA"},{ch:"스토리",t:"⑤ 릴스 공유"}]},
+
+  "2026-06-29":{week:"4주차",goal:"문의 전환 + 수익화",theme:"디자인 외주 맡기기 전 체크리스트",hook:"이것만 알고 의뢰하세요",chs:["릴스","스토리","스레드","블로그","쇼츠"],
+    am:[{ch:"스레드",t:"① 디자인 외주 맡기기 전 확인할 것"},{ch:"스레드",t:"② 좋은 디자이너 고르는 기준"},{ch:"스레드",t:"③ 의뢰할 때 이것만 준비하면 된다"}],
+    pm:[{ch:"블로그",t:"디자인 외주 맡기기 전 체크리스트 (실전)"},{ch:"스토리",t:"① 외주 전 준비물 안내"}],
+    night:[{ch:"릴스",t:"디자인 외주 맡기기 전 꼭 확인할 것 5가지"},{ch:"쇼츠",t:"쇼츠 업로드"},{ch:"스토리",t:"② 라미스튜디오 의뢰 과정 설명"},{ch:"스토리",t:"③ '지금 의뢰 받습니다' DM 유도"},{ch:"스토리",t:"④ 릴스 공유"},{ch:"스토리",t:"⑤ 크몽 링크"}]},
+
+  "2026-06-30":{week:"4주차",goal:"6월 마무리",theme:"6월 작업 총결산",hook:"한 달 동안 만든 것들",chs:["릴스","스토리","스레드","블로그","쇼츠"],
+    am:[{ch:"스레드",t:"① 6월 한 달 포트폴리오 결산"},{ch:"스레드",t:"② 7월에도 의뢰 받습니다"},{ch:"스레드",t:"③ AI + 디자인으로 계속 성장 중"}],
+    pm:[{ch:"블로그",t:"AI 활용 디자인 루틴 — 6월 회고"},{ch:"스토리",t:"① 6월 작업 하이라이트 슬라이드"}],
+    night:[{ch:"릴스",t:"6월 작업 총결산 — 이만큼 했습니다"},{ch:"쇼츠",t:"쇼츠 업로드"},{ch:"스토리",t:"② 7월 서비스 예고"},{ch:"스토리",t:"③ '7월 의뢰 열려있어요' CTA"},{ch:"스토리",t:"④ 팔로워 감사"},{ch:"스토리",t:"⑤ 릴스 공유"}]}
+};
+
+const CH_CLS={릴스:"t-reel",스토리:"t-story",스레드:"t-thread",블로그:"t-blog",쇼츠:"t-shorts",크몽:"t-kmong"};
+const DAYS_KR=['일','월','화','수','목','금','토'];
+const DAYS_EN=['SUN','MON','TUE','WED','THU','FRI','SAT'];
+
+let curKey=todayKey();
+let doneMap={};
+
+function todayKey(){
+  const n=new Date();
+  return `${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')}`;
+}
+function loadDone(k){try{return JSON.parse(localStorage.getItem('ls_done_'+k)||'{}')}catch{return{}}}
+function saveDone(k,o){try{localStorage.setItem('ls_done_'+k,JSON.stringify(o))}catch{}}
+
+function tick(){
+  const n=new Date();
+  document.getElementById('clock').textContent=`${String(n.getHours()).padStart(2,'0')}:${String(n.getMinutes()).padStart(2,'0')}`;
+  const h=n.getHours();
+  document.getElementById('greet').textContent=h<12?'좋은 아침 ☀️':h<18?'화이팅 💪':'수고했어요 🌙';
+}
+setInterval(tick,1000);tick();
+
+(function(){
+  const n=new Date();
+  document.getElementById('weekday').textContent=DAYS_EN[n.getDay()];
+  document.getElementById('dateNum').innerHTML=`${n.getMonth()+1}<span>.</span>${n.getDate()}`;
+})();
+
+function allTasks(d){return[...(d.am||[]),...(d.pm||[]),...(d.night||[])]}
+
+function renderToday(){
+  const d=PLAN[curKey];
+  doneMap=loadDone(curKey);
+  if(!d){
+    document.getElementById('stripWk').textContent='–';
+    document.getElementById('stripTheme').textContent='오늘은 플랜 없는 날';
+    document.getElementById('mTheme').textContent='🌿 쉬는 날!';
+    document.getElementById('mHook').textContent='오늘은 쉬어도 돼요';
+    document.getElementById('mChs').innerHTML='';
+    ['tasks-am','tasks-pm','tasks-night'].forEach(id=>document.getElementById(id).innerHTML='');
+    setStats(0,0);renderPrompts(null);return;
+  }
+  document.getElementById('stripWk').textContent=d.week;
+  document.getElementById('stripTheme').textContent=d.theme;
+  document.getElementById('mTheme').textContent=d.theme;
+  document.getElementById('mHook').textContent=d.hook;
+  document.getElementById('mChs').innerHTML=d.chs.map(c=>`<span class="m-ch ${CH_CLS[c]||''}">${c}</span>`).join('');
+  renderBlock('tasks-am',d.am||[],d);
+  renderBlock('tasks-pm',d.pm||[],d);
+  renderBlock('tasks-night',d.night||[],d);
+  const all=allTasks(d);
+  setStats(all.filter((_,i)=>doneMap[i]).length,all.length);
+  renderPrompts(d);
+}
+
+function renderBlock(elId,tasks,d){
+  const el=document.getElementById(elId);
+  if(!tasks.length){el.innerHTML='<div style="padding:8px 13px;font-size:11px;color:var(--light);">이 시간대 할 일 없어요 😊</div>';return;}
+  const all=allTasks(d);
+  el.innerHTML=tasks.map(t=>{
+    const gi=all.indexOf(t);
+    const done=!!doneMap[gi];
+    return`<div class="task${done?' done':''}" onclick="toggleTask(${gi})">
+      <div class="t-c">${done?'✓':''}</div>
+      <div class="task-txt">${t.t}</div>
+      <span class="task-tag ${CH_CLS[t.ch]||''}">${t.ch}</span>
+    </div>`;
+  }).join('');
+}
+
+function toggleTask(gi){doneMap[gi]=!doneMap[gi];saveDone(curKey,doneMap);renderToday();}
+
+function setStats(done,total){
+  const left=Math.max(0,total-done);
+  const pct=total?Math.round(done/total*100):0;
+  document.getElementById('pDone').textContent=done;
+  document.getElementById('pTotal').textContent=total;
+  document.getElementById('pLeft').textContent=left;
+  document.getElementById('pFill').style.width=pct+'%';
+  document.getElementById('pLeft2').style.width=(100-pct)+'%';
+}
+
+function renderPrompts(d){
+  const topic=d?d.theme:'[오늘 주제]';
+  const wk=d?d.week:'–';
+  const goal=d?d.goal:'–';
+
+  document.getElementById('p-master').textContent=
+`나는 라미스튜디오를 운영하는 디자이너야.
+AI를 활용한 상세페이지·SNS 디자인·콘텐츠 제작 전문.
+타겟: 초보 사장님, 쇼핑몰 운영자, 소상공인
+
+오늘 주제: ${topic}
+주차/목표: ${wk} / ${goal}
+
+아래 4가지 만들어줘:
+1. 📱 릴스 스크립트 (전문가 느낌, 저장 유발, 7~15초)
+2. 🧵 스레드 3개 (실무팁 위주, 신뢰감 주는 느낌)
+3. ✍️ 블로그 제목 3개 (SEO, 초보 사장님 검색 타겟)
+4. 📸 스토리 5개 구성 (포트폴리오·문의 유도 포함)
+
+조건:
+- 라미스튜디오: 전문가 브랜딩
+- 공감·성장기 NO → 실무·꿀팁·포트폴리오 YES
+- 문의 유도 자연스럽게 1개 이상 포함`;
+
+  document.getElementById('p-reel').textContent=
+`라미스튜디오 인스타 릴스 스크립트 써줘.
+
+주제: ${topic}
+타겟: 디자인 고민하는 초보 사장님
+포지션: AI 활용 디자인 전문가
+
+조건:
+- 7~15초 자막 분량
+- 첫 1초: "이거 모르면 손해" 계열 후킹
+- 정보는 리스트형 (1. 2. 3.)
+- 마지막: 저장·DM 유도
+- 전문가지만 친근한 느낌
+- BGM 분위기 추천 포함`;
+
+  document.getElementById('p-thread').textContent=
+`라미스튜디오 Threads 실무팁 글 3개 써줘.
+
+주제 연관: ${topic}
+포지션: AI 활용 디자이너, 초보 사장님 도움
+
+조건:
+- 각 3~5줄
+- 실무 인사이트 위주
+- 전문가지만 딱딱하지 않게
+- 마지막 줄에 저장 or 공유 유도 자연스럽게
+- 이모지 최대 2개`;
+
+  document.getElementById('p-blog').textContent=
+`라미스튜디오 블로그 글 써줘. (네이버·구글 검색 타겟)
+
+주제: ${topic}
+독자: 디자인 고민하는 쇼핑몰 사장님, 소상공인
+내 포지션: AI 활용 디자인 전문가
+
+형식:
+- SEO 제목 (초보 사장님이 검색할 것)
+- 도입: 공감 or 문제 제기 3~4줄
+- 소제목 3~4개 + 실용 정보
+- 중간에 실제 작업 사례 언급
+- 마무리: '의뢰 문의는 DM으로' 자연스럽게
+- 800~1200자`;
+
+  document.getElementById('p-story').textContent=
+`라미스튜디오 인스타 스토리 5개 구성해줘.
+
+오늘 릴스 주제: ${topic}
+목표: ${goal}
+
+조건:
+- 포트폴리오 or 작업물 1개 이상 포함
+- 문의 유도 CTA 1개 포함
+- 릴스 공유 1개 포함
+- 나머지는 팁·작업과정·질문 중
+- 각 스토리 텍스트 문구 제안
+- 크몽 링크 언급 1번`;
+}
+
+function renderCal(){
+  const el=document.getElementById('calList');
+  const keys=Object.keys(PLAN).sort();
+  const weeks={};
+  keys.forEach(k=>{const w=PLAN[k].week;if(!weeks[w])weeks[w]=[];weeks[w].push(k);});
+  let html='';
+  Object.keys(weeks).forEach(w=>{
+    html+=`<div class="sec">${w}</div>`;
+    weeks[w].forEach(k=>{
+      const d=PLAN[k];
+      const dt=new Date(k+'T00:00:00');
+      const isToday=k===curKey;
+      const done=Object.values(loadDone(k)).filter(Boolean).length;
+      const total=allTasks(d).length;
+      html+=`<div class="cal-day${isToday?' today':''}" onclick="jumpTo('${k}')">
+        <div class="cal-badge"><div class="cb-dn">${DAYS_KR[dt.getDay()]}</div><div class="cb-dd">${dt.getDate()}</div></div>
+        <div class="cal-info"><div class="ci-theme">${d.theme}</div><div class="ci-hook">${d.hook}</div></div>
+        <div class="cal-pct">${done}/${total}</div>
+      </div>`;
+    });
+  });
+  el.innerHTML=html;
+}
+
+function jumpTo(k){curKey=k;doneMap=loadDone(k);renderToday();showView('today',document.querySelector('.nb'));}
+
+function showView(id,btn){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
+  document.getElementById('view-'+id).classList.add('active');btn.classList.add('active');
+  if(id==='cal')renderCal();
+}
+
+function toggleP(top){
+  const body=top.nextElementSibling;const arr=top.querySelector('.p-arr');
+  const isOpen=body.classList.contains('open');
+  document.querySelectorAll('.p-body').forEach(b=>b.classList.remove('open'));
+  document.querySelectorAll('.p-arr').forEach(a=>a.classList.remove('open'));
+  document.querySelectorAll('.p-top').forEach(t=>t.classList.remove('open'));
+  if(!isOpen){body.classList.add('open');arr.classList.add('open');top.classList.add('open');}
+}
+
+function doCopy(id,btn){
+  const txt=document.getElementById(id).textContent;
+  navigator.clipboard.writeText(txt).then(()=>{
+    btn.textContent='✅ 복사 완료!';btn.classList.add('ok');
+    setTimeout(()=>{btn.textContent='📋 복사 → ChatGPT 붙여넣기';btn.classList.remove('ok');},2000);
+  }).catch(()=>{
+    const r=document.createRange();r.selectNode(document.getElementById(id));
+    window.getSelection().removeAllRanges();window.getSelection().addRange(r);
+    document.execCommand('copy');window.getSelection().removeAllRanges();
+    btn.textContent='✅ 복사 완료!';setTimeout(()=>{btn.textContent='📋 복사 → ChatGPT 붙여넣기';},2000);
+  });
+}
+
+renderToday();
+</script>
+</body>
+</html>
