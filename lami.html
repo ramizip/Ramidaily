@@ -1,0 +1,464 @@
+<svg style="display:none"></svg>
+<div id="app-root"></div>
+
+<style>
+  :root{
+    --ink:#21201c; --paper:#f6f3ec; --card:#fffdf8; --card2:#fbf8f1;
+    --grow:#3f7d62; --grow-soft:#e6efe8;
+    --studio:#b5683f; --studio-soft:#f6e7dc;
+    --amber:#bd8a2c; --muted:#8a857b; --line:#e9e3d6;
+    --done:#cfe3d6;
+    --font:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Pretendard','Malgun Gothic','맑은 고딕',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  #app-root{font-family:var(--font);color:var(--ink);background:var(--paper);
+    max-width:560px;margin:0 auto;padding:18px 16px 40px;line-height:1.5}
+  .topbar{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:14px}
+  .dday{font-weight:800;font-size:13px;letter-spacing:.02em;color:var(--ink)}
+  .dday b{color:var(--studio);font-size:15px}
+  .date{font-size:12px;color:var(--muted);margin-top:2px}
+  .streak{text-align:right;font-size:12px;color:var(--muted)}
+  .streak b{display:block;font-size:20px;font-weight:800;color:var(--grow);line-height:1}
+
+  /* HERO — the single next action */
+  .hero{background:var(--ink);color:#fdfbf5;border-radius:18px;padding:20px 18px;margin-bottom:14px;
+    position:relative;overflow:hidden}
+  .hero .eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#c9c4b6;font-weight:700}
+  .hero .big{font-size:24px;font-weight:800;margin-top:8px;line-height:1.25;letter-spacing:-.01em}
+  .hero .sub{font-size:13px;color:#d8d3c6;margin-top:7px}
+  .hero.done-all{background:var(--grow)}
+  .hero.done-all .eyebrow{color:#d6eade}
+  .heroBtn{display:inline-flex;align-items:center;gap:6px;margin-top:14px;background:#fdfbf5;color:var(--ink);
+    border:none;border-radius:999px;padding:9px 16px;font-size:13px;font-weight:700;font-family:var(--font);cursor:pointer}
+  .heroBtn:active{transform:scale(.97)}
+
+  .sectlabel{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+    font-weight:700;margin:20px 2px 8px}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 14px;margin-bottom:10px}
+  .card.grow{border-left:4px solid var(--grow)}
+  .card.studio{border-left:4px solid var(--studio)}
+  .ctitle{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:800;letter-spacing:.01em}
+  .tag{font-size:10px;font-weight:800;padding:2px 7px;border-radius:6px}
+  .tag.grow{background:var(--grow-soft);color:var(--grow)}
+  .tag.studio{background:var(--studio-soft);color:var(--studio)}
+  .topic{font-size:17px;font-weight:700;margin:8px 0 2px;letter-spacing:-.01em}
+  .cmeta{font-size:12px;color:var(--muted)}
+  .copyBtn{margin-top:11px;width:100%;background:var(--card2);border:1px solid var(--line);border-radius:10px;
+    padding:10px;font-size:13px;font-weight:700;color:var(--ink);font-family:var(--font);cursor:pointer;
+    display:flex;align-items:center;justify-content:center;gap:7px}
+  .copyBtn:active{transform:scale(.99)}
+  .copyBtn.ok{background:var(--grow);color:#fff;border-color:var(--grow)}
+
+  /* checklist */
+  .check{display:flex;align-items:center;gap:12px;padding:13px 14px;background:var(--card);
+    border:1px solid var(--line);border-radius:12px;margin-bottom:8px;cursor:pointer;user-select:none;
+    transition:background .12s,border-color .12s}
+  .check:active{transform:scale(.995)}
+  .check.on{background:var(--card2);border-color:var(--done)}
+  .box{flex:0 0 22px;width:22px;height:22px;border-radius:7px;border:2px solid #cfc9ba;
+    display:flex;align-items:center;justify-content:center;transition:.12s}
+  .check.on .box{background:var(--grow);border-color:var(--grow)}
+  .box svg{opacity:0;transition:opacity .12s}
+  .check.on .box svg{opacity:1}
+  .clabel{font-size:15px;font-weight:600;flex:1}
+  .check.on .clabel{color:var(--muted);text-decoration:line-through;text-decoration-color:#c7c1b3}
+  .cdot{font-size:11px;font-weight:800;padding:2px 7px;border-radius:6px}
+  .cdot.g{background:var(--grow-soft);color:var(--grow)}
+  .cdot.s{background:var(--studio-soft);color:var(--studio)}
+  .dots{display:flex;gap:5px;flex:0 0 auto;align-items:center}
+  .dot2{width:13px;height:13px;border-radius:50%;border:2px solid #cfc9ba;transition:.12s}
+  .check.gC .dot2.f{background:var(--grow);border-color:var(--grow)}
+  .check.sC .dot2.f{background:var(--studio);border-color:var(--studio)}
+  .cnt{font-size:12px;font-weight:800;color:var(--muted);font-variant-numeric:tabular-nums;margin-left:auto;padding-right:9px}
+  .check.count.on .clabel{color:var(--muted)}
+
+  /* KPI */
+  .kpi{margin-bottom:11px}
+  .kpiTop{display:flex;justify-content:space-between;align-items:baseline;font-size:13px;margin-bottom:5px}
+  .kpiTop b{font-weight:800}
+  .kpiNum{font-variant-numeric:tabular-nums;font-weight:800;color:var(--ink)}
+  .kpiNum span{color:var(--muted);font-weight:600}
+  .bar{height:9px;background:#eee7d8;border-radius:99px;overflow:hidden}
+  .fill{height:100%;border-radius:99px;transition:width .35s ease}
+
+  /* locked 7/9 */
+  .lock{display:flex;gap:10px;align-items:flex-start;background:repeating-linear-gradient(135deg,#f3eee2,#f3eee2 9px,#efe9db 9px,#efe9db 18px);
+    border:1px dashed #cdc6b4;border-radius:14px;padding:13px 14px;margin-bottom:10px}
+  .lock .lk{font-size:18px;line-height:1.2}
+  .lock .lt{font-size:12.5px;color:#6f6a5f}
+  .lock .lt b{color:var(--studio)}
+
+  .ban{font-size:12.5px;color:var(--muted);margin-top:2px;line-height:1.7}
+  .ban b{color:var(--ink)}
+  .mantra{margin-top:22px;padding:16px;border-top:1px solid var(--line);font-size:14px;
+    color:#4a463d;line-height:1.65;text-align:center}
+  .mantra b{color:var(--ink)}
+  .reset{display:block;margin:18px auto 0;background:none;border:none;color:#bbb4a4;font-size:11px;
+    font-family:var(--font);cursor:pointer;text-decoration:underline}
+  .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);
+    background:var(--ink);color:#fff;padding:11px 20px;border-radius:999px;font-size:13px;font-weight:700;
+    opacity:0;pointer-events:none;transition:.22s;z-index:50}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+
+<script>
+(function(){
+  // ---------- DATA ----------
+  var TOPICS = {
+    "2026-06-10":"왜 나는 AI 공부를 시작했을까 (하루 1시간 루틴)",
+    "2026-06-11":"실업급여 종료 D-day · 육아맘의 월300 도전 선언",
+    "2026-06-12":"11년차 디자이너가 AI에 충격받은 이유",
+    "2026-06-13":"육아맘의 하루 1시간 공부법",
+    "2026-06-14":"AI 공부 1주차 솔직 리뷰",
+    "2026-06-15":"포기하고 싶었던 순간",
+    "2026-06-16":"무료 AI 툴 TOP5",
+    "2026-06-17":"AI 공부 7일차 솔직 후기",
+    "2026-06-18":"ChatGPT 실제 활용법",
+    "2026-06-19":"Claude 활용법",
+    "2026-06-20":"첫 DM 보내기",
+    "2026-06-21":"DM 10개 보낸 결과",
+    "2026-06-22":"2주차 회고",
+    "2026-06-23":"첫 거절 후기",
+    "2026-06-24":"답장이 안 오는 이유",
+    "2026-06-25":"영업하면서 느낀 점",
+    "2026-06-26":"육아맘 재택수익의 현실",
+    "2026-06-27":"AI 공부가 바꾼 것",
+    "2026-06-28":"3주차 회고",
+    "2026-06-29":"가장 힘들었던 순간",
+    "2026-06-30":"6월 결산",
+    "2026-07-01":"7월 런칭 준비 · 첫 상품 공개 예고",
+    "2026-07-02":"문의가 들어오기 시작한 이유",
+    "2026-07-03":"7월 목표 공개",
+    "2026-07-04":"런칭 D-5 · 무엇을 파는가",
+    "2026-07-05":"런칭 D-4 · 라미스튜디오 소개",
+    "2026-07-06":"런칭 D-3 · 포트폴리오 모음",
+    "2026-07-07":"런칭 D-2 · 첫 상품 가격 공개",
+    "2026-07-08":"런칭 D-1 · 내일 오픈합니다"
+  };
+  var PORTFOLIOS = ["유아식판","어린이집 가방","아기 물티슈","이유식","건강식품",
+                    "뷰티 제품","카페","필라테스 스튜디오","공방","학원"];
+
+  var P_CONTENT = function(topic){return [
+"너는 콘텐츠 전략가이자 1인 브랜드 성장 전문가다.",
+"나는 \"라미그로우\"를 운영한다.",
+"포지션: 실업급여 종료 전 월300에 도전하는 육아맘 · 11년차 디자이너 · AI 공부 시작.",
+"",
+"오늘 주제: "+topic,
+"",
+"아래 형식으로 제작하라.",
+"1. Threads 글 3개",
+"2. 인스타 피드 글 1개",
+"3. 스토리 아이디어 3개",
+"4. 블로그 글 목차",
+"5. 릴스 대본",
+"6. 썸네일 문구 5개",
+"7. CTA 5개",
+"",
+"원칙: 솔직하게 / 과장 금지 / 현실 육아맘 시점 / 실행 중심 / 조회수보다 공감과 신뢰."
+].join("\n");};
+
+  var P_PORTFOLIO = function(item){return [
+"너는 10년차 상세페이지 기획자다.",
+"\""+item+"\" 제품의 상세페이지를 포트폴리오용으로 분석·기획하라.",
+"실제 쿠팡/스마트스토어 사례 하나를 가정하고 구체적으로.",
+"",
+"1. 현재 상세페이지의 문제점",
+"2. 개선 포인트",
+"3. 새 카피 (헤드라인 포함)",
+"4. 섹션 구성",
+"5. 구매전환 문구"
+].join("\n");};
+
+  var P_STUDIO_THREAD = function(item){return [
+"너는 11년차 상세페이지·브랜드 디자이너다.",
+"\"라미스튜디오\" 계정에 올릴 Threads 글 3개를 써라.",
+"오늘 소재: "+item+" (또는 디자인·상세페이지 실무 팁).",
+"",
+"- 잠재 고객(소상공인·스마트스토어 사장)이 '이 사람 전문가네' 느끼게",
+"- 글 1개당 실무 인사이트 1개 / 자랑이 아니라 도움 주는 톤",
+"- 광고·영업 문구 금지 (7월 전까지는 신뢰만 쌓는다)",
+"- 각 글 끝에 가벼운 질문 또는 저장 유도 1줄"
+].join("\n");};
+
+  var P_DM = [
+"유아용품/소상공인 스마트스토어 사장님에게 보낼 첫 인사 DM을 작성하라.",
+"",
+"조건",
+"- 부담 없음 / 광고 느낌 없음",
+"- 상세페이지 개선 아이디어 1~2개를 가볍게 제안",
+"- 11년차 디자이너로 짧게 자기소개",
+"- 3~4문장",
+"- 지금은 영업이 아니라 '관계 형성·리드 확보' 단계. 계약·결제 유도 문구는 넣지 말 것."
+].join("\n");
+
+  // daily checklist items: [key, label, brand]
+  var ITEMS = [
+    {k:'grow_threads',   label:'그로우 스레드', brand:'g', type:'count', goal:3},
+    {k:'studio_threads', label:'스튜디오 스레드', brand:'s', type:'count', goal:3},
+    {k:'insta',          label:'인스타 1개',    brand:'g', type:'check'},
+    {k:'dm',             label:'리드 DM 10개',  brand:'s', type:'check'},
+    {k:'portfolio',      label:'포트폴리오 1개', brand:'s', type:'check'},
+    {k:'inquiry',        label:'문의 확인',     brand:'s', type:'check'}
+  ];
+
+  // ---------- STORAGE (works in Claude AND as a saved file) ----------
+  var KEY='lami_state';
+  var hasWS = (typeof window!=='undefined' && window.storage && typeof window.storage.get==='function');
+  var mem = null; // last-resort in-memory
+  function todayStr(){
+    var d=new Date(); var m=(d.getMonth()+1), day=d.getDate();
+    return d.getFullYear()+"-"+(m<10?"0":"")+m+"-"+(day<10?"0":"")+day;
+  }
+  function shiftStr(base, delta){
+    var p=base.split("-"); var d=new Date(+p[0], +p[1]-1, +p[2]+delta);
+    var m=d.getMonth()+1, day=d.getDate();
+    return d.getFullYear()+"-"+(m<10?"0":"")+m+"-"+(day<10?"0":"")+day;
+  }
+  function ddayTo(target){
+    var t=todayStr().split("-"), g=target.split("-");
+    var a=new Date(+t[0],+t[1]-1,+t[2]), b=new Date(+g[0],+g[1]-1,+g[2]);
+    return Math.round((b-a)/86400000);
+  }
+  function fresh(){
+    return {v:2, date:todayStr(),
+      daily:{grow_threads:0, studio_threads:0, insta:false, dm:false, portfolio:false, inquiry:false},
+      kpi:{portfolio:0, dm:0, threads:0, insta:0},
+      streak:0, best:0, lastCompleted:null, portfolioIndex:0};
+  }
+  function normalize(){
+    if(!S.daily) S.daily={};
+    ['grow_threads','studio_threads'].forEach(function(k){ if(typeof S.daily[k]!=='number') S.daily[k]=0; });
+    ['insta','dm','portfolio','inquiry'].forEach(function(k){ if(typeof S.daily[k]!=='boolean') S.daily[k]=false; });
+    if(!S.kpi) S.kpi={};
+    if(typeof S.kpi.portfolio!=='number') S.kpi.portfolio=0;
+    if(typeof S.kpi.dm!=='number') S.kpi.dm=0;
+    if(typeof S.kpi.threads!=='number') S.kpi.threads=(typeof S.kpi.content==='number'?S.kpi.content:0);
+    if(typeof S.kpi.insta!=='number') S.kpi.insta=0;
+    if(typeof S.streak!=='number') S.streak=0;
+    if(typeof S.portfolioIndex!=='number') S.portfolioIndex=0;
+  }
+  async function load(){
+    if(hasWS){
+      try{ var r = await window.storage.get(KEY); if(r && r.value) return JSON.parse(r.value); }catch(e){}
+    }
+    try{ var ls = localStorage.getItem(KEY); if(ls) return JSON.parse(ls); }catch(e){}
+    if(mem) return mem;
+    return fresh();
+  }
+  async function save(s){
+    mem = s;
+    if(hasWS){ try{ await window.storage.set(KEY, JSON.stringify(s)); }catch(e){} }
+    try{ localStorage.setItem(KEY, JSON.stringify(s)); }catch(e){}
+  }
+
+  var S; // state
+
+  // rollover: new day -> lock yesterday's kpi (already counted), reset daily flags
+  function rollover(){
+    if(S.date !== todayStr()){ 
+      S.date = todayStr();
+      S.daily = {grow_threads:0, studio_threads:0, insta:false, dm:false, portfolio:false, inquiry:false};
+    }
+  }
+  function itemDone(it){ return it.type==='count' ? (S.daily[it.k]||0)>=it.goal : !!S.daily[it.k]; }
+  function allDone(){ return ITEMS.every(itemDone); }
+  function displayStreak(){
+    if(S.lastCompleted===todayStr() || S.lastCompleted===shiftStr(todayStr(),-1)) return S.streak;
+    return 0; // chain broken (a full day missed)
+  }
+
+  // ---------- RENDER ----------
+  var root = document.getElementById('app-root');
+  var CHK='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+
+  function nextAction(){
+    for(var i=0;i<ITEMS.length;i++){ if(!itemDone(ITEMS[i])) return ITEMS[i]; }
+    return null;
+  }
+
+  function render(){
+    rollover();
+    var t = todayStr();
+    var topic = TOPICS[t] || "오늘의 기록 (자유 주제)";
+    var folio = PORTFOLIOS[S.portfolioIndex % PORTFOLIOS.length];
+    var dleft = ddayTo("2026-07-08");
+    var na = nextAction();
+    var strk = displayStreak();
+
+    var heroHTML, heroClass='hero';
+    if(na){
+      var label = na.k;
+      var gt=S.daily.grow_threads||0, st=S.daily.studio_threads||0;
+      var map = {
+        grow_threads:["오늘 첫 행동","그로우 스레드 3개 올리기 ("+gt+"/3)","주제: "+topic+" — 프롬프트 복사해서 Claude로 한 번에 뽑기","copy-content"],
+        studio_threads:["다음","스튜디오 스레드 3개 올리기 ("+st+"/3)","오늘 소재: "+folio+" — 전문성 보여주는 글","copy-studio-thread"],
+        insta:["다음","인스타 1개 올리기","오늘 만든 콘텐츠 세트에서 피드 1개 발행",""],
+        dm:["다음","리드 DM 10개 보내기","업체 찾기 → 프롬프트로 문구 뽑기 → 10명 발송","copy-dm"],
+        portfolio:["다음","포트폴리오 1개 만들기","오늘 주제: "+folio+" 상세페이지","copy-folio"],
+        inquiry:["마무리","문의 확인하기","크몽 · 인스타 · 이메일 답장 (5pm 전)",""]
+      };
+      var h = map[label];
+      heroHTML = '<div class="eyebrow">'+h[0]+'</div><div class="big">'+h[1]+'</div><div class="sub">'+h[2]+'</div>'
+        + (h[3] ? '<button class="heroBtn" data-act="'+h[3]+'">📋 프롬프트 복사</button>' : '');
+    } else {
+      heroClass='hero done-all';
+      heroHTML = '<div class="eyebrow">오늘 끝</div><div class="big">오늘 할 일 다 끝났어요. 노트북 닫아도 됩니다.</div>'
+        +'<div class="sub">연속 '+displayStreak()+'일째. 내일 또 같은 순서대로.</div>';
+    }
+
+    function rowItem(it){
+      if(it.type==='count'){
+        var cur=S.daily[it.k]||0, done=cur>=it.goal, dots='';
+        for(var i=0;i<it.goal;i++){ dots+='<div class="dot2'+(i<cur?' f':'')+'"></div>'; }
+        return '<div class="check count '+(it.brand==='g'?'gC':'sC')+(done?' on':'')+'" data-step="'+it.k+'">'
+          +'<div class="dots">'+dots+'</div>'
+          +'<div class="clabel">'+it.label+'</div>'
+          +'<div class="cnt">'+cur+'/'+it.goal+'</div>'
+          +'<div class="cdot '+it.brand+'">'+(it.brand==='g'?'그로우':'스튜디오')+'</div></div>';
+      }
+      var on = S.daily[it.k];
+      return '<div class="check'+(on?' on':'')+'" data-k="'+it.k+'">'
+        +'<div class="box">'+CHK+'</div>'
+        +'<div class="clabel">'+it.label+'</div>'
+        +'<div class="cdot '+it.brand+'">'+(it.brand==='g'?'그로우':'스튜디오')+'</div></div>';
+    }
+    function kpiRow(name,val,goal,color,unit){
+      var pct=Math.min(100, goal?Math.round(val/goal*100):0);
+      return '<div class="kpi"><div class="kpiTop"><b>'+name+'</b>'
+        +'<span class="kpiNum">'+val+'<span> / '+goal+(unit||'')+'</span></span></div>'
+        +'<div class="bar"><div class="fill" style="width:'+pct+'%;background:'+color+'"></div></div></div>';
+    }
+
+    root.innerHTML =
+      '<div class="topbar"><div><div class="dday">실업급여 종료까지 <b>D-'+dleft+'</b></div>'
+        +'<div class="date">'+t.replace(/-/g,'.')+' · 7월 9일 런칭</div></div>'
+      +'<div class="streak">연속 실행<b>'+strk+'일</b></div></div>'
+
+      +'<div class="'+heroClass+'">'+heroHTML+'</div>'
+
+      +'<div class="sectlabel">오늘의 재료 — 주제 1개로 다 만든다</div>'
+      +'<div class="card grow"><div class="ctitle"><span class="tag grow">라미그로우</span>오늘의 콘텐츠 주제</div>'
+        +'<div class="topic">'+topic+'</div>'
+        +'<div class="cmeta">이 주제 하나로 스레드·인스타·블로그·릴스 전부 뽑기</div>'
+        +'<button class="copyBtn" data-act="copy-content">📋 Claude 콘텐츠 프롬프트 복사</button></div>'
+
+      +'<div class="card studio"><div class="ctitle"><span class="tag studio">라미스튜디오</span>오늘의 포트폴리오 · 소재</div>'
+        +'<div class="topic">'+folio+' 상세페이지</div>'
+        +'<div class="cmeta">'+(S.kpi.portfolio)+'/10개 완료 — 포트폴리오 체크하면 다음 주제로</div>'
+        +'<button class="copyBtn" data-act="copy-folio">📋 포트폴리오 프롬프트 복사</button>'
+        +'<button class="copyBtn" data-act="copy-studio-thread" style="margin-top:8px">📋 스튜디오 스레드 3개 프롬프트 복사</button>'
+        +'<button class="copyBtn" data-act="copy-dm" style="margin-top:8px">📋 리드 DM 문구 프롬프트 복사</button></div>'
+
+      +'<div class="sectlabel">오늘 이 행동들 — 탭해서 체크 (스레드는 탭마다 +1)</div>'
+      + ITEMS.map(rowItem).join('')
+
+      +'<div class="sectlabel">파이프라인 (7/9 수익화 준비)</div>'
+      +'<div class="card">'
+        + kpiRow('포트폴리오', S.kpi.portfolio, 10, 'var(--studio)','개')
+        + kpiRow('리드 DM', S.kpi.dm, 200, 'var(--studio)','개')
+        + kpiRow('스레드 (그로우+스튜디오)', S.kpi.threads, 120, 'var(--grow)','개')
+        + kpiRow('인스타', S.kpi.insta, 20, 'var(--grow)','개')
+      +'</div>'
+
+      +'<div class="lock"><div class="lk">🔒</div><div class="lt">'
+        +'<b>7월 9일 오픈</b> — 계약 · 매출 · 크몽 서비스 등록.<br>'
+        +'6월엔 손대지 않습니다. 지금은 재료만 쌓는 기간.</div></div>'
+
+      +'<div class="sectlabel">6월 금지</div>'
+      +'<div class="ban"><b>안 함:</b> 로고 수정 · 홈페이지 수정 · 새 브랜드 · 새 사업 · 카테고리 변경 · 플래너 재설계 · 계획 또 세우기</div>'
+
+      +'<div class="mantra">나는 지금 브랜드를 만드는 게 아니라,<br>'
+        +'<b>7월 수익화에 쓸 재료를 쌓는 중</b>이다.<br>'
+        +'오늘 성공 기준은 조회수도 팔로워도 아니다.<br><b>오늘 할 일을 전부 채우면 성공이다.</b></div>'
+
+      +'<button class="reset" data-act="reset">진행 기록 초기화</button>';
+
+    bind();
+  }
+
+  // ---------- ACTIONS ----------
+  function toast(msg){
+    var t=document.createElement('div'); t.className='toast'; t.textContent=msg;
+    document.body.appendChild(t); requestAnimationFrame(function(){t.classList.add('show');});
+    setTimeout(function(){t.classList.remove('show'); setTimeout(function(){t.remove();},250);},1400);
+  }
+  function copy(text){
+    var ta=document.createElement('textarea'); ta.value=text;
+    ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta);
+    ta.focus(); ta.select();
+    try{
+      if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text); }
+      else { document.execCommand('copy'); }
+    }catch(e){ try{document.execCommand('copy');}catch(_){} }
+    ta.remove(); toast('복사됐어요 → Claude에 붙여넣기');
+  }
+
+  function findItem(k){ for(var i=0;i<ITEMS.length;i++){ if(ITEMS[i].k===k) return ITEMS[i]; } return null; }
+
+  function finalize(){
+    if(allDone() && S.lastCompleted!==todayStr()){
+      if(S.lastCompleted===shiftStr(todayStr(),-1)) S.streak += 1; else S.streak = 1;
+      S.lastCompleted = todayStr();
+      S.best = Math.max(S.best, S.streak);
+      setTimeout(function(){toast('오늘 전부 완료 🎉 연속 '+S.streak+'일');},150);
+    }
+    save(S); render();
+  }
+
+  function onToggle(key){
+    var now = !S.daily[key]; S.daily[key]=now; var d = now?1:-1;
+    if(key==='insta'){ S.kpi.insta = Math.max(0,S.kpi.insta + d); }
+    if(key==='dm'){ S.kpi.dm = Math.max(0,S.kpi.dm + 10*d); }
+    if(key==='portfolio'){
+      S.kpi.portfolio = Math.max(0,S.kpi.portfolio + d);
+      S.portfolioIndex = Math.max(0,S.portfolioIndex + d);
+    }
+    finalize();
+  }
+
+  function onStep(key){
+    var it = findItem(key); if(!it) return;
+    var cur = S.daily[key]||0, next, delta;
+    if(cur+1 > it.goal){ next = 0; delta = -cur; } else { next = cur+1; delta = 1; }
+    S.daily[key] = next;
+    S.kpi.threads = Math.max(0, S.kpi.threads + delta);
+    finalize();
+  }
+
+  function bind(){
+    root.querySelectorAll('.check[data-k]').forEach(function(el){
+      el.addEventListener('click', function(){ onToggle(el.getAttribute('data-k')); });
+    });
+    root.querySelectorAll('.check[data-step]').forEach(function(el){
+      el.addEventListener('click', function(){ onStep(el.getAttribute('data-step')); });
+    });
+    root.querySelectorAll('[data-act]').forEach(function(el){
+      el.addEventListener('click', function(e){
+        e.stopPropagation();
+        var a=el.getAttribute('data-act');
+        var t=todayStr();
+        var topic=TOPICS[t]||"오늘의 기록 (자유 주제)";
+        var folio=PORTFOLIOS[S.portfolioIndex % PORTFOLIOS.length];
+        if(a==='copy-content') copy(P_CONTENT(topic));
+        else if(a==='copy-folio') copy(P_PORTFOLIO(folio));
+        else if(a==='copy-studio-thread') copy(P_STUDIO_THREAD(folio));
+        else if(a==='copy-dm') copy(P_DM);
+        else if(a==='reset'){
+          if(confirm('진행 기록(파이프라인·연속일수 포함)을 전부 초기화할까요?')){
+            S=fresh(); save(S); render();
+          }
+        }
+      });
+    });
+  }
+
+  // ---------- BOOT ----------
+  (async function(){
+    S = await load();
+    if(!S || !S.daily) S=fresh();
+    normalize();
+    rollover(); save(S); render();
+  })();
+})();
+</script>
